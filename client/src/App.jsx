@@ -4,6 +4,9 @@ import { AuthProvider } from './context/AuthContext'
 
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
+import LoggedInPage from './pages/LoggedInPage'
+import ManagerPage from './pages/ManagerPage'
+
 import Header from './components/Header'
 
 import PrivateRoute from './utils/PrivateRoute'
@@ -16,11 +19,19 @@ function App() {
                 <AuthProvider>
                 <Header/>
                 <Routes>
-                    <Route path="/" element={
-                        <PrivateRoute>
-                            <HomePage/>
-                        </PrivateRoute>}/>
+                    <Route path="/" element={<HomePage/>}/>
+                    
                     <Route path="/login" element={<LoginPage/>}/>
+                    
+                    <Route path="/mustbeloggedin" element={
+                        <PrivateRoute roleNeeded={2}>
+                            <LoggedInPage />
+                        </PrivateRoute>}/>
+                    
+                    <Route path="/mustbemanager" element={
+                        <PrivateRoute roleNeeded={1}>
+                            <ManagerPage />
+                        </PrivateRoute>}/>
                 </Routes>
                 </AuthProvider>
             </Router>

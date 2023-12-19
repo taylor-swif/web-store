@@ -131,7 +131,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ]
 }
 
 SIMPLE_JWT = {
@@ -169,3 +173,5 @@ SIMPLE_JWT = {
 
 # Development only!
 CORS_ALLOW_ALL_ORIGINS = True
+
+AUTH_USER_MODEL = 'base.User'
