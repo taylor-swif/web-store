@@ -11,6 +11,7 @@ import Header from './components/Header'
 
 import PrivateRoute from './utils/PrivateRoute'
 
+import ProductList from './components/ProductList'
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                 </Routes>
                 </AuthProvider>
             </Router>
+            <ProductList/>
         </div>
     );
 }
