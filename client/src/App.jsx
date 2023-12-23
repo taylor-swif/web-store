@@ -11,6 +11,8 @@ import Header from './components/Header'
 
 import PrivateRoute from './utils/PrivateRoute'
 
+import ProductList from './components/ProductList'
+import Navbar from './components/Navbar'
 
 function App() {
     return (
@@ -35,6 +37,8 @@ function App() {
                 </Routes>
                 </AuthProvider>
             </Router>
+            <Navbar/>
+            <ProductList/>
         </div>
     );
 }
