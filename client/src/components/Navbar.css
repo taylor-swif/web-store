@@ -87,9 +87,19 @@
     display: block; 
 }
   
-.navbar-icons i {
-    margin: 0 10px;
-    cursor: pointer;
+.navbar-icons {
+    display: flex;
+    align-items: center;
 }
-  
-  
+
+.navbar-icons > * {
+    margin-right: 25px;
+    cursor: pointer;
+    font-size: large;
+}
+
+.location-icon,
+.phone-icon {
+    margin-right: 8px;
+    font-size: large;
+}
