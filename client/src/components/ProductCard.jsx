@@ -21,7 +21,7 @@ const renderStars = (rating) => {
   };
   
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onAddToCart }) => {
   const [isBuyMenuVisible, setIsBuyMenuVisible] = useState(false);
 
   const handleBuyClick = () => {
@@ -45,6 +45,7 @@ const ProductCard = ({ product }) => {
       {isBuyMenuVisible && (
         <ItemBuyMenu
           product={product}
+          onAddToCart={onAddToCart}
           onClose={handleBuyMenuClose}
         />
       )}

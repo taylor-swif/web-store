@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './itembuymenu.css';
 
-const ItemBuyMenu = ({ product, onClose }) => {
+const ItemBuyMenu = ({ product, onAddToCart, onClose }) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (event) => {
@@ -18,7 +18,14 @@ const ItemBuyMenu = ({ product, onClose }) => {
   };
 
   const handleBuyClick = () => {
-    //TODO: dodanie logiki dodania kupinego przedmiotu do koszyka
+    const cartItem = {
+      id: product.id,
+      image: product.imageUrl,
+      name: product.name,
+      quantity: quantity,
+      price: product.price,
+    };
+    onAddToCart(cartItem);
     onClose();
   };
 
@@ -27,7 +34,8 @@ const ItemBuyMenu = ({ product, onClose }) => {
       isOpen={true}
       onRequestClose={onClose}
       contentLabel="Item Buy Menu"
-      className="custom-modal"
+      className="item-custom-modal"
+      overlayClassName="item-buy-overlay"
     >
       <div className="item-buy-menu">
         <div className="item-buy-image">

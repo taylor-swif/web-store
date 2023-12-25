@@ -4,7 +4,7 @@ import { faMapMarkerAlt, faPhone, faSearch, faUser, faHeart, faShoppingCart } fr
 
 import './Navbar.css'; // Make sure to create a corresponding CSS file
 
-const Navbar = () => {
+const Navbar = ({ onOpenCartModal }) => {
   return (
     <header className="header">
       <div className="top-bar">
@@ -36,7 +36,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-icons">
           <FontAwesomeIcon icon={faHeart} className="heart-icon" />
-          <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+          <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" onClick={onOpenCartModal} />
           <FontAwesomeIcon icon={faUser} className="user-icon" />
         </div>
       </div>
