@@ -56,32 +56,46 @@ function App() {
     };
 
     return (
-        <div className="app">
-            <Router>
-                <AuthProvider>
-                <Header/>
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                    
-                    <Route path="/login" element={<LoginPage/>}/>
-                    
-                    <Route path="/mustbeloggedin" element={
-                        <PrivateRoute roleNeeded={2}>
-                            <LoggedInPage />
-                        </PrivateRoute>}/>
-                    
-                    <Route path="/mustbemanager" element={
-                        <PrivateRoute roleNeeded={1}>
-                            <ManagerPage />
-                        </PrivateRoute>}/>
-                </Routes>
-                </AuthProvider>
-            </Router>
-            <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
-            <ProductList onAddToCart={handleAddToCart} />
-            <CartModal cartItems={cartItems} isOpen={isCartModalOpen} onClose={handleCloseCartModal} onUpdateQuantity={handleUpdateQuantity} onRemoveItem={handleRemoveItem}/>
-        </div>
-    );
+    <div className="app">
+      <Router>
+        <AuthProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+
+            <Route path="/login" element={<LoginPage />} />
+
+            <Route
+              path="/mustbeloggedin"
+              element={
+                <PrivateRoute roleNeeded={2}>
+                  <LoggedInPage />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/mustbemanager"
+              element={
+                <PrivateRoute roleNeeded={1}>
+                  <ManagerPage />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </AuthProvider>
+      </Router>
+      <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
+      <ProductList onAddToCart={handleAddToCart} />
+      <CartModal
+        cartItems={cartItems}
+        isOpen={isCartModalOpen}
+        onClose={handleCloseCartModal}
+        onUpdateQuantity={handleUpdateQuantity}
+        onRemoveItem={handleRemoveItem}
+      />
+    </div>
+  );
 }
 
 export default App;
