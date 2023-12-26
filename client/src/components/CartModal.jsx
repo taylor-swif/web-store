@@ -37,11 +37,10 @@ const CartModal = ({ cartItems, isOpen, onClose, onUpdateQuantity }) => {
                     <div className="cart-item">
                         <img src={item.image} alt={item.name} className="cart-item-image" />
                         <div className="cart-item-details">
-                            <p>{item.name}</p>
+                            <p className="cart-item-name">{item.name}</p>
                             <p>
                                 Quantity: {' '}
                                 <input
-                                    type="number"
                                     value={item.quantity}
                                     onChange={(e) => handleQuantityChange(e, item.id)}
                                 />

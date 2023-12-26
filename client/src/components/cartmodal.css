@@ -38,7 +38,7 @@ h2{
   .cart-item-container {
     display: flex;
     margin-bottom: 15px;
-    width: 100%; /* Ustaw szerokość na 100% */
+    width: 93%; /* Ustaw szerokość na 100% */
   }
   
   .cart-item {
@@ -49,15 +49,20 @@ h2{
     border-radius: 4px; /* Dodaj zaokrąglenie krawędzi */
     padding: 10px; /* Dodaj wewnętrzny odstęp */
   }
+
+  .cart-item-name{
+    font-weight: bold;
+  }
   
   .cart-item-image {
-    width: 80px;
-    height: 80px;
+    width: 120x;
+    height: 120px;
     margin-right: 10px;
   }
   
   .cart-item-details {
     flex-grow: 1;
+    text-align: center;
   }
   
   .go-to-payment-container {
