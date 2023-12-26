@@ -4,7 +4,9 @@ import { faMapMarkerAlt, faPhone, faSearch, faUser, faHeart, faShoppingCart } fr
 
 import './Navbar.css'; // Make sure to create a corresponding CSS file
 
-const Navbar = ({ onOpenCartModal }) => {
+const Navbar = ({ cartItems, onOpenCartModal }) => {
+  const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <header className="header">
       <div className="top-bar">
@@ -36,7 +38,11 @@ const Navbar = ({ onOpenCartModal }) => {
         </div>
         <div className="navbar-icons">
           <FontAwesomeIcon icon={faHeart} className="heart-icon" />
-          <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" onClick={onOpenCartModal} />
+          <div className="cart-icon-container" onClick={onOpenCartModal}>
+            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+            {totalItemsInCart > 0 && totalItemsInCart < 100 && <div className="cart-badge">{totalItemsInCart}</div>}
+            {totalItemsInCart >= 100 && <div className="cart-badge99">+99</div>}
+          </div>
           <FontAwesomeIcon icon={faUser} className="user-icon" />
         </div>
       </div>
