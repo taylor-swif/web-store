@@ -1,9 +1,11 @@
-import React from 'react';
 import Modal from 'react-modal';
 import './cartmodal.css';
+import QuantityPicker from './QuantityPicker';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-const CartModal = ({ cartItems, isOpen, onClose, onUpdateQuantity }) => {
-    const calculateTotalPrice = (cartItems) => {  
+const CartModal = ({ cartItems, isOpen, onClose, onUpdateQuantity, onRemoveItem }) => { 
+    const calculateTotalPrice = (cartItems) => {
         const totalPrice = cartItems.reduce((total, item) => {
           const itemPrice = parseFloat(item.price) || 0;
           const itemQuantity = parseInt(item.quantity) || 0;
@@ -12,53 +14,54 @@ const CartModal = ({ cartItems, isOpen, onClose, onUpdateQuantity }) => {
       
         return totalPrice.toFixed(2);
     };
-    
-    const handleQuantityChange = (event, productId) => {
-      const newQuantity = Math.max(parseInt(event.target.value, 10), 1);
-      onUpdateQuantity(productId, newQuantity);
-    };
 
     return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      contentLabel="Cart Items"
-      className="custom-cart-modal"
-      overlayClassName="cart-overlay"
-    >
-      <div className="cart-modal">
-        <h2>Shopping Cart</h2>
-        {cartItems.length === 0 ? (
-          <p>Your cart is empty.</p>
-        ) : (
-          <div>
-            {cartItems.map((item) => (
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={onClose}
+        contentLabel="Cart Items"
+        className="custom-cart-modal"
+        overlayClassName="cart-overlay"
+      >
+        <div className="cart-modal">
+          <h2>Shopping Cart</h2>
+          {cartItems.length === 0 ? (
+            <p>Your cart is empty.</p>
+          ) : (
+            <div>
+              {cartItems.map((item) => (
                 <div key={item.id} className="cart-item-container">
-                    <div className="cart-item">
-                        <img src={item.image} alt={item.name} className="cart-item-image" />
-                        <div className="cart-item-details">
-                            <p className="cart-item-name">{item.name}</p>
-                            <p>
-                                Quantity: {' '}
-                                <input
-                                    value={item.quantity}
-                                    onChange={(e) => handleQuantityChange(e, item.id)}
-                                />
-                            </p>
-                            <p>Price: {item.price}</p>
-                        </div>
+                  <div className="cart-item">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="cart-item-image"
+                    />
+                    <div className="cart-item-details">
+                      <p className="cart-item-name">{item.name}</p>
+                      <QuantityPicker
+                        quantity={item.quantity}
+                        onUpdateQuantity={(newQuantity) =>
+                          onUpdateQuantity(item.id, newQuantity)
+                        }
+                      />
+                      <p>Price: {item.price}</p>
+                      <div className="trash-icon" onClick={() => onRemoveItem(item.id)}>
+                        <FontAwesomeIcon icon={faTrashCan} />
+                      </div>
                     </div>
+                  </div>
                 </div>
-            ))}
-            <div className="cart-summary">
-        <p>Total Price: {calculateTotalPrice(cartItems)}</p>
-        <button className="go-to-payment-button">Go to Payment</button>
-      </div>
-          </div>
-        )}
-      </div>
-    </Modal>
-  );
+              ))}
+              <div className="cart-summary">
+                <p>Total Price: {calculateTotalPrice(cartItems)}</p>
+                <button className="go-to-payment-button">Go to Payment</button>
+              </div>
+            </div>
+          )}
+        </div>
+      </Modal>
+    );
 };
 //TODO: Add paying mechanic
 export default CartModal;

@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faPhone, faSearch, faUser, faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-import './Navbar.css'; // Make sure to create a corresponding CSS file
+import './Navbar.css';
 
 const Navbar = ({ cartItems, onOpenCartModal }) => {
   const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);

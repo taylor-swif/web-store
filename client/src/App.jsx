@@ -48,7 +48,12 @@ function App() {
           item.id === productId ? { ...item, quantity: newQuantity } : item
         );
         setCartItems(updatedCartItems);
-      };
+    };
+
+    const handleRemoveItem = (productId) => {
+      const updatedCartItems = cartItems.filter((item) => item.id !== productId);
+      setCartItems(updatedCartItems);
+    };
 
     return (
         <div className="app">
@@ -74,7 +79,7 @@ function App() {
             </Router>
             <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
             <ProductList onAddToCart={handleAddToCart} />
-            <CartModal cartItems={cartItems} isOpen={isCartModalOpen} onClose={handleCloseCartModal} onUpdateQuantity={handleUpdateQuantity}/>
+            <CartModal cartItems={cartItems} isOpen={isCartModalOpen} onClose={handleCloseCartModal} onUpdateQuantity={handleUpdateQuantity} onRemoveItem={handleRemoveItem}/>
         </div>
     );
 }

@@ -61,6 +61,7 @@ h2{
   }
   
   .cart-item-details {
+    position: relative;
     flex-grow: 1;
     text-align: center;
   }
@@ -93,4 +94,12 @@ h2{
   
   .cart-summary p {
     margin: 5px 0;
+  }
+
+  .trash-icon{
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    cursor: pointer;
+    width: 20px;
   }
