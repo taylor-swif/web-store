@@ -87,9 +87,62 @@
     display: block; 
 }
   
-.navbar-icons i {
-    margin: 0 10px;
-    cursor: pointer;
+.navbar-icons {
+    display: flex;
+    align-items: center;
 }
-  
-  
+
+.heart-icon{
+    margin-right: 40px;
+    cursor: pointer;
+    font-size: x-large;
+}
+
+.cart-icon-container{
+    margin-right: 40px;
+    cursor: pointer;
+    position: relative;
+}
+.cart-icon{
+    font-size: x-large;
+}
+
+.cart-badge {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    background-color: orange;
+    color: white;
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.cart-badge99{
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    background-color: orange;
+    color: white;
+    border-radius: 50%;
+    padding-right: 5px;
+    padding-top: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.user-icon{
+    cursor: pointer;
+    font-size: x-large;
+}
+
+.location-icon,
+.phone-icon {
+    margin-right: 10px;
+    font-size: large;
+}

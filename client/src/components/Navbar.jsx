@@ -1,12 +1,17 @@
 import React from 'react';
-import './Navbar.css'; // Make sure to create a corresponding CSS file
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faPhone, faSearch, faUser, faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-const Navbar = () => {
+import './Navbar.css';
+
+const Navbar = ({ cartItems, onOpenCartModal }) => {
+  const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <header className="header">
       <div className="top-bar">
         <div className="navbar-location">
-          <i className="location-icon"></i> 
+          <FontAwesomeIcon icon={faMapMarkerAlt} className="location-icon" />
           <span>Cracow</span>
         </div>
         <div className="navbar-links">
@@ -16,7 +21,7 @@ const Navbar = () => {
           <a href="/delivery">Delivery</a>
         </div>
         <div className="navbar-contact">
-          <i className="phone-icon"></i>
+          <FontAwesomeIcon icon={faPhone} className="phone-icon" />
           <span>+02 3 5 7 11 13</span>
         </div>
       </div>
@@ -28,17 +33,21 @@ const Navbar = () => {
         <div className="navbar-search">
           <input type="text" placeholder="Search for wines, regions, articles..." />
           <button type="submit">
-            <i className="search-icon">🔍</i> 
+            <FontAwesomeIcon icon={faSearch} className="search-icon" /> 
           </button>
         </div>
         <div className="navbar-icons">
-          <i className="user-icon"></i> 
-          <i className="heart-icon"></i> 
-          <i className="cart-icon"></i> 
+          <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+          <div className="cart-icon-container" onClick={onOpenCartModal}>
+            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+            {totalItemsInCart > 0 && totalItemsInCart < 100 && <div className="cart-badge">{totalItemsInCart}</div>}
+            {totalItemsInCart >= 100 && <div className="cart-badge99">+99</div>}
+          </div>
+          <FontAwesomeIcon icon={faUser} className="user-icon" />
         </div>
       </div>
     </header>
   );
 };
-// #TODO: Add icons
+
 export default Navbar;

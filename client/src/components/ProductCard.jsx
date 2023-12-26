@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './ProductCard.css';
+import ItemBuyMenu from './ItemBuyMenu';
 
 const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -20,17 +21,34 @@ const renderStars = (rating) => {
   };
   
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onAddToCart }) => {
+  const [isBuyMenuVisible, setIsBuyMenuVisible] = useState(false);
+
+  const handleBuyClick = () => {
+    setIsBuyMenuVisible(true);
+  };
+
+  const handleBuyMenuClose = () => {
+    setIsBuyMenuVisible(false);
+  };
+
   return (
     <div className="product-card">
       <img src={product.imageUrl} alt={product.name} />
       <h3>{product.name}</h3>
       <p>{product.country}/{product.type}</p>
       <p>{product.price}</p>
-      <button>Buy</button>
+      <button onClick={handleBuyClick}>Buy</button>
       <div className="rating">
         {renderStars(product.rating)}
       </div>
+      {isBuyMenuVisible && (
+        <ItemBuyMenu
+          product={product}
+          onAddToCart={onAddToCart}
+          onClose={handleBuyMenuClose}
+        />
+      )}
     </div>
   );
 };

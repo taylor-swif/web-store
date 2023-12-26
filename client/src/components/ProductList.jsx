@@ -4,6 +4,7 @@ import './ProductList.css';
 
 const products = [
     {
+      id: 0,
       name: 'Orvieto Classico',
       country: 'Italy',
       type: 'White/Dry',
@@ -12,6 +13,7 @@ const products = [
       imageUrl: 'https://picsum.photos/150/150?random=1',
     },
     {
+      id: 1,
       name: 'Monastrell Salina',
       country: 'Spain',
       type: 'Red/Dry',
@@ -21,11 +23,11 @@ const products = [
     },
   ];
 
-const ProductList = () => {
+const ProductList = ({ onAddToCart }) => {
     return (
     <div className="product-list">
         {products.map((product, index) => (
-        <ProductCard key={index} product={product} />
+        <ProductCard key={index} product={product} onAddToCart={onAddToCart}/>
         ))}
     </div>
     );
