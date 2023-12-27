@@ -1,21 +1,21 @@
 :root {
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-h2{
-  text-align: center;
+h2 {
+    text-align: center;
 }
 
 .cart-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .custom-cart-modal {
     position: absolute;
@@ -31,80 +31,80 @@ h2{
     border-radius: 4px;
     outline: none;
     z-index: 1000;
-    width: 300px; /* Dostosuj szerokość modalu według potrzeb */
-    max-height: 80vh; /* Dodano maksymalną wysokość modalu */
-  }
-  
-  .cart-modal {
+    width: 300px; 
+    max-height: 80vh; 
+}
+
+.cart-modal {
     text-align: left;
-  }
-  
-  .cart-item-container {
+}
+
+.cart-item-container {
     display: flex;
     margin-bottom: 15px;
-    width: 93%; /* Ustaw szerokość na 100% */
-  }
-  
-  .cart-item {
+    width: 93%; 
+}
+
+.cart-item {
     display: flex;
     align-items: center;
-    width: 100%; /* Ustaw szerokość na 100% */
-    border: 1px solid #ccc; /* Dodaj obramowanie */
-    border-radius: 4px; /* Dodaj zaokrąglenie krawędzi */
-    padding: 10px; /* Dodaj wewnętrzny odstęp */
-  }
+    width: 100%; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    padding: 10px; 
+}
 
-  .cart-item-name{
+.cart-item-name {
     font-weight: bold;
     font-size: 15px;
-  }
-  
-  .cart-item-image {
+}
+
+.cart-item-image {
     width: 120x;
     height: 120px;
     margin-right: 10px;
-  }
-  
-  .cart-item-details {
+}
+
+.cart-item-details {
     position: relative;
     flex-grow: 1;
     text-align: center;
-  }
-  
-  .go-to-payment-container {
+}
+
+.go-to-payment-container {
     margin-top: 20px;
     text-align: center;
-  }
-  
-  .go-to-payment-button {
+}
+
+.go-to-payment-button {
     padding: 10px 20px;
-    background-color: rgb(153, 39, 39);; /* Kolor przycisku */
-    color: #fff; /* Kolor tekstu */
+    background-color: rgb(153, 39, 39);
+    color: #fff; 
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .go-to-payment-button:hover {
-    background-color: rgb(67, 6, 7); /* Kolor przycisku po najechaniu myszą */
-  }
+}
 
-  .cart-summary {
+.go-to-payment-button:hover {
+    background-color: rgb(67, 6, 7);
+}
+
+.cart-summary {
     margin-top: 20px;
     border-top: 1px solid #ccc;
     padding-top: 10px;
     text-align: right;
     font-weight: bold;
-  }
-  
-  .cart-summary p {
-    margin: 5px 0;
-  }
+}
 
-  .trash-icon{
+.cart-summary p {
+    margin: 5px 0;
+}
+
+.trash-icon {
     position: absolute;
     bottom: -5px;
     right: -5px;
     cursor: pointer;
     width: 20px;
-  }
+}

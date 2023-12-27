@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 import UserModal from './modals/UserModal';
 import CartModal from './modals/CartModal';
-import { CartContext } from './modals/CartContext';
+import { CartContext } from '../context/CartContext';
 
 
 const Navbar = ({ }) => {
@@ -18,7 +18,7 @@ const Navbar = ({ }) => {
     const itemQuantity = parseInt(item.quantity) || 0;
     return total + itemQuantity;
   }, 0);
-  
+
   const [userModalIsOpen, setUserModalIsOpen] = useState(false);
   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
 

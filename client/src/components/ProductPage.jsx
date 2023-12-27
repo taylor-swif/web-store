@@ -5,7 +5,7 @@ import ProductDetails from './ProductDetails';
 import { useParams } from 'react-router-dom';
 import products from '../assets/dummyData';
 import QuantityPicker from './QuantityPicker';
-import { CartDispatchContext } from './modals/CartContext';
+import { CartDispatchContext } from '../context/CartContext';
 
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);

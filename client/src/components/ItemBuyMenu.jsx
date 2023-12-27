@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import './itembuymenu.css';
 
 import QuantityPicker from './QuantityPicker';
-import { CartDispatchContext } from './modals/CartContext';
+import { CartDispatchContext } from '../context/CartContext';
 
 const ItemBuyMenu = ({ product, isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
