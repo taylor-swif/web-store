@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import './ProductCard.css';
 import ItemBuyMenu from './ItemBuyMenu';
 
@@ -34,8 +35,10 @@ const ProductCard = ({ product, onAddToCart }) => {
 
   return (
     <div className="product-card">
-      <img src={product.imageUrl} alt={product.name} />
-      <h3>{product.name}</h3>
+      <Link to={`/product/${product.id}`}>
+        <img src={product.imageUrl} alt={product.name} />
+        <h3>{product.name}</h3>
+      </Link>
       <p>{product.country}/{product.type}</p>
       <p>{product.price}</p>
       <button onClick={handleBuyClick}>Buy</button>

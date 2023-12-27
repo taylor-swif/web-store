@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import { AuthProvider } from './context/AuthContext'
 
+import './App.css'
+
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import LoggedInPage from './pages/LoggedInPage'
@@ -16,6 +18,7 @@ import PrivateRoute from './utils/PrivateRoute'
 import ProductList from './components/ProductList'
 import Navbar from './components/Navbar'
 import CartModal from './components/CartModal'
+import ProductPage from './components/ProductPage'
 
 function App() {
     const [cartItems, setCartItems] = useState([]);
@@ -61,9 +64,36 @@ function App() {
         <AuthProvider>
           <Header />
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={
+              <>
+                <HomePage />
+                <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
+                <ProductList onAddToCart={handleAddToCart} />
+                <CartModal
+                  cartItems={cartItems}
+                  isOpen={isCartModalOpen}
+                  onClose={handleCloseCartModal}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onRemoveItem={handleRemoveItem}
+                />
+              </>
+            } />
 
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/product/:id" element={
+            <>
+              <HomePage />
+              <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
+              <ProductPage />
+              <CartModal
+                cartItems={cartItems}
+                isOpen={isCartModalOpen}
+                onClose={handleCloseCartModal}
+                onUpdateQuantity={handleUpdateQuantity}
+                onRemoveItem={handleRemoveItem}
+              />
+            </>
+            } />
 
             <Route
               path="/mustbeloggedin"
@@ -85,15 +115,7 @@ function App() {
           </Routes>
         </AuthProvider>
       </Router>
-      <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
-      <ProductList onAddToCart={handleAddToCart} />
-      <CartModal
-        cartItems={cartItems}
-        isOpen={isCartModalOpen}
-        onClose={handleCloseCartModal}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
-      />
+      
     </div>
   );
 }
