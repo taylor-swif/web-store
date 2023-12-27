@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import './UserModal.css';
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 
 const UserModal = ({ onClose }) => {
 

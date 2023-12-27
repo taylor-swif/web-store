@@ -17,7 +17,7 @@ import PrivateRoute from './utils/PrivateRoute'
 
 import ProductList from './components/ProductList'
 import Navbar from './components/Navbar'
-import CartModal from './components/CartModal'
+import CartModal from './components/modals/CartModal'
 import ProductPage from './components/ProductPage'
 
 function App() {
@@ -69,13 +69,14 @@ function App() {
                 <HomePage />
                 <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
                 <ProductList onAddToCart={handleAddToCart} />
-                <CartModal
+                {/* <CartModal
                   cartItems={cartItems}
                   isOpen={isCartModalOpen}
                   onClose={handleCloseCartModal}
                   onUpdateQuantity={handleUpdateQuantity}
                   onRemoveItem={handleRemoveItem}
-                />
+                /> */}
+                {/* <CartModal isOpen={true} onClose={handleCloseCartModal}/> */}
               </>
             } />
 

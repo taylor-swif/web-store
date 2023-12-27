@@ -1,10 +1,12 @@
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './cartmodal.css';
-import QuantityPicker from './QuantityPicker';
+import QuantityPicker from '../QuantityPicker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-const CartModal = ({ cartItems, isOpen, onClose, onUpdateQuantity, onRemoveItem }) => { 
+const CartModal = ({ isOpen, onClose }) => { 
+  const [cartItems, setCartItems] = useState([]);
     const calculateTotalPrice = (cartItems) => {
         const totalPrice = cartItems.reduce((total, item) => {
           const itemPrice = parseFloat(item.price) || 0;
@@ -15,10 +17,45 @@ const CartModal = ({ cartItems, isOpen, onClose, onUpdateQuantity, onRemoveItem 
         return totalPrice.toFixed(2);
     };
 
+    
+
+    const handleAddToCart = (cartItem) => {
+        const existingItemIndex = cartItems.findIndex(item => item.id === cartItem.id);
+    
+        if (existingItemIndex !== -1) {
+          // Produkt już istnieje w koszyku, zaktualizuj ilość
+          const updatedCartItems = [...cartItems];
+          updatedCartItems[existingItemIndex].quantity += cartItem.quantity;
+          setCartItems(updatedCartItems);
+        } else {
+          // Produkt nie istnieje w koszyku, dodaj nowy produkt
+          setCartItems(prevItems => [...prevItems, cartItem]);
+        }
+      };
+
+    const handleOpenCartModal = () => {
+        setIsCartModalOpen(true);
+      };
+    
+    const handleCloseCartModal = () => {
+      setIsCartModalOpen(false);
+    };
+
+    const handleUpdateQuantity = (productId, newQuantity) => {
+        const updatedCartItems = cartItems.map(item =>
+          item.id === productId ? { ...item, quantity: newQuantity } : item
+        );
+        setCartItems(updatedCartItems);
+    };
+
+    const handleRemoveItem = (productId) => {
+      const updatedCartItems = cartItems.filter((item) => item.id !== productId);
+      setCartItems(updatedCartItems);
+    };
+
     return (
       <Modal
-        isOpen={isOpen}
-        onRequestClose={onClose}
+        isOpen={true}
         contentLabel="Cart Items"
         className="custom-cart-modal"
         overlayClassName="cart-overlay"
@@ -39,12 +76,12 @@ const CartModal = ({ cartItems, isOpen, onClose, onUpdateQuantity, onRemoveItem 
                     />
                     <div className="cart-item-details">
                       <p className="cart-item-name">{item.name}</p>
-                      <QuantityPicker
+                      {/* <QuantityPicker
                         quantity={item.quantity}
                         onUpdateQuantity={(newQuantity) =>
                           onUpdateQuantity(item.id, newQuantity)
                         }
-                      />
+                      /> */}
                       <p>Price: {item.price}</p>
                       <div className="trash-icon" onClick={() => onRemoveItem(item.id)}>
                         <FontAwesomeIcon icon={faTrashCan} />

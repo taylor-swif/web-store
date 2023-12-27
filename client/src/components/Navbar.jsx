@@ -6,16 +6,13 @@ import { faMapMarkerAlt, faPhone, faSearch, faUser, faHeart, faShoppingCart } fr
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 
-import UserModal from './UserModal';
+import UserModal from './modals/UserModal';
+import CartModal from './modals/CartModal';
 
 const Navbar = ({ cartItems, onOpenCartModal }) => {
   const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
   const [userModalIsOpen, setUserModalIsOpen] = useState(false);
-
-  const handleCloseUserModal = () => {
-    setUserModalIsOpen(false);
-  };
-
+  const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
 
   return (
     <header className="header">
@@ -49,11 +46,17 @@ const Navbar = ({ cartItems, onOpenCartModal }) => {
         <div className="navbar-icons">
           <FontAwesomeIcon icon={faHeart} className="heart-icon" />
 
-          <div className="cart-icon-container" onClick={onOpenCartModal}>
+          <div className="cart-icon-container" onClick={() => setCartModalIsOpen(true)}>
             <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
             {totalItemsInCart > 0 && totalItemsInCart < 100 && <div className="cart-badge">{totalItemsInCart}</div>}
             {totalItemsInCart >= 100 && <div className="cart-badge99">+99</div>}
           </div>
+          {cartModalIsOpen && (
+            <CartModal
+              isOpen={cartModalIsOpen}
+              onClose={() => setCartModalIsOpen(false)}
+            />
+          )}
 
           <div className="user-icon-container" onClick={() => {setUserModalIsOpen(true) }}>
           <FontAwesomeIcon icon={faUser} className="user-icon" />
