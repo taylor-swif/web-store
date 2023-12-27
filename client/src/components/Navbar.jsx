@@ -1,11 +1,21 @@
 import React from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faPhone, faSearch, faUser, faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import './Navbar.css';
+import { Link } from 'react-router-dom';
+
+import UserModal from './UserModal';
 
 const Navbar = ({ cartItems, onOpenCartModal }) => {
   const totalItemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const [userModalIsOpen, setUserModalIsOpen] = useState(false);
+
+  const handleCloseUserModal = () => {
+    setUserModalIsOpen(false);
+  };
+
 
   return (
     <header className="header">
@@ -28,7 +38,7 @@ const Navbar = ({ cartItems, onOpenCartModal }) => {
       <div className="main-bar">
         <div className="navbar-logo">
             <img src="src/assets/wine-store-logo-crop.png" alt="Icon Description" width="50" height="50" />
-          <span>WORLD OF WINE</span>
+          <Link to={'/'}><span>WORLD OF WINE</span></Link>
         </div>
         <div className="navbar-search">
           <input type="text" placeholder="Search for wines, regions, articles..." />
@@ -38,12 +48,20 @@ const Navbar = ({ cartItems, onOpenCartModal }) => {
         </div>
         <div className="navbar-icons">
           <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+
           <div className="cart-icon-container" onClick={onOpenCartModal}>
             <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
             {totalItemsInCart > 0 && totalItemsInCart < 100 && <div className="cart-badge">{totalItemsInCart}</div>}
             {totalItemsInCart >= 100 && <div className="cart-badge99">+99</div>}
           </div>
+
+          <div className="user-icon-container" onClick={() => {setUserModalIsOpen(true) }}>
           <FontAwesomeIcon icon={faUser} className="user-icon" />
+          </div>
+          {userModalIsOpen && (
+            <UserModal onClose={() => { setUserModalIsOpen(false) }}
+            />
+          )}
         </div>
       </div>
     </header>

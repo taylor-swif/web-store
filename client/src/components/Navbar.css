@@ -3,6 +3,11 @@
 .header {
     font-family: 'Roboto', sans-serif;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
   
 .top-bar {
     background-color: var(--light-red);
