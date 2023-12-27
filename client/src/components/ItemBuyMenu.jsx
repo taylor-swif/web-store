@@ -3,12 +3,12 @@ import Modal from 'react-modal';
 import './itembuymenu.css';
 
 import QuantityPicker from './QuantityPicker';
-import CartModal from './modals/CartModal';
+import { CartDispatchContext } from './modals/CartContext';
 
-const ItemBuyMenu = ({ product, onAddToCart, onClose }) => {
+const ItemBuyMenu = ({ product, isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
 
-  const handleAddToCart = useContext(CartModal);
+  const dispatch = useContext(CartDispatchContext);
 
   const handleBuyClick = () => {
     const cartItem = {
@@ -18,17 +18,21 @@ const ItemBuyMenu = ({ product, onAddToCart, onClose }) => {
       quantity: quantity,
       price: product.price,
     };
-    handleAddToCart(cartItem);
+    dispatch({
+      type: 'added',
+      item: cartItem
+    });
     onClose();
   };
 
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Item Buy Menu"
       className="item-custom-modal"
       overlayClassName="item-buy-overlay"
+      appElement={document.getElementById('root')}
     >
       <div className="item-buy-menu">
         <div className="item-buy-image">

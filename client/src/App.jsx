@@ -19,6 +19,7 @@ import ProductList from './components/ProductList'
 import Navbar from './components/Navbar'
 import CartModal from './components/modals/CartModal'
 import ProductPage from './components/ProductPage'
+import CartProvider from './components/modals/CartContext'
 
 function App() {
     const [cartItems, setCartItems] = useState([]);
@@ -62,6 +63,7 @@ function App() {
     <div className="app">
       <Router>
         <AuthProvider>
+          <CartProvider>
           <Header />
           <Routes>
             <Route path="/" element={
@@ -69,14 +71,6 @@ function App() {
                 <HomePage />
                 <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
                 <ProductList onAddToCart={handleAddToCart} />
-                {/* <CartModal
-                  cartItems={cartItems}
-                  isOpen={isCartModalOpen}
-                  onClose={handleCloseCartModal}
-                  onUpdateQuantity={handleUpdateQuantity}
-                  onRemoveItem={handleRemoveItem}
-                /> */}
-                {/* <CartModal isOpen={true} onClose={handleCloseCartModal}/> */}
               </>
             } />
 
@@ -114,6 +108,7 @@ function App() {
               }
             />
           </Routes>
+          </CartProvider>
         </AuthProvider>
       </Router>
       
