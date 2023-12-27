@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import './itembuymenu.css';
 
 import QuantityPicker from './QuantityPicker';
+import CartModal from './modals/CartModal';
 
 const ItemBuyMenu = ({ product, onAddToCart, onClose }) => {
   const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = useContext(CartModal);
 
   const handleBuyClick = () => {
     const cartItem = {
@@ -15,7 +18,7 @@ const ItemBuyMenu = ({ product, onAddToCart, onClose }) => {
       quantity: quantity,
       price: product.price,
     };
-    onAddToCart(cartItem);
+    handleAddToCart(cartItem);
     onClose();
   };
 

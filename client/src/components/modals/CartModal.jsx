@@ -17,8 +17,6 @@ const CartModal = ({ isOpen, onClose }) => {
         return totalPrice.toFixed(2);
     };
 
-    
-
     const handleAddToCart = (cartItem) => {
         const existingItemIndex = cartItems.findIndex(item => item.id === cartItem.id);
     
@@ -32,14 +30,6 @@ const CartModal = ({ isOpen, onClose }) => {
           setCartItems(prevItems => [...prevItems, cartItem]);
         }
       };
-
-    const handleOpenCartModal = () => {
-        setIsCartModalOpen(true);
-      };
-    
-    const handleCloseCartModal = () => {
-      setIsCartModalOpen(false);
-    };
 
     const handleUpdateQuantity = (productId, newQuantity) => {
         const updatedCartItems = cartItems.map(item =>
@@ -55,7 +45,8 @@ const CartModal = ({ isOpen, onClose }) => {
 
     return (
       <Modal
-        isOpen={true}
+        isOpen={isOpen}
+        onRequestClose={onClose}
         contentLabel="Cart Items"
         className="custom-cart-modal"
         overlayClassName="cart-overlay"
