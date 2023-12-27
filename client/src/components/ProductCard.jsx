@@ -22,16 +22,8 @@ const renderStars = (rating) => {
   };
   
 
-const ProductCard = ({ product, onAddToCart }) => {
+const ProductCard = ({ product }) => {
   const [isBuyMenuVisible, setIsBuyMenuVisible] = useState(false);
-
-  const handleBuyClick = () => {
-    setIsBuyMenuVisible(true);
-  };
-
-  const handleBuyMenuClose = () => {
-    setIsBuyMenuVisible(false);
-  };
 
   return (
     <div className="product-card">
@@ -40,17 +32,17 @@ const ProductCard = ({ product, onAddToCart }) => {
         <h3>{product.name}</h3>
       </Link>
       <p>{product.country}/{product.type}</p>
-      <p>{product.price}</p>
-      <button onClick={handleBuyClick}>Buy</button>
+      <p>{product.price} ZŁ</p>
+      <button onClick={() => {setIsBuyMenuVisible(true)}}>Buy</button>
       <div className="rating">
         {renderStars(product.rating)}
       </div>
       {isBuyMenuVisible && (
-        <ItemBuyMenu
-          product={product}
-          onAddToCart={onAddToCart}
-          onClose={handleBuyMenuClose}
-        />
+          <ItemBuyMenu
+            product={product}
+            isOpen={isBuyMenuVisible}
+            onClose={() => setIsBuyMenuVisible(false)}
+          />
       )}
     </div>
   );

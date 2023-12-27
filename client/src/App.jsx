@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
@@ -17,65 +17,22 @@ import PrivateRoute from './utils/PrivateRoute'
 
 import ProductList from './components/ProductList'
 import Navbar from './components/Navbar'
-import CartModal from './components/CartModal'
 import ProductPage from './components/ProductPage'
+import CartProvider from './context/CartContext'
 
 function App() {
-    const [cartItems, setCartItems] = useState([]);
-    const [isCartModalOpen, setIsCartModalOpen] = useState(false);
-
-    const handleAddToCart = (cartItem) => {
-        const existingItemIndex = cartItems.findIndex(item => item.id === cartItem.id);
-    
-        if (existingItemIndex !== -1) {
-          // Produkt już istnieje w koszyku, zaktualizuj ilość
-          const updatedCartItems = [...cartItems];
-          updatedCartItems[existingItemIndex].quantity += cartItem.quantity;
-          setCartItems(updatedCartItems);
-        } else {
-          // Produkt nie istnieje w koszyku, dodaj nowy produkt
-          setCartItems(prevItems => [...prevItems, cartItem]);
-        }
-      };
-
-    const handleOpenCartModal = () => {
-        setIsCartModalOpen(true);
-      };
-    
-    const handleCloseCartModal = () => {
-      setIsCartModalOpen(false);
-    };
-
-    const handleUpdateQuantity = (productId, newQuantity) => {
-        const updatedCartItems = cartItems.map(item =>
-          item.id === productId ? { ...item, quantity: newQuantity } : item
-        );
-        setCartItems(updatedCartItems);
-    };
-
-    const handleRemoveItem = (productId) => {
-      const updatedCartItems = cartItems.filter((item) => item.id !== productId);
-      setCartItems(updatedCartItems);
-    };
-
     return (
     <div className="app">
       <Router>
         <AuthProvider>
+          <CartProvider>
           <Header />
           <Routes>
             <Route path="/" element={
               <>
                 <HomePage />
-                <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
-                <ProductList onAddToCart={handleAddToCart} />
-                <CartModal
-                  cartItems={cartItems}
-                  isOpen={isCartModalOpen}
-                  onClose={handleCloseCartModal}
-                  onUpdateQuantity={handleUpdateQuantity}
-                  onRemoveItem={handleRemoveItem}
-                />
+                <Navbar />
+                <ProductList />
               </>
             } />
 
@@ -83,15 +40,8 @@ function App() {
             <Route path="/product/:id" element={
             <>
               <HomePage />
-              <Navbar cartItems={cartItems} onOpenCartModal={handleOpenCartModal} />
+              <Navbar />
               <ProductPage />
-              <CartModal
-                cartItems={cartItems}
-                isOpen={isCartModalOpen}
-                onClose={handleCloseCartModal}
-                onUpdateQuantity={handleUpdateQuantity}
-                onRemoveItem={handleRemoveItem}
-              />
             </>
             } />
 
@@ -113,6 +63,7 @@ function App() {
               }
             />
           </Routes>
+          </CartProvider>
         </AuthProvider>
       </Router>
       

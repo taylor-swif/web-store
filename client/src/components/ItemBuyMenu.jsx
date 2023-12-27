@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import './itembuymenu.css';
 
 import QuantityPicker from './QuantityPicker';
+import { CartDispatchContext } from '../context/CartContext';
 
-const ItemBuyMenu = ({ product, onAddToCart, onClose }) => {
+const ItemBuyMenu = ({ product, isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
+
+  const dispatch = useContext(CartDispatchContext);
 
   const handleBuyClick = () => {
     const cartItem = {
@@ -15,17 +18,21 @@ const ItemBuyMenu = ({ product, onAddToCart, onClose }) => {
       quantity: quantity,
       price: product.price,
     };
-    onAddToCart(cartItem);
+    dispatch({
+      type: 'added',
+      item: cartItem
+    });
     onClose();
   };
 
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Item Buy Menu"
       className="item-custom-modal"
       overlayClassName="item-buy-overlay"
+      appElement={document.getElementById('root')}
     >
       <div className="item-buy-menu">
         <div className="item-buy-image">
