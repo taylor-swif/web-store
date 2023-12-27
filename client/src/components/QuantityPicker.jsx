@@ -1,6 +1,7 @@
-import './quantitypicker.css';
+import React from "react";
+import "./QuantityPicker.css";
 
-const QuantityPicker = ({ quantity, onUpdateQuantity }) => {
+const QuantityPicker = ({ quantity = 1, onUpdateQuantity }) => {
   const handleQuantityChange = (event) => {
     onUpdateQuantity(Math.max(parseInt(event.target.value), 1));
   };
@@ -14,20 +15,13 @@ const QuantityPicker = ({ quantity, onUpdateQuantity }) => {
   };
 
   return (
-    <div className="quantity-container">
-      <button className="quantity-button" onClick={handleDecrementButton}>
-        -
-      </button>
-      <input
-        id="quantity"
-        value={quantity}
-        onChange={handleQuantityChange}
-        className="quantity-input"
-      />
-      <button className="quantity-button" onClick={handleIncrementButton}>
-        +
-      </button>
-    </div>
+    <>
+      <div className="quantity-selector">
+        <button onClick={handleDecrementButton}>-</button>
+        <input type="text" value={quantity} readOnly />
+        <button onClick={handleIncrementButton}>+</button>
+      </div>
+    </>
   );
 };
 

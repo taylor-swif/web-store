@@ -1,21 +1,36 @@
-.quantity-button {
-    width: 34px;
-    height: 34px;
-    font-size: 1.5em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.quantity-container {
-    display: flex;
+.quantity-selector {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 15px;
+    justify-content: space-between;
+    background-color: #f0ebe5;
+    border-radius: 7px; 
+    padding: 5px;
+    border: 1px solid #d3c1ac;
+    max-width: 120px;
+    margin-right: 10px;
 }
 
-.quantity-input {
-    width: 50px;
-    height: 15px;
-    padding: 8px;
-    font-size: 1em;
+.quantity-selector button {
+    background: none;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333; 
+    cursor: pointer;
+    padding: 5px 10px;
+    user-select: none; 
+}
+
+.quantity-selector input {
+    width: 30px; 
+    border: none;
     text-align: center;
+    background-color: transparent;
+    pointer-events: none; 
+    color: #333;
+    font-size: 16px;
+}
+
+.quantity-selector input:focus {
+    outline: none;
 }

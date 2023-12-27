@@ -19,7 +19,6 @@ import ProductList from './components/ProductList'
 import Navbar from './components/Navbar'
 import CartModal from './components/CartModal'
 import ProductPage from './components/ProductPage'
-import products from './assets/dummyData'
 
 function App() {
     const [cartItems, setCartItems] = useState([]);
