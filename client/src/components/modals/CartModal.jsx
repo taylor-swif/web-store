@@ -13,7 +13,7 @@ const CartModal = ({ isOpen, onClose }) => {
       className="custom-cart-modal"
       overlayClassName="cart-overlay"
       appElement={document.getElementById("root")}
-      > 
+    >
       <CartList />
       <CartSummary />
     </Modal>

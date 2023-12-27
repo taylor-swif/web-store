@@ -1,19 +1,25 @@
-import React from 'react';
-import { useState } from 'react';
-import { useContext } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faPhone, faSearch, faUser, faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import { useState } from "react";
+import { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMapMarkerAlt,
+  faPhone,
+  faSearch,
+  faUser,
+  faHeart,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 
-import './Navbar.css';
-import { Link } from 'react-router-dom';
+import "./Navbar.css";
+import { Link } from "react-router-dom";
 
-import UserModal from './modals/UserModal';
-import CartModal from './modals/CartModal';
-import { CartContext } from '../context/CartContext';
+import UserModal from "./modals/UserModal";
+import CartModal from "./modals/CartModal";
+import { CartContext } from "../context/CartContext";
 
-
-const Navbar = ({ }) => {
-  const cartItems  = useContext(CartContext);
+const Navbar = ({}) => {
+  const cartItems = useContext(CartContext);
   const totalItemsInCart = cartItems.reduce((total, item) => {
     const itemQuantity = parseInt(item.quantity) || 0;
     return total + itemQuantity;
@@ -42,21 +48,36 @@ const Navbar = ({ }) => {
       </div>
       <div className="main-bar">
         <div className="navbar-logo">
-            <img src="src/assets/wine-store-logo-crop.png" alt="Icon Description" width="50" height="50" />
-          <Link to={'/'}><span>WORLD OF WINE</span></Link>
+          <img
+            src="src/assets/wine-store-logo-crop.png"
+            alt="Icon Description"
+            width="50"
+            height="50"
+          />
+          <Link to={"/"}>
+            <span>WORLD OF WINE</span>
+          </Link>
         </div>
         <div className="navbar-search">
-          <input type="text" placeholder="Search for wines, regions, articles..." />
+          <input
+            type="text"
+            placeholder="Search for wines, regions, articles..."
+          />
           <button type="submit">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" /> 
+            <FontAwesomeIcon icon={faSearch} className="search-icon" />
           </button>
         </div>
         <div className="navbar-icons">
           <FontAwesomeIcon icon={faHeart} className="heart-icon" />
 
-          <div className="cart-icon-container" onClick={() => setCartModalIsOpen(true)}>
+          <div
+            className="cart-icon-container"
+            onClick={() => setCartModalIsOpen(true)}
+          >
             <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
-            {totalItemsInCart > 0 && totalItemsInCart < 100 && <div className="cart-badge">{totalItemsInCart}</div>}
+            {totalItemsInCart > 0 && totalItemsInCart < 100 && (
+              <div className="cart-badge">{totalItemsInCart}</div>
+            )}
             {totalItemsInCart >= 100 && <div className="cart-badge99">+99</div>}
           </div>
           {cartModalIsOpen && (
@@ -66,11 +87,19 @@ const Navbar = ({ }) => {
             />
           )}
 
-          <div className="user-icon-container" onClick={() => {setUserModalIsOpen(true) }}>
-          <FontAwesomeIcon icon={faUser} className="user-icon" />
+          <div
+            className="user-icon-container"
+            onClick={() => {
+              setUserModalIsOpen(true);
+            }}
+          >
+            <FontAwesomeIcon icon={faUser} className="user-icon" />
           </div>
           {userModalIsOpen && (
-            <UserModal onClose={() => { setUserModalIsOpen(false) }}
+            <UserModal
+              onClose={() => {
+                setUserModalIsOpen(false);
+              }}
             />
           )}
         </div>

@@ -5,7 +5,7 @@
   padding: 20px;
   font-family: Arial, sans-serif;
 }
-  
+
 .product-image {
   max-width: 400px;
   height: auto;
@@ -40,11 +40,11 @@
   font-size: 16px;
   cursor: pointer;
   border-radius: 7px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  transition: background-color 0.3s, box-shadow 0.3s; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .purchase-button:hover {
-  background-color: #a52a2a; 
+  background-color: #a52a2a;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }

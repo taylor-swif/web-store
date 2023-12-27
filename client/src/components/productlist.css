@@ -1,12 +1,10 @@
-/* ProductList.css */
-
 .product-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
-  align-items: center; /* Dodane dla wyśrodkowania w osi pionowej */
+  align-items: center;
   padding: 20px;
-  text-align: center; /* Dodane dla wyśrodkowania tekstu wewnątrz karty produktu */
+  text-align: center;
 }
 
 .product-card {

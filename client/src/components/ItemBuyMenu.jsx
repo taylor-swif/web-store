@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
-import Modal from 'react-modal';
-import './itembuymenu.css';
+import React, { useContext, useState } from "react";
+import Modal from "react-modal";
+import "./itembuymenu.css";
 
-import QuantityPicker from './QuantityPicker';
-import { CartDispatchContext } from '../context/CartContext';
+import QuantityPicker from "./QuantityPicker";
+import { CartDispatchContext } from "../context/CartContext";
 
 const ItemBuyMenu = ({ product, isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
@@ -19,8 +19,8 @@ const ItemBuyMenu = ({ product, isOpen, onClose }) => {
       price: product.price,
     };
     dispatch({
-      type: 'added',
-      item: cartItem
+      type: "added",
+      item: cartItem,
     });
     onClose();
   };
@@ -32,7 +32,7 @@ const ItemBuyMenu = ({ product, isOpen, onClose }) => {
       contentLabel="Item Buy Menu"
       className="item-custom-modal"
       overlayClassName="item-buy-overlay"
-      appElement={document.getElementById('root')}
+      appElement={document.getElementById("root")}
     >
       <div className="item-buy-menu">
         <div className="item-buy-image">
@@ -42,11 +42,15 @@ const ItemBuyMenu = ({ product, isOpen, onClose }) => {
           <div className="item-buy-header">
             <h2>{product.name}</h2>
           </div>
-          <p>{product.country}/{product.type}</p>
+          <p>
+            {product.country}/{product.type}
+          </p>
           <p>{product.price}</p>
           <p>On stock: 69</p>
-          <QuantityPicker quantity={quantity} onUpdateQuantity={setQuantity}/>
-          <button id="add-to-cart-button" onClick={handleBuyClick}>Add to cart</button>
+          <QuantityPicker quantity={quantity} onUpdateQuantity={setQuantity} />
+          <button id="add-to-cart-button" onClick={handleBuyClick}>
+            Add to cart
+          </button>
         </div>
       </div>
     </Modal>
