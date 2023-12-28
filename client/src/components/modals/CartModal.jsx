@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import "./cartmodal.css";
+import "./CartModal.css";
 import CartList from "./CartList";
 import CartSummary from "./CartSummary";
 
