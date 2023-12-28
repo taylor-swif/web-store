@@ -1,0 +1,91 @@
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+
+}
+
+.product-card {
+  width: 210px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  margin-right: 20px;
+  background: rgb(242, 242, 242);
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.3s ease;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.product-card p {
+  color: #666;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.product-card button {
+  background-color: #008000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.product-card button:hover {
+  background-color: #005700;
+}
+
+.rating {
+  margin: 10px 0;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.rating span {
+  position: relative;
+}
+
+.star {
+  display: inline-block;
+}
+
+.rating .full {
+  color: #ffd700;
+}
+
+.rating .half,
+.rating .empty {
+  color: #ccc;
+}
+
+.rating .half::after {
+  color: #ffd700;
+}
+
+.rating .half::after {
+  content: '★';
+  position: absolute;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}

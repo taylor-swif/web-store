@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.header {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.top-bar {
+  background-color: var(--light-red);
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.main-bar {
+  background-color: var(--dark-red);
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-location,
+.navbar-language {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.navbar-search {
+  position: relative;
+  margin-left: 1rem;
+}
+
+.navbar-search input {
+  padding: 8px 45px 8px 20px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  transition: all 0.3s ease;
+  width: 300px;
+}
+
+.navbar-search input::placeholder {
+  color: #aaa;
+}
+
+.navbar-search input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.navbar-search button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--dark-red);
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.search-icon {
+  display: block;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+}
+
+.heart-icon {
+  margin-right: 40px;
+  cursor: pointer;
+  font-size: x-large;
+}
+
+.cart-icon-container {
+  margin-right: 40px;
+  cursor: pointer;
+  position: relative;
+}
+
+.cart-icon {
+  font-size: x-large;
+}
+
+.cart-badge {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  background-color: orange;
+  color: white;
+  border-radius: 50%;
+  padding: 2px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.cart-badge99 {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  background-color: orange;
+  color: white;
+  border-radius: 50%;
+  padding-right: 5px;
+  padding-top: 5px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.user-icon {
+  cursor: pointer;
+  font-size: x-large;
+}
+
+.location-icon,
+.phone-icon {
+  margin-right: 10px;
+  font-size: large;
+}
