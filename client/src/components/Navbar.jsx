@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -53,17 +52,17 @@ const Navbar = () => {
         </div>
       </div>
       <div className="main-bar">
-        <div className="navbar-logo">
-          <img
-            src="src/assets/wine-store-logo-crop.png"
-            alt="Icon Description"
-            width="50"
-            height="50"
-          />
-          <Link to={"/"}>
+        <Link to={"/"}>
+          <div className="navbar-logo">
+            <img
+              src="src/assets/wine-store-logo-crop.png"
+              alt="Icon Description"
+              width="50"
+              height="50"
+            />
             <span>WORLD OF WINE</span>
-          </Link>
-        </div>
+          </div>
+        </Link>
         <div className="navbar-search">
           <input
             type="text"

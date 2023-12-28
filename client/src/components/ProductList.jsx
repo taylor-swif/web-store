@@ -4,10 +4,26 @@ import ReactPaginate from "react-paginate";
 import "./ProductList.css";
 // import products from "../assets/dummyData.js";
 
-const perPage = 15;
-
 const ProductList = ({ onAddToCart }) => {
+  const calculatePerPage = () => {
+    const productsPerRow = Math.floor(window.innerWidth / 310);
+    return productsPerRow * 5;
+  };
+
   const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setPerPage] = useState(calculatePerPage());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setPerPage(calculatePerPage());
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);

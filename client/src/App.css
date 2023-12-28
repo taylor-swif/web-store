@@ -2,3 +2,8 @@
   --dark-red: rgb(67, 6, 7);
   --light-red: rgb(153, 39, 39);
 }
+
+body {
+  margin: 0;
+  padding-top: 15vh;
+}

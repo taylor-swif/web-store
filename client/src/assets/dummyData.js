@@ -7,6 +7,8 @@ const products = [
     price: "289",
     rating: 5,
     imageUrl: "/src/assets/photos/1.jpg",
+    year: 2021,
+    amount: 0,
   },
   {
     id: 1,
@@ -16,6 +18,8 @@ const products = [
     price: "299",
     rating: 3.5,
     imageUrl: "/src/assets/photos/2.jpg",
+    year: 2022,
+    amount: 3,
   },
   {
     id: 2,
@@ -25,6 +29,8 @@ const products = [
     price: "1299",
     rating: 4.8,
     imageUrl: "/src/assets/photos/3.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 3,
@@ -34,6 +40,8 @@ const products = [
     price: "189",
     rating: 4.2,
     imageUrl: "/src/assets/photos/4.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 4,
@@ -43,6 +51,8 @@ const products = [
     price: "239",
     rating: 4.5,
     imageUrl: "/src/assets/photos/5.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 5,
@@ -52,6 +62,8 @@ const products = [
     price: "179",
     rating: 4.0,
     imageUrl: "/src/assets/photos/6.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 6,
@@ -61,6 +73,8 @@ const products = [
     price: "199",
     rating: 4.7,
     imageUrl: "/src/assets/photos/7.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 7,
@@ -70,6 +84,8 @@ const products = [
     price: "219",
     rating: 4.4,
     imageUrl: "/src/assets/photos/8.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 8,
@@ -79,6 +95,8 @@ const products = [
     price: "259",
     rating: 4.6,
     imageUrl: "/src/assets/photos/9.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 9,
@@ -88,6 +106,8 @@ const products = [
     price: "299",
     rating: 4.2,
     imageUrl: "/src/assets/photos/10.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 10,
@@ -97,6 +117,8 @@ const products = [
     price: "189",
     rating: 4.8,
     imageUrl: "/src/assets/photos/11.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 11,
@@ -106,6 +128,8 @@ const products = [
     price: "179",
     rating: 4.0,
     imageUrl: "/src/assets/photos/12.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 12,
@@ -115,6 +139,8 @@ const products = [
     price: "349",
     rating: 4.9,
     imageUrl: "/src/assets/photos/13.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 13,
@@ -124,6 +150,8 @@ const products = [
     price: "279",
     rating: 4.7,
     imageUrl: "/src/assets/photos/14.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 14,
@@ -133,6 +161,8 @@ const products = [
     price: "589",
     rating: 4.5,
     imageUrl: "/src/assets/photos/1.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 15,
@@ -142,6 +172,8 @@ const products = [
     price: "209",
     rating: 4.2,
     imageUrl: "/src/assets/photos/2.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 16,
@@ -151,6 +183,8 @@ const products = [
     price: "449",
     rating: 4.6,
     imageUrl: "/src/assets/photos/3.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 17,
@@ -160,6 +194,8 @@ const products = [
     price: "269",
     rating: 4.3,
     imageUrl: "/src/assets/photos/4.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 18,
@@ -169,6 +205,8 @@ const products = [
     price: "219",
     rating: 4.1,
     imageUrl: "/src/assets/photos/5.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 19,
@@ -178,6 +216,8 @@ const products = [
     price: "189",
     rating: 4.0,
     imageUrl: "/src/assets/photos/6.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 20,
@@ -187,6 +227,8 @@ const products = [
     price: "309",
     rating: 4.5,
     imageUrl: "/src/assets/photos/7.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 21,
@@ -196,6 +238,8 @@ const products = [
     price: "239",
     rating: 4.2,
     imageUrl: "/src/assets/photos/8.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 22,
@@ -205,6 +249,8 @@ const products = [
     price: "189",
     rating: 4.0,
     imageUrl: "/src/assets/photos/9.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 23,
@@ -214,6 +260,8 @@ const products = [
     price: "199",
     rating: 4.3,
     imageUrl: "/src/assets/photos/10.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 24,
@@ -223,6 +271,8 @@ const products = [
     price: "259",
     rating: 4.8,
     imageUrl: "/src/assets/photos/11.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 25,
@@ -232,6 +282,8 @@ const products = [
     price: "219",
     rating: 4.6,
     imageUrl: "/src/assets/photos/12.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 26,
@@ -241,6 +293,8 @@ const products = [
     price: "229",
     rating: 4.4,
     imageUrl: "/src/assets/photos/13.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 27,
@@ -250,6 +304,8 @@ const products = [
     price: "209",
     rating: 4.2,
     imageUrl: "/src/assets/photos/14.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 28,
@@ -259,6 +315,8 @@ const products = [
     price: "269",
     rating: 4.7,
     imageUrl: "/src/assets/photos/1.jpg",
+    year: 2022,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 29,
@@ -268,6 +326,8 @@ const products = [
     price: "189",
     rating: 4.0,
     imageUrl: "/src/assets/photos/2.jpg",
+    year: 2023,
+    amount: getRandomNumber(0, 100),
   },
   {
     id: 30,
@@ -277,6 +337,13 @@ const products = [
     price: "319",
     rating: 4.9,
     imageUrl: "/src/assets/photos/3.jpg",
+    year: 2021,
+    amount: getRandomNumber(0, 100),
   },
 ];
+
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default products;

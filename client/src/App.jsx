@@ -1,5 +1,3 @@
-import React from "react";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
@@ -10,8 +8,6 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import LoggedInPage from "./pages/LoggedInPage";
 import ManagerPage from "./pages/ManagerPage";
-
-import Header from "./components/Header";
 
 import PrivateRoute from "./utils/PrivateRoute";
 
@@ -26,7 +22,6 @@ function App() {
       <Router>
         <AuthProvider>
           <CartProvider>
-            <Header />
             <Navbar />
             <Routes>
               <Route

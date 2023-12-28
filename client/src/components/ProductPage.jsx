@@ -55,13 +55,13 @@ const ProductPage = () => {
       image: product.imageUrl,
       name: product.name,
       quantity: quantity,
+      maxQuantity: product.amount,
       price: product.price,
     };
     dispatch({
       type: "added",
       item: cartItem,
     });
-    onClose();
   };
 
   return (
@@ -74,19 +74,29 @@ const ProductPage = () => {
         />
         <div className="product-info">
           <h1>{product.name}</h1>
-          <p className="price">{product.price}</p>
+          <p className="price">{product.price} zł</p>
           <p className="in-stock">
-            {product.inStock ? "In Stock" : "Out of Stock"}
+            {product.amount > 0
+              ? "In stock: " + product.amount
+              : "Out of Stock"}
           </p>
-          <QuantityPicker quantity={quantity} onUpdateQuantity={setQuantity} />
+          {product.amount > 0 && (
+            <>
+              <QuantityPicker
+                quantity={quantity}
+                maxQuantity={product.amount}
+                onUpdateQuantity={setQuantity}
+              />
 
-          <button className="purchase-button" onClick={handleBuyClick}>
-            Buy
-          </button>
+              <button className="purchase-button" onClick={handleBuyClick}>
+                Buy
+              </button>
+            </>
+          )}
         </div>
       </div>
 
-      <ProductDetails />
+      <ProductDetails product={product} />
     </div>
   );
 };

@@ -32,7 +32,7 @@ h2 {
   border-radius: 4px;
   outline: none;
   z-index: 1000;
-  width: 300px;
+  width: 350px;
   max-height: 80vh;
 }
 
@@ -43,7 +43,7 @@ h2 {
 .cart-item-container {
   display: flex;
   margin-bottom: 15px;
-  width: 93%;
+  width: 100%;
 }
 
 .cart-item {
