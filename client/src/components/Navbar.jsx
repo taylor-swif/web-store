@@ -17,8 +17,9 @@ import { Link } from "react-router-dom";
 import UserModal from "./modals/UserModal";
 import CartModal from "./modals/CartModal";
 import { CartContext } from "../context/CartContext";
+import AuthContext from "../context/AuthContext";
 
-const Navbar = ({}) => {
+const Navbar = () => {
   const cartItems = useContext(CartContext);
   const totalItemsInCart = cartItems.reduce((total, item) => {
     const itemQuantity = parseInt(item.quantity) || 0;
@@ -27,6 +28,8 @@ const Navbar = ({}) => {
 
   const [userModalIsOpen, setUserModalIsOpen] = useState(false);
   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
+
+  let { user } = useContext(AuthContext);
 
   return (
     <header className="header">
@@ -43,7 +46,10 @@ const Navbar = ({}) => {
         </div>
         <div className="navbar-contact">
           <FontAwesomeIcon icon={faPhone} className="phone-icon" />
-          <span>+02 3 5 7 11 13</span>
+          <span>+02 3 5 7 11 13 | </span>
+          <Link to={"/login"}>
+            <span>Sign in</span>
+          </Link>
         </div>
       </div>
       <div className="main-bar">

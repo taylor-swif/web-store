@@ -27,13 +27,13 @@ function App() {
         <AuthProvider>
           <CartProvider>
             <Header />
+            <Navbar />
             <Routes>
               <Route
                 path="/"
                 element={
                   <>
                     <HomePage />
-                    <Navbar />
                     <ProductList />
                   </>
                 }
@@ -45,7 +45,6 @@ function App() {
                 element={
                   <>
                     <HomePage />
-                    <Navbar />
                     <ProductPage />
                   </>
                 }
