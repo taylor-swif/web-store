@@ -11,25 +11,25 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
 
-  let [product, setProduct] = useState({})
+  let [product, setProduct] = useState({});
 
   useEffect(() => {
-      getProduct()
-  },[])
+    getProduct();
+  }, []);
 
-  const getProduct = async() => {
-    let response = await fetch('http://127.0.0.1:8000/api/wines/' + id, {
-      method: 'GET',
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
+  const getProduct = async () => {
+    let response = await fetch("http://127.0.0.1:8000/api/wines/" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    let data = await response.json()
-    
+    let data = await response.json();
+
     if (response.status === 200) {
       // Temporary solution to match previously used format of wines
-      console.log(data)
+      console.log(data);
       setProduct({
         name: data.name,
         type: data.taste.taste + "/" + data.color.color,
@@ -40,12 +40,13 @@ const ProductPage = () => {
         price: data.price,
         rating: data.rating,
         inStock: data.units_in_stock > 0,
-        year: data.year
-      })
+        amount: data.units_in_stock,
+        year: data.year,
+      });
     } else {
-      console.log('Error')
+      console.log("Error");
     }
-  }
+  };
 
   const dispatch = useContext(CartDispatchContext);
 

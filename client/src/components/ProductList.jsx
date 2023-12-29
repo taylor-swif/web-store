@@ -29,42 +29,45 @@ const ProductList = ({ onAddToCart }) => {
     setCurrentPage(selected);
   };
 
-  let [products, setProducts] = useState([])
+  let [products, setProducts] = useState([]);
 
   useEffect(() => {
-      getProducts()
-  },[])
+    getProducts();
+  }, []);
 
-  const getProducts = async() => {
-    let response = await fetch('http://127.0.0.1:8000/api/wines', {
-      method: 'GET',
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
+  const getProducts = async () => {
+    let response = await fetch("http://127.0.0.1:8000/api/wines", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    let data = await response.json()
-    
+    let data = await response.json();
+
     if (response.status === 200) {
       // Temporary solution to match previously used format of wines
-      setProducts(data.map((wine) => {
-        return {
-          name: wine.name,
-          type: wine.taste.taste + "/" + wine.color.color,
-          country: wine.country.name,
-          description: wine.description,
-          id: wine.id,
-          imageUrl: wine.image_url,
-          price: wine.price,
-          rating: wine.rating,
-          inStock: wine.units_in_stock > 0,
-          year: wine.year
-        }
-      }))
+      setProducts(
+        data.map((wine) => {
+          return {
+            name: wine.name,
+            type: wine.taste.taste + "/" + wine.color.color,
+            country: wine.country.name,
+            description: wine.description,
+            id: wine.id,
+            imageUrl: wine.image_url,
+            price: wine.price,
+            rating: wine.rating,
+            inStock: wine.units_in_stock > 0,
+            amount: wine.units_in_stock,
+            year: wine.year,
+          };
+        })
+      );
     } else {
-      console.log('Error')
+      console.log("Error");
     }
-  }
+  };
 
   const offset = currentPage * perPage;
   const currentPageData = products.slice(offset, offset + perPage);
