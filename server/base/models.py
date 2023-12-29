@@ -21,11 +21,11 @@ class User(AbstractUser):
         return self.username
 
 
-class Country:
+class Country(models.Model):
     code = models.CharField(primary_key=True, max_length=2, validators=[
         RegexValidator(r'^[A-Z]{2}$', 'Country code consists of 2 capital letters.')])
     
-    name = models.CharField(validators=[
+    name = models.CharField(max_length=50, validators=[
         RegexValidator(r'^[A-Za-z]*$', 'Country name can only contain letters.')
     ])
 
@@ -33,8 +33,8 @@ class Country:
         return self.code
 
 
-class WineColor:
-    color = models.CharField(validators=[
+class WineColor(models.Model):
+    color = models.CharField(max_length=30, validators=[
         RegexValidator(r'^[A-Za-z]*$', 'Product type can only contain letters and a frontslash.')
     ])
 
@@ -42,8 +42,8 @@ class WineColor:
         return self.color
 
 
-class WineTaste:
-    taste = models.CharField(validators=[
+class WineTaste(models.Model):
+    taste = models.CharField(max_length=30, validators=[
         RegexValidator(r'^[A-Za-z]*$', 'Product type can only contain letters and a frontslash.')
     ])
 
@@ -51,13 +51,13 @@ class WineTaste:
         return self.taste
 
 
-class Wine:
-    name = models.CharField(validators=[
+class Wine(models.Model):
+    name = models.CharField(max_length=50, validators=[
         RegexValidator(r'^[A-Za-z]*$', 'Product name can only contain letters.')
     ])
 
     description = models.TextField()
-    image_url = models.CharField()
+    image_url = models.CharField(max_length=200)
     country = models.ForeignKey("Country", on_delete=models.PROTECT)
     color = models.ForeignKey("WineColor", on_delete=models.PROTECT)
     taste = models.ForeignKey("WineTaste", on_delete=models.PROTECT)
@@ -69,7 +69,7 @@ class Wine:
         return self.name
 
 
-class Review:
+class Review(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE)
     wine = models.ForeignKey("Wine", on_delete=models.CASCADE, related_name="reviews")
     created = models.DateTimeField(auto_now_add=True)
@@ -80,20 +80,20 @@ class Review:
         return f"[{self.user.username}] {self.content}"
     
 
-class Order:
+class Order(models.Model):
     user = models.ForeignKey("User", on_delete=models.PROTECT)
     date = models.DateTimeField(auto_now_add=True)
-    first_name = models.CharField()
-    last_name = models.CharField()
-    address = models.CharField()
-    city = models.CharField()
-    zip_code = models.CharField()
-    country = models.CharField()
-    phone_number = models.CharField()
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=50)
+    zip_code = models.CharField(max_length=20)
+    country = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=20)
     email = models.EmailField()
 
 
-class OrderDetails:
+class OrderDetails(models.Model):
     order = models.ForeignKey("Order", on_delete=models.CASCADE)
     wine = models.ForeignKey("Wine", on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
