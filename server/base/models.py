@@ -4,6 +4,8 @@ from django.core.validators import RegexValidator
 
 from django.contrib.auth.models import AbstractUser
 
+from django.core.exceptions import ValidationError
+
 
 class User(AbstractUser):
     SHOP_MANAGER = 1
@@ -22,11 +24,14 @@ class User(AbstractUser):
 
 
 class Country(models.Model):
+    class Meta:
+        verbose_name_plural = 'Countries'
+
     code = models.CharField(primary_key=True, max_length=2, validators=[
         RegexValidator(r'^[A-Z]{2}$', 'Country code consists of 2 capital letters.')])
     
     name = models.CharField(max_length=50, validators=[
-        RegexValidator(r'^[A-Za-z]*$', 'Country name can only contain letters.')
+        RegexValidator(r'^[A-Za-z\s]*$', 'Country name can only contain letters.')
     ])
 
     def __str__(self):
@@ -35,7 +40,7 @@ class Country(models.Model):
 
 class WineColor(models.Model):
     color = models.CharField(max_length=30, validators=[
-        RegexValidator(r'^[A-Za-z]*$', 'Product type can only contain letters and a frontslash.')
+        RegexValidator(r'^[A-Za-z\s]*$', 'Product type can only contain letters.')
     ])
 
     def __str__(self):
@@ -44,7 +49,7 @@ class WineColor(models.Model):
 
 class WineTaste(models.Model):
     taste = models.CharField(max_length=30, validators=[
-        RegexValidator(r'^[A-Za-z]*$', 'Product type can only contain letters and a frontslash.')
+        RegexValidator(r'^[A-Za-z\s]*$', 'Product type can only contain letters.')
     ])
 
     def __str__(self):
@@ -53,14 +58,14 @@ class WineTaste(models.Model):
 
 class Wine(models.Model):
     name = models.CharField(max_length=50, validators=[
-        RegexValidator(r'^[A-Za-z]*$', 'Product name can only contain letters.')
+        RegexValidator(r'^[A-Za-z\s]*$', 'Product name can only contain letters.')
     ])
 
     description = models.TextField()
     image_url = models.CharField(max_length=200)
-    country = models.ForeignKey("Country", on_delete=models.PROTECT)
-    color = models.ForeignKey("WineColor", on_delete=models.PROTECT)
-    taste = models.ForeignKey("WineTaste", on_delete=models.PROTECT)
+    country = models.ForeignKey("Country", on_delete=models.PROTECT, related_name="wines")
+    color = models.ForeignKey("WineColor", on_delete=models.PROTECT, related_name="wines")
+    taste = models.ForeignKey("WineTaste", on_delete=models.PROTECT, related_name="wines")
     year = models.PositiveSmallIntegerField()
     price = models.DecimalField(max_digits=9, decimal_places=2)
     units_in_stock = models.PositiveSmallIntegerField()
@@ -94,7 +99,14 @@ class Order(models.Model):
 
 
 class OrderDetails(models.Model):
+    class Meta:
+        verbose_name_plural = 'Order Details'
     order = models.ForeignKey("Order", on_delete=models.CASCADE)
     wine = models.ForeignKey("Wine", on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
     unit_price = models.DecimalField(max_digits=9, decimal_places=2)
+
+    def save(self, request_user, *args, **kwargs):
+        if request_user != self.order.user and request_user.role != User.SHOP_MANAGER:
+            raise ValidationError("This user cannot add an order detail, because the user is neither the order's user nor the manager.")
+        super().save(*args, **kwargs)
