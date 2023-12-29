@@ -1,11 +1,12 @@
 from django.urls import path
 from django.conf.urls import include
-from .views import MyTokenObtainPairView, WineViewSet
+from .views import MyTokenObtainPairView, WineViewSet, CountryViewSet
 from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'wines', WineViewSet)
+router.register(r'countries', CountryViewSet)
 
 urlpatterns = [
     # path('profile/', get_profile),

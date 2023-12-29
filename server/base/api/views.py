@@ -1,6 +1,6 @@
-from .serializers import MyTokenObtainPairSerializer, WineSerializer
+from .serializers import MyTokenObtainPairSerializer, WineSerializer, CountrySerializer
 from .permissions import IsManagerOrReadOnly
-from base.models import Wine
+from base.models import Wine, Country
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -15,3 +15,7 @@ class WineViewSet(viewsets.ModelViewSet):
     serializer_class = WineSerializer
     permission_classes = (IsManagerOrReadOnly, )
 
+class CountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+    permission_classes = (IsManagerOrReadOnly, )
