@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
 import "./ProductList.css";
-import products from "../assets/dummyData.js";
+// import products from "../assets/dummyData.js";
 
 const perPage = 15;
 
@@ -12,6 +12,43 @@ const ProductList = ({ onAddToCart }) => {
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
+
+  let [products, setProducts] = useState([])
+
+  useEffect(() => {
+      getProducts()
+  },[])
+
+  const getProducts = async() => {
+    let response = await fetch('http://127.0.0.1:8000/api/wines', {
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+
+    let data = await response.json()
+    
+    if (response.status === 200) {
+      // Temporary solution to match previously used format of wines
+      setProducts(data.map((wine) => {
+        return {
+          name: wine.name,
+          type: wine.taste.taste + "/" + wine.color.color,
+          country: wine.country.name,
+          description: wine.description,
+          id: wine.id,
+          imageUrl: wine.image_url,
+          price: wine.price,
+          rating: wine.rating,
+          inStock: wine.units_in_stock > 0,
+          year: wine.year
+        }
+      }))
+    } else {
+      console.log('Error')
+    }
+  }
 
   const offset = currentPage * perPage;
   const currentPageData = products.slice(offset, offset + perPage);
