@@ -2,14 +2,12 @@ import React, { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
 import "./ProductList.css";
-import AuthContext from "../context/AuthContext";
 // import products from "../assets/dummyData.js";
 
 const perPage = 15;
 
 const ProductList = ({ onAddToCart }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const { authTokens, logoutUser } = useContext(AuthContext);
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
@@ -32,6 +30,7 @@ const ProductList = ({ onAddToCart }) => {
     let data = await response.json()
     
     if (response.status === 200) {
+      // Temporary solution to match previously used format of wines
       setProducts(data.map((wine) => {
         return {
           name: wine.name,
@@ -48,13 +47,11 @@ const ProductList = ({ onAddToCart }) => {
       }))
     } else {
       console.log('Error')
-      //logoutUser()
     }
   }
 
   const offset = currentPage * perPage;
   const currentPageData = products.slice(offset, offset + perPage);
-  console.log(currentPageData);
 
   return (
     <div>
