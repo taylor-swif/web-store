@@ -1,16 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import "./ProductPage.css";
 import ProductDetails from "./ProductDetails";
 import { useParams } from "react-router-dom";
-import products from "../assets/dummyData";
+// import products from "../assets/dummyData";
 import QuantityPicker from "./QuantityPicker";
 import { CartDispatchContext } from "../context/CartContext";
 
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
-  const product = products[id];
+
+  let [product, setProduct] = useState({})
+
+  useEffect(() => {
+      getProduct()
+  },[])
+
+  const getProduct = async() => {
+    let response = await fetch('http://127.0.0.1:8000/api/wines/' + id, {
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+
+    let data = await response.json()
+    
+    if (response.status === 200) {
+      // Temporary solution to match previously used format of wines
+      console.log(data)
+      setProduct({
+        name: data.name,
+        type: data.taste.taste + "/" + data.color.color,
+        country: data.country.name,
+        description: data.description,
+        id: data.id,
+        imageUrl: data.image_url,
+        price: data.price,
+        rating: data.rating,
+        inStock: data.units_in_stock > 0,
+        year: data.year
+      })
+    } else {
+      console.log('Error')
+    }
+  }
 
   const dispatch = useContext(CartDispatchContext);
 
