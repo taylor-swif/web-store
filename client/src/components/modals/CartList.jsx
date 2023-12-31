@@ -4,6 +4,7 @@ import { CartContext, CartDispatchContext } from "../../context/CartContext";
 import "./CartModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import QuantityPicker from "../QuantityPicker";
 
 const CartList = () => {
   const cartItems = useContext(CartContext);
@@ -16,29 +17,20 @@ const CartList = () => {
             <img src={item.image} alt={item.name} className="cart-item-image" />
             <div className="cart-item-details">
               <p className="cart-item-name">{item.name}</p>
-              <div className="quantity-selector">
-                <button
-                  onClick={() => {
+              <p>
+                <QuantityPicker
+                  quantity={item.quantity}
+                  maxQuantity={item.maxQuantity}
+                  onUpdateQuantity={(newQuantity) => {
                     dispatch({
-                      type: "decrement",
+                      type: "updated",
                       id: item.id,
+                      quantity: newQuantity,
                     });
                   }}
-                >
-                  -
-                </button>
-                <input type="text" value={item.quantity} readOnly />
-                <button
-                  onClick={() => {
-                    dispatch({
-                      type: "increment",
-                      id: item.id,
-                    });
-                  }}
-                >
-                  +
-                </button>
-              </div>
+                />
+                of <strong>{item.maxQuantity}</strong>
+              </p>
               <p>Price: {item.price} ZŁ</p>
               <div
                 className="trash-icon"

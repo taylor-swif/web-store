@@ -33,18 +33,28 @@ const ProductCard = ({ product }) => {
       <Link to={`/product/${product.id}`}>
         <img src={product.imageUrl} alt={product.name} />
         <h3>{product.name}</h3>
+        <p>
+          {product.country}/{product.type}
+        </p>
+        <p>{product.price} ZŁ</p>
       </Link>
-      <p>
-        {product.country}/{product.type}
-      </p>
-      <p>{product.price} ZŁ</p>
-      <button
-        onClick={() => {
-          setIsBuyMenuVisible(true);
-        }}
-      >
-        Buy
-      </button>
+      {product.amount > 0 ? (
+        <>
+          <button
+            onClick={() => {
+              setIsBuyMenuVisible(true);
+            }}
+            className="buy-button"
+          >
+            Buy
+          </button>
+        </>
+      ) : (
+        <p>
+          <br></br>
+          <strong>Out of stock</strong>
+        </p>
+      )}
       <div className="rating">{renderStars(product.rating)}</div>
       {isBuyMenuVisible && (
         <ItemBuyMenu

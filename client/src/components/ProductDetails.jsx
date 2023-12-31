@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ProductDetails.css";
 
-const ProductDetails = () => {
+const ProductDetails = ({ product }) => {
   const [activeSection, setActiveSection] = useState("description");
   const [review, setReview] = useState("");
 
@@ -40,10 +40,16 @@ const ProductDetails = () => {
       {activeSection === "description" && (
         <div className="description">
           <p>
-            Flavor: A striking softness with a high percentage of alcohol.
-            Gradually reveals one scent after another with notes of black...
+            <strong>Flavor:</strong> A striking softness with a high percentage
+            of alcohol. Gradually reveals one scent after another with notes of
+            black...
           </p>
-          {/* Add more description content here */}
+          <p>
+            <strong>Country:</strong> {product.country}
+          </p>
+          <p>
+            <strong>Year of production:</strong> {product.year}
+          </p>
         </div>
       )}
       {activeSection === "reviews" && (

@@ -28,11 +28,7 @@ const HomePage = () => {
   //     }
   // }
 
-  return (
-    <div>
-      <p>You are on the homepage, available to all users!</p>
-    </div>
-  );
+  return <></>;
 };
 
 export default HomePage;

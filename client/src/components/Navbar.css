@@ -1,7 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 
 .header {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 a {
@@ -16,7 +20,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .main-bar {
@@ -146,4 +150,8 @@ a {
 .phone-icon {
   margin-right: 10px;
   font-size: large;
+}
+
+.log-out-button {
+  cursor: pointer;
 }

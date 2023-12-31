@@ -11,25 +11,25 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
 
-  let [product, setProduct] = useState({})
+  let [product, setProduct] = useState({});
 
   useEffect(() => {
-      getProduct()
-  },[])
+    getProduct();
+  }, []);
 
-  const getProduct = async() => {
-    let response = await fetch('http://127.0.0.1:8000/api/wines/' + id, {
-      method: 'GET',
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
+  const getProduct = async () => {
+    let response = await fetch("http://127.0.0.1:8000/api/wines/" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    let data = await response.json()
-    
+    let data = await response.json();
+
     if (response.status === 200) {
       // Temporary solution to match previously used format of wines
-      console.log(data)
+      console.log(data);
       setProduct({
         name: data.name,
         type: data.taste.taste + "/" + data.color.color,
@@ -40,12 +40,13 @@ const ProductPage = () => {
         price: data.price,
         rating: data.rating,
         inStock: data.units_in_stock > 0,
-        year: data.year
-      })
+        amount: data.units_in_stock,
+        year: data.year,
+      });
     } else {
-      console.log('Error')
+      console.log("Error");
     }
-  }
+  };
 
   const dispatch = useContext(CartDispatchContext);
 
@@ -55,13 +56,13 @@ const ProductPage = () => {
       image: product.imageUrl,
       name: product.name,
       quantity: quantity,
+      maxQuantity: product.amount,
       price: product.price,
     };
     dispatch({
       type: "added",
       item: cartItem,
     });
-    onClose();
   };
 
   return (
@@ -74,19 +75,29 @@ const ProductPage = () => {
         />
         <div className="product-info">
           <h1>{product.name}</h1>
-          <p className="price">{product.price}</p>
+          <p className="price">{product.price} zł</p>
           <p className="in-stock">
-            {product.inStock ? "In Stock" : "Out of Stock"}
+            {product.amount > 0
+              ? "In stock: " + product.amount
+              : "Out of Stock"}
           </p>
-          <QuantityPicker quantity={quantity} onUpdateQuantity={setQuantity} />
+          {product.amount > 0 && (
+            <>
+              <QuantityPicker
+                quantity={quantity}
+                maxQuantity={product.amount}
+                onUpdateQuantity={setQuantity}
+              />
 
-          <button className="purchase-button" onClick={handleBuyClick}>
-            Buy
-          </button>
+              <button className="purchase-button" onClick={handleBuyClick}>
+                Buy
+              </button>
+            </>
+          )}
         </div>
       </div>
 
-      <ProductDetails />
+      <ProductDetails product={product} />
     </div>
   );
 };

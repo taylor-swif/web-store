@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,7 +28,7 @@ const Navbar = () => {
   const [userModalIsOpen, setUserModalIsOpen] = useState(false);
   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
 
-  let { user } = useContext(AuthContext);
+  let { user, logoutUser } = useContext(AuthContext);
 
   return (
     <header className="header">
@@ -45,25 +44,31 @@ const Navbar = () => {
           <a href="/delivery">Delivery</a>
         </div>
         <div className="navbar-contact">
-          <FontAwesomeIcon icon={faPhone} className="phone-icon" />
-          <span>+02 3 5 7 11 13 | </span>
-          <Link to={"/login"}>
-            <span>Sign in</span>
-          </Link>
+          {/* <FontAwesomeIcon icon={faPhone} className="phone-icon" />
+          <span>+02 3 5 7 11 13 | </span> */}
+          {user ? (
+            <div className="log-out-button" onClick={logoutUser}>
+              <strong>Log out</strong>
+            </div>
+          ) : (
+            <Link to={"/login"}>
+              <strong>Sign in</strong>
+            </Link>
+          )}
         </div>
       </div>
       <div className="main-bar">
-        <div className="navbar-logo">
-          <img
-            src="src/assets/wine-store-logo-crop.png"
-            alt="Icon Description"
-            width="50"
-            height="50"
-          />
-          <Link to={"/"}>
+        <Link to={"/"}>
+          <div className="navbar-logo">
+            <img
+              src="src/assets/wine-store-logo-crop.png"
+              alt="Icon Description"
+              width="50"
+              height="50"
+            />
             <span>WORLD OF WINE</span>
-          </Link>
-        </div>
+          </div>
+        </Link>
         <div className="navbar-search">
           <input
             type="text"
