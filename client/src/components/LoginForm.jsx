@@ -1,28 +1,62 @@
-import React from "react";
+import { useContext, useState } from "react";
 import "./LoginForm.css";
-import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import "./LoginForm.css";
 
 const LoginForm = () => {
-  let { loginUser } = useContext(AuthContext);
+  const { loginUser, registerUser } = useContext(AuthContext);
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  const handleToggleForm = () => {
+    setIsRegistering(!isRegistering);
+  };
 
   return (
-    <div className="login-form-container">
-      <form onSubmit={loginUser} className="login-form">
+    <div className={`login-form-container ${isRegistering ? "register" : ""}`}>
+      <form
+        onSubmit={isRegistering === false ? loginUser : registerUser}
+        className="login-form"
+      >
+        <div className="input-container">
+          <FontAwesomeIcon icon={faUser} className="icon" />
+          <input
+            type="text"
+            name="username"
+            placeholder="Enter username"
+            required
+          />
+        </div>
+        <div className="input-container">
+          <FontAwesomeIcon icon={faLock} className="icon" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            required
+          />
+        </div>
+        {isRegistering && (
+          <div className="input-container">
+            <FontAwesomeIcon icon={faLock} className="icon" />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm password"
+              required
+            />
+          </div>
+        )}
         <input
-          type="text"
-          name="username"
-          placeholder="Enter username"
-          required
+          type="submit"
+          className="login-button"
+          value={isRegistering ? "Register" : "Login"}
         />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          required
-        />
-        <input type="submit" className="login-button" />
       </form>
+      <button className="toggle-button" onClick={handleToggleForm}>
+        {isRegistering ? "Switch to Login" : "Switch to Register"}
+      </button>
     </div>
   );
 };
