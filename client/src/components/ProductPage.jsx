@@ -42,6 +42,8 @@ const ProductPage = () => {
         inStock: data.units_in_stock > 0,
         amount: data.units_in_stock,
         year: data.year,
+        alcohol: data.alcohol,
+        volume: data.volume,
       });
     } else {
       console.log("Error");

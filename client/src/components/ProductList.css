@@ -6,6 +6,7 @@
   justify-content: center;
   padding: 20px;
   text-align: center;
+  margin-top: 140px;
 }
 
 .pagination-container {
@@ -25,6 +26,7 @@
   cursor: pointer;
   font-family: "Arial", sans-serif;
   font-size: 14px;
+  user-select: none;
 }
 
 .pagination li a {
@@ -33,7 +35,7 @@
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  text-decoration: none;
 }
 
 .pagination .active a {

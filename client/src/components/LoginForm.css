@@ -2,11 +2,19 @@
   background-color: #f4f4f4;
   padding: 20px;
   border-radius: 8px;
+  border: 1px solid red;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 300px;
   margin: auto;
   margin-top: 50px;
   transition: background-color 0.3s ease;
+
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
 }
 
 .login-form {
@@ -60,4 +68,12 @@
   border: none;
   cursor: pointer;
   border-radius: 4px;
+}
+
+.login-icon {
+  margin-right: 10px;
+}
+
+.login-input {
+  width: 80%;
 }

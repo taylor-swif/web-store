@@ -32,6 +32,10 @@ const ProductList = ({ onAddToCart }) => {
   let [products, setProducts] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
+  useEffect(() => {
     getProducts();
   }, []);
 
@@ -85,8 +89,8 @@ const ProductList = ({ onAddToCart }) => {
       </div>
       <div className="pagination-container">
         <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
+          previousLabel={"<"}
+          nextLabel={">"}
           breakLabel={"..."}
           pageCount={Math.ceil(products.length / perPage)}
           marginPagesDisplayed={2}

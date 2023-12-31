@@ -44,8 +44,6 @@ const Navbar = () => {
           <a href="/delivery">Delivery</a>
         </div>
         <div className="navbar-contact">
-          {/* <FontAwesomeIcon icon={faPhone} className="phone-icon" />
-          <span>+02 3 5 7 11 13 | </span> */}
           {user ? (
             <div className="log-out-button" onClick={logoutUser}>
               <strong>Log out</strong>
