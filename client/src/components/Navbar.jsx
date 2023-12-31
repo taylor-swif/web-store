@@ -38,10 +38,9 @@ const Navbar = () => {
           <span>Cracow</span>
         </div>
         <div className="navbar-links">
+          <a href="/">Home</a>
           <a href="/store">Store</a>
-          <a href="/deals">Deals</a>
           <a href="/about-us">About Us</a>
-          <a href="/delivery">Delivery</a>
         </div>
         <div className="navbar-contact">
           {user ? (

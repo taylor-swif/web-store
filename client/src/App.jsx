@@ -31,6 +31,14 @@ function App() {
                   element={
                     <>
                       <HomePage />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/store"
+                  element={
+                    <>
                       <ProductList />
                     </>
                   }
@@ -41,7 +49,6 @@ function App() {
                   path="/product/:id"
                   element={
                     <>
-                      <HomePage />
                       <ProductPage />
                     </>
                   }
