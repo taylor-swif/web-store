@@ -18,6 +18,7 @@ class User(AbstractUser):
 
     email = models.EmailField()
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=CUSTOMER)
+    favorite_wines = models.ManyToManyField("Wine")
 
     def __str__(self):
         return self.username
@@ -57,9 +58,7 @@ class WineTaste(models.Model):
 
 
 class Wine(models.Model):
-    name = models.CharField(max_length=50, validators=[
-        RegexValidator(r'^[A-Za-z\s]*$', 'Product name can only contain letters.')
-    ])
+    name = models.CharField(max_length=50)
 
     description = models.TextField()
     image_url = models.CharField(max_length=200)
@@ -69,6 +68,12 @@ class Wine(models.Model):
     year = models.PositiveSmallIntegerField()
     price = models.DecimalField(max_digits=9, decimal_places=2)
     units_in_stock = models.PositiveSmallIntegerField()
+
+    # In percentage; 15.5 -> 15.5%
+    alcohol = models.DecimalField(max_digits=4, decimal_places=1)
+
+    # In milliliters
+    volume = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.name
