@@ -44,6 +44,15 @@ function App() {
                   }
                 />
 
+                <Route
+                  path="/user-profile"
+                  element={
+                    <>
+                      <HomePage />
+                    </>
+                  }
+                />
+
                 <Route path="/login" element={<LoginPage />} />
                 <Route
                   path="/product/:id"

@@ -81,7 +81,7 @@ a {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: var(--dark-red);
+  /* color: var(--dark-red); */
   font-size: 18px;
   transition: background-color 0.3s ease;
 }
@@ -96,13 +96,13 @@ a {
 }
 
 .heart-icon {
-  margin-right: 40px;
+  margin-left: 40px;
   cursor: pointer;
   font-size: x-large;
 }
 
 .cart-icon-container {
-  margin-right: 40px;
+  margin-left: 40px;
   cursor: pointer;
   position: relative;
 }
@@ -141,6 +141,7 @@ a {
 }
 
 .user-icon {
+  margin-left: 40px;
   cursor: pointer;
   font-size: x-large;
 }

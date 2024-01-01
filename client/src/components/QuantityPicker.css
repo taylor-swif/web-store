@@ -8,8 +8,6 @@
   padding: 5px;
   border: 1px solid #d3c1ac;
   max-width: 120px;
-  margin-right: 10px;
-  margin-left: 10px;
 }
 
 .quantity-selector button {
@@ -21,6 +19,11 @@
   cursor: pointer;
   padding: 5px 10px;
   user-select: none;
+  transition: transform 0.3s;
+}
+
+.quantity-selector button:active {
+  transform: scale(1.5);
 }
 
 .quantity-selector input {

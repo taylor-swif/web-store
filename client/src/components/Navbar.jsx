@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
-  faPhone,
   faSearch,
   faUser,
   faHeart,
@@ -13,7 +12,6 @@ import {
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
-import UserModal from "./modals/UserModal";
 import CartModal from "./modals/CartModal";
 import { CartContext } from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
@@ -25,7 +23,6 @@ const Navbar = () => {
     return total + itemQuantity;
   }, 0);
 
-  const [userModalIsOpen, setUserModalIsOpen] = useState(false);
   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
 
   let { user, logoutUser } = useContext(AuthContext);
@@ -38,9 +35,9 @@ const Navbar = () => {
           <span>Cracow</span>
         </div>
         <div className="navbar-links">
-          <a href="/">Home</a>
-          <a href="/store">Store</a>
-          <a href="/about-us">About Us</a>
+          <Link to="/">Home</Link>
+          <Link to="/store">Store</Link>
+          <Link to="/about-us">About Us</Link>
         </div>
         <div className="navbar-contact">
           {user ? (
@@ -94,21 +91,17 @@ const Navbar = () => {
               onClose={() => setCartModalIsOpen(false)}
             />
           )}
-
-          <div
-            className="user-icon-container"
-            onClick={() => {
-              setUserModalIsOpen(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faUser} className="user-icon" />
-          </div>
-          {userModalIsOpen && (
-            <UserModal
-              onClose={() => {
-                setUserModalIsOpen(false);
+          {user && (
+            <div
+              className="user-icon-container"
+              onClick={() => {
+                setUserModalIsOpen(true);
               }}
-            />
+            >
+              <Link to="/user-profile">
+                <FontAwesomeIcon icon={faUser} className="user-icon" />
+              </Link>
+            </div>
           )}
         </div>
       </div>
