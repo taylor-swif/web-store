@@ -28,7 +28,7 @@ const CartList = () => {
                       quantity: newQuantity,
                     });
                   }}
-                />
+                />{" "}
                 of <strong>{item.maxQuantity}</strong>
               </p>
               <p>Price: {item.price} ZŁ</p>

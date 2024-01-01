@@ -15,57 +15,77 @@ import ProductList from "./components/ProductList";
 import Navbar from "./components/Navbar";
 import ProductPage from "./components/ProductPage";
 import CartProvider from "./context/CartContext";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="app">
-      <Router>
-        <AuthProvider>
-          <CartProvider>
-            <Navbar />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <HomePage />
-                    <ProductList />
-                  </>
-                }
-              />
+      <div className="content-wrap">
+        <Router>
+          <AuthProvider>
+            <CartProvider>
+              <Navbar />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <>
+                      <HomePage />
+                    </>
+                  }
+                />
 
-              <Route path="/login" element={<LoginPage />} />
-              <Route
-                path="/product/:id"
-                element={
-                  <>
-                    <HomePage />
-                    <ProductPage />
-                  </>
-                }
-              />
+                <Route
+                  path="/store"
+                  element={
+                    <>
+                      <ProductList />
+                    </>
+                  }
+                />
 
-              <Route
-                path="/mustbeloggedin"
-                element={
-                  <PrivateRoute roleNeeded={2}>
-                    <LoggedInPage />
-                  </PrivateRoute>
-                }
-              />
+                <Route
+                  path="/user-profile"
+                  element={
+                    <>
+                      <HomePage />
+                    </>
+                  }
+                />
 
-              <Route
-                path="/mustbemanager"
-                element={
-                  <PrivateRoute roleNeeded={1}>
-                    <ManagerPage />
-                  </PrivateRoute>
-                }
-              />
-            </Routes>
-          </CartProvider>
-        </AuthProvider>
-      </Router>
+                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/product/:id"
+                  element={
+                    <>
+                      <ProductPage />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/mustbeloggedin"
+                  element={
+                    <PrivateRoute roleNeeded={2}>
+                      <LoggedInPage />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
+                  path="/mustbemanager"
+                  element={
+                    <PrivateRoute roleNeeded={1}>
+                      <ManagerPage />
+                    </PrivateRoute>
+                  }
+                />
+              </Routes>
+            </CartProvider>
+          </AuthProvider>
+        </Router>
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -20,8 +20,9 @@ const LoginForm = () => {
         className="login-form"
       >
         <div className="input-container">
-          <FontAwesomeIcon icon={faUser} className="icon" />
+          <FontAwesomeIcon icon={faUser} className="login-icon" />
           <input
+            className="login-input"
             type="text"
             name="username"
             placeholder="Enter username"
@@ -29,8 +30,9 @@ const LoginForm = () => {
           />
         </div>
         <div className="input-container">
-          <FontAwesomeIcon icon={faLock} className="icon" />
+          <FontAwesomeIcon icon={faLock} className="login-icon" />
           <input
+            className="login-input"
             type="password"
             name="password"
             placeholder="Enter password"
@@ -39,8 +41,9 @@ const LoginForm = () => {
         </div>
         {isRegistering && (
           <div className="input-container">
-            <FontAwesomeIcon icon={faLock} className="icon" />
+            <FontAwesomeIcon icon={faLock} className="login-icon" />
             <input
+              className="login-input"
               type="password"
               name="confirmPassword"
               placeholder="Confirm password"

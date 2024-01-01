@@ -40,15 +40,19 @@ const ProductDetails = ({ product }) => {
       {activeSection === "description" && (
         <div className="description">
           <p>
-            <strong>Flavor:</strong> A striking softness with a high percentage
-            of alcohol. Gradually reveals one scent after another with notes of
-            black...
+            <strong>Description:</strong> {product.description}
+          </p>
+          <p>
+            <strong>Type:</strong> {product.type}
           </p>
           <p>
             <strong>Country:</strong> {product.country}
           </p>
           <p>
-            <strong>Year of production:</strong> {product.year}
+            <strong>Vintage:</strong> {product.year}
+          </p>
+          <p>
+            <strong>Alcohol:</strong> {product.alcohol}%
           </p>
         </div>
       )}

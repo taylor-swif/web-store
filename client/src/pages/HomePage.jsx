@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthContext";
+import "./HomePage.css";
 
 const HomePage = () => {
   // const { authTokens, logoutUser } = useContext(AuthContext);
@@ -28,7 +29,11 @@ const HomePage = () => {
   //     }
   // }
 
-  return <></>;
+  return (
+    <div className="home-container">
+      <h1>Home Page To Do</h1>
+    </div>
+  );
 };
 
 export default HomePage;

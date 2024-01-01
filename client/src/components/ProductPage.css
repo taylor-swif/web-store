@@ -1,4 +1,5 @@
 .product-page {
+  margin-top: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,15 +37,21 @@
   background-color: var(--light-red);
   color: white;
   border: none;
-  padding: 15px 30px;
+  padding: 13px 30px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 7px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, box-shadow 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  margin-left: 15px;
 }
 
 .purchase-button:hover {
   background-color: #a52a2a;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.purchase-button:active {
+  transform: scale(0.9);
 }
