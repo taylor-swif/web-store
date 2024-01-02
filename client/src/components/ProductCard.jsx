@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./ProductCard.css";
+import "./styles/ProductCard.css";
 import ItemBuyMenu from "./ItemBuyMenu";
 
 const renderStars = (rating) => {

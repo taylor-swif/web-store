@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ProductDetails.css";
+import "./styles/ProductDetails.css";
 
 const ProductDetails = ({ product }) => {
   const [activeSection, setActiveSection] = useState("description");

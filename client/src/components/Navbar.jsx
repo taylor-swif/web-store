@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -9,7 +9,7 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "./Navbar.css";
+import "./styles/Navbar.css";
 import { Link } from "react-router-dom";
 
 import CartModal from "./modals/CartModal";
@@ -27,6 +27,10 @@ const Navbar = () => {
 
   let { user, logoutUser } = useContext(AuthContext);
 
+  const location = useLocation();
+  const isStorePage = location.pathname === "/store";
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <header className="header">
       <div className="top-bar">
@@ -35,9 +39,15 @@ const Navbar = () => {
           <span>Cracow</span>
         </div>
         <div className="navbar-links">
-          <Link to="/">Home</Link>
-          <Link to="/store">Store</Link>
-          <Link to="/about-us">About Us</Link>
+          <Link to="/">
+            <strong>Home</strong>
+          </Link>
+          <Link to="/store">
+            <strong>Store</strong>
+          </Link>
+          <Link to="/about-us">
+            <strong>About Us</strong>
+          </Link>
         </div>
         <div className="navbar-contact">
           {user ? (
@@ -63,7 +73,10 @@ const Navbar = () => {
             <span>WORLD OF WINE</span>
           </div>
         </Link>
-        <div className="navbar-search">
+        <div
+          className="navbar-search"
+          style={{ display: isStorePage ? "block" : "none" }}
+        >
           <input
             type="text"
             placeholder="Search for wines, regions, articles..."
@@ -73,11 +86,16 @@ const Navbar = () => {
           </button>
         </div>
         <div className="navbar-icons">
-          <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+          <FontAwesomeIcon
+            icon={faHeart}
+            className="heart-icon"
+            style={{ display: !isLoginPage ? "block" : "none" }}
+          />
 
           <div
             className="cart-icon-container"
             onClick={() => setCartModalIsOpen(true)}
+            style={{ display: !isLoginPage ? "block" : "none" }}
           >
             <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
             {totalItemsInCart > 0 && totalItemsInCart < 100 && (
@@ -92,16 +110,9 @@ const Navbar = () => {
             />
           )}
           {user && (
-            <div
-              className="user-icon-container"
-              onClick={() => {
-                setUserModalIsOpen(true);
-              }}
-            >
-              <Link to="/user-profile">
-                <FontAwesomeIcon icon={faUser} className="user-icon" />
-              </Link>
-            </div>
+            <Link to="/user-profile">
+              <FontAwesomeIcon icon={faUser} className="user-icon" />
+            </Link>
           )}
         </div>
       </div>

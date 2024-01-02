@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
-import "./ProductList.css";
+import "./styles/ProductList.css";
 // import products from "../assets/dummyData.js";
 
-const ProductList = ({ onAddToCart }) => {
+const ProductList = () => {
   const calculatePerPage = () => {
     const productsPerRow = Math.floor(window.innerWidth / 310);
     return productsPerRow * 5;
@@ -32,7 +32,14 @@ const ProductList = ({ onAddToCart }) => {
   let [products, setProducts] = useState([]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    };
+
+    scrollToTop();
   }, [currentPage]);
 
   useEffect(() => {
@@ -80,11 +87,7 @@ const ProductList = ({ onAddToCart }) => {
     <div>
       <div className="product-list">
         {currentPageData.map((product, index) => (
-          <ProductCard
-            key={index}
-            product={product}
-            onAddToCart={onAddToCart}
-          />
+          <ProductCard key={index} product={product} />
         ))}
       </div>
       <div className="pagination-container">

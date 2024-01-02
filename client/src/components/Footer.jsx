@@ -1,4 +1,4 @@
-import "./Footer.css";
+import "./styles/Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 

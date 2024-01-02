@@ -1,6 +1,18 @@
-.home-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap");
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  color: var(--dark-brown);
+}
+
+.app-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+  color: #333;
 }

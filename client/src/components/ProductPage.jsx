@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useContext } from "react";
-import "./ProductPage.css";
+import "./styles/ProductPage.css";
 import ProductDetails from "./ProductDetails";
 import { useParams } from "react-router-dom";
 // import products from "../assets/dummyData";

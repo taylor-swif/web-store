@@ -8,7 +8,7 @@ const products = [
     rating: 5,
     imageUrl: "/src/assets/photos/1.jpg",
     year: 2021,
-    amount: 0,
+    amount: 69,
   },
   {
     id: 1,

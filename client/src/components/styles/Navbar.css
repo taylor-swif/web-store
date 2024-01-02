@@ -2,7 +2,7 @@
 
 .header {
   font-family: "Roboto", sans-serif;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -15,7 +15,7 @@ a {
 
 .top-bar {
   background-color: var(--light-red);
-  color: white;
+  color: var(--cream-color);
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -25,7 +25,7 @@ a {
 
 .main-bar {
   background-color: var(--dark-red);
-  color: white;
+  color: var(--cream-color);
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -39,9 +39,9 @@ a {
 }
 
 .navbar-links a {
-  color: white;
+  color: var(--cream-color);
   text-decoration: none;
-  margin: 0 15px;
+  margin: 0 25px;
 }
 
 .navbar-logo {
@@ -58,7 +58,7 @@ a {
   padding: 8px 45px 8px 20px;
   border: 2px solid #fff;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--rose-color);
   color: #333;
   transition: all 0.3s ease;
   width: 300px;

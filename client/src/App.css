@@ -1,6 +1,9 @@
 :root {
   --dark-red: rgb(67, 6, 7);
   --light-red: rgb(153, 39, 39);
+  --cream-color: rgb(245, 213, 200);
+  --dark-brown: rgb(65, 36, 59);
+  --rose-color: rgb(249, 229, 230);
 }
 
 body {
