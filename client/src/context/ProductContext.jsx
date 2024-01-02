@@ -18,6 +18,7 @@ export default function ProductProvider({ children }) {
     });
 
     let data = await response.json();
+    console.log(data);
 
     if (response.status === 200) {
       // Temporary solution to match previously used format of wines
@@ -35,6 +36,8 @@ export default function ProductProvider({ children }) {
             inStock: wine.units_in_stock > 0,
             amount: wine.units_in_stock,
             year: wine.year,
+            alcohol: wine.alcohol,
+            volume: wine.volume,
           };
         })
       );
@@ -42,6 +45,7 @@ export default function ProductProvider({ children }) {
       console.log("Error");
     }
   };
+
   return (
     <ProductContext.Provider value={products}>
       {children}

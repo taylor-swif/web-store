@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
 import { ProductContext } from "../context/ProductContext";
