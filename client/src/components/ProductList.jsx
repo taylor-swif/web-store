@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
+import { ProductContext } from "../context/ProductContext";
 import "./styles/ProductList.css";
-// import products from "../assets/dummyData.js";
 
 const ProductList = () => {
   const calculatePerPage = () => {
@@ -12,6 +12,8 @@ const ProductList = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage, setPerPage] = useState(calculatePerPage());
+
+  const products = useContext(ProductContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,8 +31,6 @@ const ProductList = () => {
     setCurrentPage(selected);
   };
 
-  let [products, setProducts] = useState([]);
-
   useEffect(() => {
     const scrollToTop = () => {
       window.scrollTo({
@@ -41,44 +41,6 @@ const ProductList = () => {
 
     scrollToTop();
   }, [currentPage]);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  const getProducts = async () => {
-    let response = await fetch("http://127.0.0.1:8000/api/wines", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    let data = await response.json();
-
-    if (response.status === 200) {
-      // Temporary solution to match previously used format of wines
-      setProducts(
-        data.map((wine) => {
-          return {
-            name: wine.name,
-            type: wine.taste.taste + "/" + wine.color.color,
-            country: wine.country.name,
-            description: wine.description,
-            id: wine.id,
-            imageUrl: wine.image_url,
-            price: wine.price,
-            rating: wine.rating,
-            inStock: wine.units_in_stock > 0,
-            amount: wine.units_in_stock,
-            year: wine.year,
-          };
-        })
-      );
-    } else {
-      console.log("Error");
-    }
-  };
 
   const offset = currentPage * perPage;
   const currentPageData = products.slice(offset, offset + perPage);
