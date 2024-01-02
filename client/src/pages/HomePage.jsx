@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import Slider from "../components/Slider";
+import CategoryMenu from "../components/CategoryMenu";
+import ProductCard from "../components/ProductCard";
+import dummyData from "../assets/dummyData";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -29,9 +32,42 @@ const HomePage = () => {
   //     }
   // }
 
+  const [currentPage, setCurrentPage] = useState(0);
+
   return (
-    <div className="home-container">
-      <h1>Home Page To Do</h1>
+    <div className="app-layout">
+      <div style={{ display: "flex" }}>
+        <CategoryMenu />
+        <Slider />
+      </div>
+      <div className="bestsellers">
+        <h1>Bestsellers</h1>
+        <div className="product-list">
+          {dummyData.slice(0, 4).map((product, index) => (
+            <ProductCard key={index} product={product} />
+          ))}
+        </div>
+      </div>
+      <div className="new-arrivals"></div>
+      <h1>New arrivals</h1>
+      <div className="product-list">
+        {dummyData.slice(7, 11).map((product, index) => (
+          <ProductCard key={index} product={product} />
+        ))}
+      </div>
+
+      <div className="about-us">
+        <h1>About us</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+          voluptatum, quibusdam voluptatibus, voluptas, quod quae dolorum
+          voluptates nulla quia voluptatem repellendus. Quisquam voluptatum,
+          quibusdam voluptatibus, voluptas, quod quae dolorum voluptates nulla
+          quia voluptatem repellendus. Quisquam voluptatum, quibusdam
+          voluptatibus, voluptas, quod quae dolorum voluptates nulla quia
+          voluptatem repellendus.
+        </p>
+      </div>
     </div>
   );
 };

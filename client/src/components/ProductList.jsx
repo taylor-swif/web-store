@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 import "./ProductList.css";
 // import products from "../assets/dummyData.js";
 
-const ProductList = ({ onAddToCart }) => {
+const ProductList = () => {
   const calculatePerPage = () => {
     const productsPerRow = Math.floor(window.innerWidth / 310);
     return productsPerRow * 5;
@@ -80,11 +80,7 @@ const ProductList = ({ onAddToCart }) => {
     <div>
       <div className="product-list">
         {currentPageData.map((product, index) => (
-          <ProductCard
-            key={index}
-            product={product}
-            onAddToCart={onAddToCart}
-          />
+          <ProductCard key={index} product={product} />
         ))}
       </div>
       <div className="pagination-container">
