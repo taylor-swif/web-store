@@ -20,7 +20,7 @@ const CartModal = ({ isOpen, onClose }) => {
     >
       {isCartEmpty ? (
         <div className="empty-cart-container">
-          <img src="/src/assets/photos/empty-cart.png" alt="Empty cart" />
+          <img src="/src/assets/empty-cart.png" alt="Empty cart" />
         </div>
       ) : (
         <>
