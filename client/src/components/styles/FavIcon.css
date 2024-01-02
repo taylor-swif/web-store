@@ -1,0 +1,11 @@
+.fav-icon {
+  color: #ddd;
+  cursor: pointer;
+}
+
+.fav-icon:hover {
+  color: rgb(247, 179, 72);
+}
+.fav {
+  color: rgb(247, 179, 72);
+}

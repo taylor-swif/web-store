@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles/ProductCard.css";
 import ItemBuyMenu from "./ItemBuyMenu";
+import FavIcon from "./FavIcon";
 
 const renderStars = (rating) => {
   const fullStars = Math.floor(rating);
@@ -63,6 +64,16 @@ const ProductCard = ({ product }) => {
           onClose={() => setIsBuyMenuVisible(false)}
         />
       )}
+      <div
+        style={{
+          position: "absolute",
+          top: "15px",
+          right: "15px",
+          fontSize: "25px",
+        }}
+      >
+        <FavIcon id={product.id} />
+      </div>
     </div>
   );
 };

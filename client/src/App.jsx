@@ -13,14 +13,21 @@ import ProductList from "./components/ProductList";
 import Navbar from "./components/Navbar";
 import ProductPage from "./components/ProductPage";
 import Footer from "./components/Footer";
-import AppProvider from "./context/AppContext";
+import { useContext } from "react";
+import { ProductContext } from "./context/ProductContext";
+import { FavContext } from "./context/FavContext";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
+  const products = useContext(ProductContext);
+  const id = useContext(FavContext);
+  const favorites = products.filter((product) => id.includes(product.id));
+
   return (
     <div className="app">
       <div className="content-wrap">
         <Router>
-          <AppProvider>
+          <AuthProvider>
             <Navbar />
             <Routes>
               <Route
@@ -36,7 +43,7 @@ function App() {
                 path="/store"
                 element={
                   <>
-                    <ProductList />
+                    <ProductList products={products} />
                   </>
                 }
               />
@@ -46,6 +53,15 @@ function App() {
                 element={
                   <>
                     <HomePage />
+                  </>
+                }
+              />
+
+              <Route
+                path="/favorites"
+                element={
+                  <>
+                    <ProductList products={favorites} />
                   </>
                 }
               />
@@ -78,7 +94,7 @@ function App() {
                 }
               />
             </Routes>
-          </AppProvider>
+          </AuthProvider>
         </Router>
       </div>
       <Footer />

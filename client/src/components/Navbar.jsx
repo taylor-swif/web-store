@@ -88,11 +88,13 @@ const Navbar = () => {
           </button>
         </div>
         <div className="navbar-icons">
-          <FontAwesomeIcon
-            icon={faHeart}
-            className="heart-icon"
-            style={{ display: !isLoginPage ? "block" : "none" }}
-          />
+          <Link to="/favorites">
+            <FontAwesomeIcon
+              icon={faHeart}
+              className="heart-icon"
+              style={{ display: !isLoginPage ? "block" : "none" }}
+            />
+          </Link>
 
           <div
             className="cart-icon-container"

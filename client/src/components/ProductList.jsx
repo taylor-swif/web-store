@@ -1,10 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
-import { ProductContext } from "../context/ProductContext";
 import "./styles/ProductList.css";
 
-const ProductList = () => {
+const ProductList = ({ products }) => {
   const calculatePerPage = () => {
     const productsPerRow = Math.floor(window.innerWidth / 310);
     return productsPerRow * 5;
@@ -12,8 +11,6 @@ const ProductList = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage, setPerPage] = useState(calculatePerPage());
-
-  const products = useContext(ProductContext);
 
   useEffect(() => {
     const handleResize = () => {
