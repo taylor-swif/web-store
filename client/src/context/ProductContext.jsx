@@ -3,7 +3,8 @@ import { createContext, useEffect, useState } from "react";
 export const ProductContext = createContext(null);
 
 export default function ProductProvider({ children }) {
-  let [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts();
@@ -41,10 +42,16 @@ export default function ProductProvider({ children }) {
           };
         })
       );
+      setLoading(false);
     } else {
       console.log("Error");
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <ProductContext.Provider value={products}>
