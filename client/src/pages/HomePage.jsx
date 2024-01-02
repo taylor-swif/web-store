@@ -4,6 +4,7 @@ import CategoryMenu from "../components/CategoryMenu";
 import ProductCard from "../components/ProductCard";
 import dummyData from "../assets/dummyData";
 import "./HomePage.css";
+import BlogList from "../components/BlogList";
 
 const HomePage = () => {
   // const { authTokens, logoutUser } = useContext(AuthContext);
@@ -36,7 +37,7 @@ const HomePage = () => {
 
   return (
     <div className="app-layout">
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", margin: "30px" }}>
         <CategoryMenu />
         <Slider />
       </div>
@@ -55,17 +56,33 @@ const HomePage = () => {
           <ProductCard key={index} product={product} />
         ))}
       </div>
+      <div className="blog">
+        <h1>Our Blog</h1>
+        <BlogList />
+      </div>
 
       <div className="about-us">
         <h1>About us</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          voluptatum, quibusdam voluptatibus, voluptas, quod quae dolorum
-          voluptates nulla quia voluptatem repellendus. Quisquam voluptatum,
-          quibusdam voluptatibus, voluptas, quod quae dolorum voluptates nulla
-          quia voluptatem repellendus. Quisquam voluptatum, quibusdam
-          voluptatibus, voluptas, quod quae dolorum voluptates nulla quia
-          voluptatem repellendus.
+          Welcome to Vinum Elegance, your gateway to the world's finest wines.
+          Nestled in the heart of wine country, we are a family-owned boutique
+          with a rich heritage of viticulture and a passion for excellence. Our
+          journey began over three decades ago, rooted in the simple yet
+          profound love for the artistry that goes into every bottle.
+          <br /> <br />
+          At Vinum Elegance, we believe that wine is more than just a
+          beverage—it's a story in a glass, waiting to unfold with each sip. Our
+          meticulously curated selection showcases the best of both Old World
+          and New World wines, from the rolling hills of Tuscany to the
+          sun-kissed valleys of Napa. Each bottle in our collection is
+          handpicked for its quality, provenance, and the exquisite experience
+          it offers.
+          <br /> <br /> Our founders, the Belmonte family, have traveled the
+          globe, forging relationships with renowned vintners and undiscovered
+          gems alike. These connections allow us to bring an exceptional variety
+          of wines to our discerning clientele. Whether you're a seasoned
+          collector or a casual enthusiast, we're dedicated to guiding you
+          through the nuanced world of wine.
         </p>
       </div>
     </div>

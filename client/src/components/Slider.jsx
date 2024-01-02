@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./styles/Slider.css";
 
 const images = [
@@ -9,16 +9,29 @@ const images = [
 
 const Slider = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const intervalRef = useRef(null);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
+  const resetInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
-    return () => clearInterval(intervalId);
+  };
+
+  useEffect(() => {
+    resetInterval();
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
 
   const goToImage = (index) => {
     setCurrentImageIndex(index);
+    resetInterval();
   };
 
   return (
