@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import "./styles/LoginForm.css";
 import AuthContext from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faLock, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import "./styles/LoginForm.css";
 
 const LoginForm = () => {
@@ -13,53 +14,63 @@ const LoginForm = () => {
     setIsRegistering(!isRegistering);
   };
 
+  const navigate = useNavigate();
+
+  const handleCloseIconClick = () => {
+    navigate("/");
+  };
+
   return (
-    <div className={`login-form-container ${isRegistering ? "register" : ""}`}>
-      <form
-        onSubmit={isRegistering === false ? loginUser : registerUser}
-        className="login-form"
-      >
-        <div className="input-container">
-          <FontAwesomeIcon icon={faUser} className="login-icon" />
-          <input
-            className="login-input"
-            type="text"
-            name="username"
-            placeholder="Enter username"
-            required
-          />
-        </div>
-        <div className="input-container">
-          <FontAwesomeIcon icon={faLock} className="login-icon" />
-          <input
-            className="login-input"
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            required
-          />
-        </div>
-        {isRegistering && (
-          <div className="input-container">
-            <FontAwesomeIcon icon={faLock} className="login-icon" />
+    <div className="login-container">
+      <div className="wrapper">
+        <span className="icon-close" onClick={handleCloseIconClick}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+        <div className="form-box login">
+          <h2>{isRegistering ? "Register" : "Login"}</h2>
+          <form
+            onSubmit={isRegistering === false ? loginUser : registerUser}
+            className="login-form"
+          >
+            <div className="input-box">
+              <span className="icon">
+                <FontAwesomeIcon icon={faUser} className="login-icon" />
+              </span>
+              <input type="text" name="username" required />
+              <label>Username</label>
+            </div>
+            <div className="input-box">
+              <span className="icon">
+                <FontAwesomeIcon icon={faLock} className="login-icon" />
+              </span>
+              <input type="password" name="password" required />
+              <label>Password</label>
+            </div>
+            {isRegistering && (
+              <div className="input-box">
+                <span className="icon">
+                  <FontAwesomeIcon icon={faLock} className="login-icon" />
+                </span>
+                <input type="password" name="confirmPassword" required />
+                <label>Confirm Password</label>
+              </div>
+            )}
             <input
-              className="login-input"
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm password"
-              required
+              type="submit"
+              className="login-button"
+              value={isRegistering ? "Register" : "Login"}
             />
+          </form>
+          <div className="login-register">
+            <p>
+              {isRegistering ? "" : "Don't have an account? "}
+              <span className="switch-button" onClick={handleToggleForm}>
+                {isRegistering ? "Switch to Login" : "Register"}
+              </span>
+            </p>
           </div>
-        )}
-        <input
-          type="submit"
-          className="login-button"
-          value={isRegistering ? "Register" : "Login"}
-        />
-      </form>
-      <button className="toggle-button" onClick={handleToggleForm}>
-        {isRegistering ? "Switch to Login" : "Switch to Register"}
-      </button>
+        </div>
+      </div>
     </div>
   );
 };
