@@ -9,7 +9,7 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "./Navbar.css";
+import "./styles/Navbar.css";
 import { Link } from "react-router-dom";
 
 import CartModal from "./modals/CartModal";

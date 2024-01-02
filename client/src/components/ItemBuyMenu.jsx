@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-modal";
-import "./ItemBuyMenu.css";
+import "./styles/ItemBuyMenu.css";
 
 import QuantityPicker from "./QuantityPicker";
 import { CartDispatchContext } from "../context/CartContext";

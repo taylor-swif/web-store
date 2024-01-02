@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import "./LoginForm.css";
+import "./styles/LoginForm.css";
 import AuthContext from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import "./LoginForm.css";
+import "./styles/LoginForm.css";
 
 const LoginForm = () => {
   const { loginUser, registerUser } = useContext(AuthContext);

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
-import "./ProductList.css";
+import "./styles/ProductList.css";
 // import products from "../assets/dummyData.js";
 
 const ProductList = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import "./QuantityPicker.css";
+import "./styles/QuantityPicker.css";
 
 const QuantityPicker = ({
   quantity = 1,
