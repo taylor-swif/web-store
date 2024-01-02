@@ -16,6 +16,8 @@ import CartModal from "./modals/CartModal";
 import { CartContext } from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
 
+import logoImage from "../assets/wine-store-logo-crop.png";
+
 const Navbar = () => {
   const cartItems = useContext(CartContext);
   const totalItemsInCart = cartItems.reduce((total, item) => {
@@ -65,7 +67,7 @@ const Navbar = () => {
         <Link to={"/"}>
           <div className="navbar-logo">
             <img
-              src="src/assets/wine-store-logo-crop.png"
+              src={logoImage}
               alt="Icon Description"
               width="50"
               height="50"
