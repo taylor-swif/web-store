@@ -4,7 +4,7 @@ export const CartContext = createContext(null);
 export const CartDispatchContext = createContext(null);
 
 export default function CartProvider({ children }) {
-  const [cart, dispatch] = useReducer(cartReducer, initialCart);
+  const [cart, dispatch] = useReducer(cartReducer, []);
 
   return (
     <CartContext.Provider value={cart}>
@@ -47,22 +47,3 @@ function cartReducer(cart, action) {
     }
   }
 }
-
-const initialCart = [
-  // {
-  //   id: 3,
-  //   image: "/src/assets/photos/4.jpg",
-  //   name: "Riesling Kabinett",
-  //   quantity: 4,
-  //   price: "189",
-  //   maxQuantity: 420,
-  // },
-  // {
-  //   id: 2,
-  //   image: "/src/assets/photos/3.jpg",
-  //   name: "Château Margaux",
-  //   quantity: 2,
-  //   price: "1299",
-  //   maxQuantity: 69,
-  // },
-];

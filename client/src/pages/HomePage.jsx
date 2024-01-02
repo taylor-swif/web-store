@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import Slider from "../components/Slider";
 import CategoryMenu from "../components/CategoryMenu";
 import ProductCard from "../components/ProductCard";
-import dummyData from "../assets/dummyData";
 import "./HomePage.css";
 import BlogList from "../components/BlogList";
+import { ProductContext } from "../context/ProductContext";
 
 const HomePage = () => {
   // const { authTokens, logoutUser } = useContext(AuthContext);
@@ -35,6 +35,8 @@ const HomePage = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
 
+  const products = useContext(ProductContext);
+
   return (
     <div className="app-layout">
       <div style={{ display: "flex", margin: "30px" }}>
@@ -44,7 +46,7 @@ const HomePage = () => {
       <div className="bestsellers">
         <h1>Bestsellers</h1>
         <div className="product-list">
-          {dummyData.slice(0, 4).map((product, index) => (
+          {products.slice(0, 4).map((product, index) => (
             <ProductCard key={index} product={product} />
           ))}
         </div>
@@ -52,7 +54,7 @@ const HomePage = () => {
       <div className="new-arrivals"></div>
       <h1>New arrivals</h1>
       <div className="product-list">
-        {dummyData.slice(7, 11).map((product, index) => (
+        {products.slice(7, 11).map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
       </div>
