@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import LoggedInPage from "./pages/LoggedInPage";
 import ManagerPage from "./pages/ManagerPage";
+import UserPage from "./pages/UserPage";
 
 import PrivateRoute from "./utils/PrivateRoute";
 
@@ -52,7 +53,7 @@ function App() {
                 path="/user-profile"
                 element={
                   <>
-                    <HomePage />
+                    <UserPage />
                   </>
                 }
               />
