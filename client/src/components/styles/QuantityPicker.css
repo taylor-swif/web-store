@@ -19,7 +19,7 @@
   cursor: pointer;
   padding: 5px 10px;
   user-select: none;
-  transition: transform 0.3s;
+  transition: transform 0.1s;
 }
 
 .quantity-selector button:active {

@@ -32,7 +32,14 @@ const ProductList = () => {
   let [products, setProducts] = useState([]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    };
+
+    scrollToTop();
   }, [currentPage]);
 
   useEffect(() => {

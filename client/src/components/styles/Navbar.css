@@ -2,7 +2,7 @@
 
 .header {
   font-family: "Roboto", sans-serif;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -41,7 +41,7 @@ a {
 .navbar-links a {
   color: white;
   text-decoration: none;
-  margin: 0 15px;
+  margin: 0 25px;
 }
 
 .navbar-logo {

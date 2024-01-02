@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -27,6 +27,9 @@ const Navbar = () => {
 
   let { user, logoutUser } = useContext(AuthContext);
 
+  const location = useLocation();
+  const isStorePage = location.pathname === "/store";
+
   return (
     <header className="header">
       <div className="top-bar">
@@ -35,9 +38,15 @@ const Navbar = () => {
           <span>Cracow</span>
         </div>
         <div className="navbar-links">
-          <Link to="/">Home</Link>
-          <Link to="/store">Store</Link>
-          <Link to="/about-us">About Us</Link>
+          <Link to="/">
+            <strong>Home</strong>
+          </Link>
+          <Link to="/store">
+            <strong>Store</strong>
+          </Link>
+          <Link to="/about-us">
+            <strong>About Us</strong>
+          </Link>
         </div>
         <div className="navbar-contact">
           {user ? (
@@ -63,7 +72,10 @@ const Navbar = () => {
             <span>WORLD OF WINE</span>
           </div>
         </Link>
-        <div className="navbar-search">
+        <div
+          className="navbar-search"
+          style={{ display: isStorePage ? "block" : "none" }}
+        >
           <input
             type="text"
             placeholder="Search for wines, regions, articles..."
