@@ -29,6 +29,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const isStorePage = location.pathname === "/store";
+  const isLoginPage = location.pathname === "/login";
 
   return (
     <header className="header">
@@ -85,11 +86,16 @@ const Navbar = () => {
           </button>
         </div>
         <div className="navbar-icons">
-          <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+          <FontAwesomeIcon
+            icon={faHeart}
+            className="heart-icon"
+            style={{ display: !isLoginPage ? "block" : "none" }}
+          />
 
           <div
             className="cart-icon-container"
             onClick={() => setCartModalIsOpen(true)}
+            style={{ display: !isLoginPage ? "block" : "none" }}
           >
             <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
             {totalItemsInCart > 0 && totalItemsInCart < 100 && (
@@ -104,16 +110,9 @@ const Navbar = () => {
             />
           )}
           {user && (
-            <div
-              className="user-icon-container"
-              onClick={() => {
-                setUserModalIsOpen(true);
-              }}
-            >
-              <Link to="/user-profile">
-                <FontAwesomeIcon icon={faUser} className="user-icon" />
-              </Link>
-            </div>
+            <Link to="/user-profile">
+              <FontAwesomeIcon icon={faUser} className="user-icon" />
+            </Link>
           )}
         </div>
       </div>
