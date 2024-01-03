@@ -16,6 +16,14 @@
   border-bottom: 2px solid var(--dark-red);
 }
 
+.order-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.order-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
 .order-table tbody tr:last-child td {
   border-bottom: none;
 }
@@ -39,4 +47,22 @@
 
 .order-table tr.expanded + .order-details {
   display: table-row;
+}
+
+.order-table .details-button-cell {
+  text-align: right;
+}
+
+.order-table button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--dark-red);
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+}
+
+.order-table button:hover {
+  color: var(--darker-red);
 }

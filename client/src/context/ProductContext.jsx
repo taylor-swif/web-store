@@ -19,7 +19,6 @@ export default function ProductProvider({ children }) {
     });
 
     let data = await response.json();
-    console.log(data);
 
     if (response.status === 200) {
       // Temporary solution to match previously used format of wines

@@ -98,7 +98,7 @@ const Navbar = () => {
 
           <div
             className="cart-icon-container"
-            onClick={() => setCartModalIsOpen(true)}
+            onClick={() => setCartModalIsOpen(!cartModalIsOpen)}
             style={{ display: !isLoginPage ? "block" : "none" }}
           >
             <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
