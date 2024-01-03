@@ -30,7 +30,7 @@ export default function ProductProvider({ children }) {
             type: wine.taste.taste + "/" + wine.color.color,
             country: wine.country.name,
             description: wine.description,
-            id: wine.id - 1,
+            id: wine.id,
             imageUrl: wine.image_url,
             price: wine.price,
             rating: wine.rating,

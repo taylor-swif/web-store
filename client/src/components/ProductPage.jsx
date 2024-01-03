@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import QuantityPicker from "./QuantityPicker";
 import { CartDispatchContext } from "../context/CartContext";
 import { ProductContext } from "../context/ProductContext";
+import FavIcon from "./FavIcon";
 
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -46,6 +47,7 @@ const ProductPage = () => {
               ? "In stock: " + product.amount
               : "Out of Stock"}
           </p>
+
           {product.amount > 0 && (
             <>
               <QuantityPicker
@@ -59,6 +61,9 @@ const ProductPage = () => {
               </button>
             </>
           )}
+          <div style={{ margin: "10px", fontSize: "40px" }}>
+            <FavIcon id={product.id} style={{ margin: "20px" }} />
+          </div>
         </div>
       </div>
 

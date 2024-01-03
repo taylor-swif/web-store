@@ -10,6 +10,7 @@ a {
 }
 
 .product-card {
+  position: relative;
   width: 210px;
   height: 400px;
   background-color: #fff;

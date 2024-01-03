@@ -1,13 +1,13 @@
-import { AuthProvider } from "./AuthContext";
 import ProductProvider from "./ProductContext";
 import CartProvider from "./CartContext";
+import FavProvider from "./FavContext";
 
 export default function AppProvider({ children }) {
   return (
-    <AuthProvider>
-      <ProductProvider>
-        <CartProvider>{children}</CartProvider>
-      </ProductProvider>
-    </AuthProvider>
+    <ProductProvider>
+      <CartProvider>
+        <FavProvider>{children}</FavProvider>
+      </CartProvider>
+    </ProductProvider>
   );
 }
