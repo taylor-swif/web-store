@@ -18,6 +18,7 @@ import { useContext } from "react";
 import { ProductContext } from "./context/ProductContext";
 import { FavContext } from "./context/FavContext";
 import { AuthProvider } from "./context/AuthContext";
+import AboutUsPage from "./pages/AboutUsPage";
 
 function App() {
   const products = useContext(ProductContext);
@@ -54,6 +55,15 @@ function App() {
                 element={
                   <>
                     <UserPage />
+                  </>
+                }
+              />
+
+              <Route
+                path="/about-us"
+                element={
+                  <>
+                    <AboutUsPage />
                   </>
                 }
               />
