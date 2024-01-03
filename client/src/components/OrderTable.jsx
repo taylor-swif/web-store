@@ -50,17 +50,27 @@ const OrderTable = () => {
               </td>
             </tr>
             {expandedOrderId === order.orderId && (
-              <tr className="order-details" key={order.orderId}>
+              <tr>
                 <td colSpan="5">
-                  <ul>
-                    {findOrderDetails(order.orderId).map((detail, index) => (
-                      <OrderTableDetailsRow
-                        key={index}
-                        product={products[detail.productId]}
-                        details={detail}
-                      />
-                    ))}
-                  </ul>
+                  <table className="details-table">
+                    <thead>
+                      <tr>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {findOrderDetails(order.orderId).map((detail, index) => (
+                        <OrderTableDetailsRow
+                          key={index}
+                          product={products[detail.productId]}
+                          details={detail}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
                 </td>
               </tr>
             )}
