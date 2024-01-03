@@ -1,10 +1,9 @@
-import React from "react";
 import { useContext } from "react";
 import { CartContext, CartDispatchContext } from "../../context/CartContext";
-import "./CartModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import QuantityPicker from "../QuantityPicker";
+import "./CartModal.css";
 
 const CartList = () => {
   const cartItems = useContext(CartContext);

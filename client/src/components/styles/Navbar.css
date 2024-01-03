@@ -81,7 +81,6 @@ a {
   background: transparent;
   border: none;
   cursor: pointer;
-  /* color: var(--dark-red); */
   font-size: 18px;
   transition: background-color 0.3s ease;
 }
@@ -96,13 +95,11 @@ a {
 }
 
 .heart-icon {
-  margin-left: 40px;
   cursor: pointer;
   font-size: x-large;
 }
 
 .cart-icon-container {
-  margin-left: 40px;
   cursor: pointer;
   position: relative;
 }
@@ -141,7 +138,6 @@ a {
 }
 
 .user-icon {
-  margin-left: 40px;
   cursor: pointer;
   font-size: x-large;
 }
@@ -154,4 +150,9 @@ a {
 
 .log-out-button {
   cursor: pointer;
+}
+
+.icon-container {
+  margin-left: 20px;
+  margin-right: 20px;
 }
