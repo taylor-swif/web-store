@@ -79,44 +79,51 @@ const Navbar = () => {
           className="navbar-search"
           style={{ display: isStorePage ? "block" : "none" }}
         >
-          <input
-            type="text"
-            placeholder="Search for wines, regions, articles..."
-          />
+          <input type="text" placeholder="Search for wines..." />
           <button type="submit">
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
           </button>
         </div>
         <div className="navbar-icons">
-          <Link to="/favorites">
-            <FontAwesomeIcon
-              icon={faHeart}
-              className="heart-icon"
-              style={{ display: !isLoginPage ? "block" : "none" }}
-            />
-          </Link>
-
-          <div
-            className="cart-icon-container"
-            onClick={() => setCartModalIsOpen(!cartModalIsOpen)}
-            style={{ display: !isLoginPage ? "block" : "none" }}
-          >
-            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
-            {totalItemsInCart > 0 && totalItemsInCart < 100 && (
-              <div className="cart-badge">{totalItemsInCart}</div>
-            )}
-            {totalItemsInCart >= 100 && <div className="cart-badge99">+99</div>}
+          <div className="icon-container">
+            <Link to="/favorites">
+              <FontAwesomeIcon
+                icon={faHeart}
+                className="heart-icon"
+                style={{ display: !isLoginPage ? "block" : "none" }}
+              />
+            </Link>
           </div>
+
+          <div className="icon-container">
+            <div
+              className="cart-icon-container"
+              onClick={() => setCartModalIsOpen(!cartModalIsOpen)}
+              style={{ display: !isLoginPage ? "block" : "none" }}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+              {totalItemsInCart > 0 && totalItemsInCart < 100 && (
+                <div className="cart-badge">{totalItemsInCart}</div>
+              )}
+              {totalItemsInCart >= 100 && (
+                <div className="cart-badge99">+99</div>
+              )}
+            </div>
+          </div>
+
           {cartModalIsOpen && (
             <CartModal
               isOpen={cartModalIsOpen}
               onClose={() => setCartModalIsOpen(false)}
             />
           )}
+
           {user && (
-            <Link to="/user-profile">
-              <FontAwesomeIcon icon={faUser} className="user-icon" />
-            </Link>
+            <div className="icon-container">
+              <Link to="/user-profile">
+                <FontAwesomeIcon icon={faUser} className="user-icon" />
+              </Link>
+            </div>
           )}
         </div>
       </div>

@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import "./UserModal.css";
 import AuthContext from "../../context/AuthContext";
 
 const UserModal = ({ onClose }) => {
-  let { loginUser } = useContext(AuthContext);
-  let { user, logoutUser } = useContext(AuthContext);
+  const { loginUser } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
 
   return (
     <div className="user-modal">
