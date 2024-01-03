@@ -19,6 +19,7 @@ import { ProductContext } from "./context/ProductContext";
 import { FavContext } from "./context/FavContext";
 import { AuthProvider } from "./context/AuthContext";
 import AboutUsPage from "./pages/AboutUsPage";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
   const products = useContext(ProductContext);
@@ -29,83 +30,85 @@ function App() {
     <div className="app">
       <div className="content-wrap">
         <Router>
-          <AuthProvider>
-            <Navbar />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <HomePage />
-                  </>
-                }
-              />
+          <ScrollToTop>
+            <AuthProvider>
+              <Navbar />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <>
+                      <HomePage />
+                    </>
+                  }
+                />
 
-              <Route
-                path="/store"
-                element={
-                  <>
-                    <ProductList products={products} />
-                  </>
-                }
-              />
+                <Route
+                  path="/store"
+                  element={
+                    <>
+                      <ProductList products={products} />
+                    </>
+                  }
+                />
 
-              <Route
-                path="/user-profile"
-                element={
-                  <>
-                    <UserPage />
-                  </>
-                }
-              />
+                <Route
+                  path="/user-profile"
+                  element={
+                    <>
+                      <UserPage />
+                    </>
+                  }
+                />
 
-              <Route
-                path="/about-us"
-                element={
-                  <>
-                    <AboutUsPage />
-                  </>
-                }
-              />
+                <Route
+                  path="/about-us"
+                  element={
+                    <>
+                      <AboutUsPage />
+                    </>
+                  }
+                />
 
-              <Route
-                path="/favorites"
-                element={
-                  <>
-                    <ProductList products={favorites} />
-                  </>
-                }
-              />
+                <Route
+                  path="/favorites"
+                  element={
+                    <>
+                      <ProductList products={favorites} />
+                    </>
+                  }
+                />
 
-              <Route path="/login" element={<LoginPage />} />
-              <Route
-                path="/product/:id"
-                element={
-                  <>
-                    <ProductPage />
-                  </>
-                }
-              />
+                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/product/:id"
+                  element={
+                    <>
+                      <ProductPage />
+                    </>
+                  }
+                />
 
-              <Route
-                path="/mustbeloggedin"
-                element={
-                  <PrivateRoute roleNeeded={2}>
-                    <LoggedInPage />
-                  </PrivateRoute>
-                }
-              />
+                <Route
+                  path="/mustbeloggedin"
+                  element={
+                    <PrivateRoute roleNeeded={2}>
+                      <LoggedInPage />
+                    </PrivateRoute>
+                  }
+                />
 
-              <Route
-                path="/mustbemanager"
-                element={
-                  <PrivateRoute roleNeeded={1}>
-                    <ManagerPage />
-                  </PrivateRoute>
-                }
-              />
-            </Routes>
-          </AuthProvider>
+                <Route
+                  path="/mustbemanager"
+                  element={
+                    <PrivateRoute roleNeeded={1}>
+                      <ManagerPage />
+                    </PrivateRoute>
+                  }
+                />
+              </Routes>
+            </AuthProvider>
+          </ScrollToTop>
         </Router>
       </div>
       <Footer />
