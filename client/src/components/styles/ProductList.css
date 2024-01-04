@@ -47,3 +47,15 @@
 .pagination li a:focus {
   outline: none;
 }
+
+.empty-data-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.empty-data-div img {
+  max-width: 100%;
+  max-height: 100%;
+}

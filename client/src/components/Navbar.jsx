@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -28,21 +28,19 @@ const Navbar = () => {
   }, 0);
 
   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
-
-  let { user, logoutUser } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
 
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
+  const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
-    console.log("s");
     setSearchTerm(event.target.value);
   };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-
-    window.location.href = `/store?search=${searchTerm}`;
+    navigate(`/store?search=${searchTerm}`);
   };
 
   return (

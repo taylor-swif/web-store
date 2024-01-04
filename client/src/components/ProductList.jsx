@@ -59,27 +59,35 @@ const ProductList = ({ products }) => {
   const currentPageData = filteredData.slice(offset, offset + perPage);
 
   return (
-    <div>
-      <div className="product-list">
-        {currentPageData.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
-      </div>
-      <div className="pagination-container">
-        <ReactPaginate
-          previousLabel={"<"}
-          nextLabel={">"}
-          breakLabel={"..."}
-          pageCount={Math.ceil(filteredData.length / perPage)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-        />
-      </div>
-    </div>
+    <>
+      {filteredData.length === 0 ? (
+        <div className="empty-data-div">
+          <img src="/src/assets/no-items-found.jpg" alt="No Items Found" />
+        </div>
+      ) : (
+        <div>
+          <div className="product-list">
+            {currentPageData.map((product, index) => (
+              <ProductCard key={index} product={product} />
+            ))}
+          </div>
+          <div className="pagination-container">
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              breakLabel={"..."}
+              pageCount={Math.ceil(filteredData.length / perPage)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
