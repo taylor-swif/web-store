@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
+import Filters from "./Filters";
 import "./styles/ProductList.css";
 
 const ProductList = ({ products }) => {
@@ -58,6 +59,21 @@ const ProductList = ({ products }) => {
 
   const currentPageData = filteredData.slice(offset, offset + perPage);
 
+  const [filters, setFilters] = useState({
+    country: [],
+    taste: [],
+    alcohol: [],
+    volume: [],
+    vintage: [],
+  });
+
+  const handleFilterChange = (filter) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filter]: !prevFilters[filter],
+    }));
+  };
+
   return (
     <>
       {filteredData.length === 0 ? (
@@ -65,7 +81,10 @@ const ProductList = ({ products }) => {
           <img src="/src/assets/no-items-found.jpg" alt="No Items Found" />
         </div>
       ) : (
-        <div>
+        <div className="product-list-container">
+          <div className="filters-wrapper">
+            <Filters filters={filters} onFilterChange={handleFilterChange} />
+          </div>
           <div className="product-list">
             {currentPageData.map((product, index) => (
               <ProductCard key={index} product={product} />
