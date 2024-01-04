@@ -1,7 +1,7 @@
 import SingleFilter from "./SingleFilter";
 
 const Filters = ({ filters, onFilterChange }) => {
-  const countries = ["Country1", "Country2", "Country3"];
+  const countries = ["Spain", "Italy", "Australia"];
   const tastes = ["1", "2"];
   const alcohols = ["1", "2"];
   const volumes = ["1", "2"];

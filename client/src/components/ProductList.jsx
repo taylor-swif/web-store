@@ -14,11 +14,24 @@ const ProductList = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage, setPerPage] = useState(calculatePerPage());
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPageData, setCurrentPageData] = useState([]);
   const location = useLocation();
 
+  const searchParams = new URLSearchParams(location.search);
+  const searchTerm = searchParams.get("search") || "";
+  const filteredData = searchTerm
+    ? filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : products;
+
   useEffect(() => {
-    setFilteredProducts(products);
-  }, [products]);
+    setFilteredProducts(filteredData);
+  }, [filteredData]);
+
+  useEffect(() => {
+    setFilteredProducts(filteredData);
+  }, [filteredData]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,16 +62,6 @@ const ProductList = ({ products }) => {
 
   const offset = currentPage * perPage;
 
-  const searchParams = new URLSearchParams(location.search);
-  const searchTerm = searchParams.get("search") || "";
-  const filteredData = searchTerm
-    ? filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : products;
-
-  const currentPageData = filteredData.slice(offset, offset + perPage);
-
   const [filters, setFilters] = useState({
     country: [],
     taste: [],
@@ -67,12 +70,69 @@ const ProductList = ({ products }) => {
     vintage: [],
   });
 
-  const handleFilterChange = (filter) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filter]: !prevFilters[filter],
-    }));
+  const handleFilterChange = (filter, option) => {
+    setFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+
+      if (updatedFilters[filter].includes(option)) {
+        updatedFilters[filter] = updatedFilters[filter].filter(
+          (item) => item !== option
+        );
+      } else {
+        updatedFilters[filter] = [...updatedFilters[filter], option];
+      }
+
+      return updatedFilters;
+    });
   };
+
+  const applyFilters = () => {
+    const filterAppliedData = filteredData.filter((product) => {
+      if (
+        filters.country.length > 0 &&
+        !filters.country.includes(product.country)
+      ) {
+        return false;
+      }
+
+      if (filters.taste.length > 0 && !filters.taste.includes(product.taste)) {
+        return false;
+      }
+
+      if (
+        filters.alcohol.length > 0 &&
+        !filters.alcohol.includes(product.alcohol)
+      ) {
+        return false;
+      }
+
+      if (
+        filters.volume.length > 0 &&
+        !filters.volume.includes(product.volume)
+      ) {
+        return false;
+      }
+
+      if (
+        filters.vintage.length > 0 &&
+        !filters.vintage.includes(product.vintage)
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+    setFilteredProducts(filterAppliedData);
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [filters, filteredData]);
+
+  useEffect(() => {
+    setCurrentPageData(filteredProducts.slice(offset, offset + perPage));
+  }, [filteredProducts, offset, perPage]);
 
   return (
     <>
