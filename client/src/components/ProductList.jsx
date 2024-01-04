@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
 import "./styles/ProductList.css";
@@ -11,6 +12,12 @@ const ProductList = ({ products }) => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage, setPerPage] = useState(calculatePerPage());
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,7 +47,16 @@ const ProductList = ({ products }) => {
   }, [currentPage]);
 
   const offset = currentPage * perPage;
-  const currentPageData = products.slice(offset, offset + perPage);
+
+  const searchParams = new URLSearchParams(location.search);
+  const searchTerm = searchParams.get("search") || "";
+  const filteredData = searchTerm
+    ? filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : products;
+
+  const currentPageData = filteredData.slice(offset, offset + perPage);
 
   return (
     <div>
@@ -54,7 +70,7 @@ const ProductList = ({ products }) => {
           previousLabel={"<"}
           nextLabel={">"}
           breakLabel={"..."}
-          pageCount={Math.ceil(products.length / perPage)}
+          pageCount={Math.ceil(filteredData.length / perPage)}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={handlePageClick}

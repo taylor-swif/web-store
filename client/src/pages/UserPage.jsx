@@ -5,7 +5,7 @@ import "./UserPage.css";
 const UserPage = () => {
   return (
     <div className="UserPageContainer">
-      <h2 className="UserPageHeading">User Page</h2>
+      <h1 className="UserPageHeading">User Page</h1>
       <UserProfile />
       <OrderTable />
     </div>

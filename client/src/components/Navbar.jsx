@@ -19,7 +19,9 @@ import AuthContext from "../context/AuthContext";
 import logoImage from "../assets/wine-store-logo-crop.png";
 
 const Navbar = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const cartItems = useContext(CartContext);
+
   const totalItemsInCart = cartItems.reduce((total, item) => {
     const itemQuantity = parseInt(item.quantity) || 0;
     return total + itemQuantity;
@@ -30,8 +32,18 @@ const Navbar = () => {
   let { user, logoutUser } = useContext(AuthContext);
 
   const location = useLocation();
-  const isStorePage = location.pathname === "/store";
   const isLoginPage = location.pathname === "/login";
+
+  const handleSearchChange = (event) => {
+    console.log("s");
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+
+    window.location.href = `/store?search=${searchTerm}`;
+  };
 
   return (
     <header className="header">
@@ -77,12 +89,19 @@ const Navbar = () => {
         </Link>
         <div
           className="navbar-search"
-          style={{ display: isStorePage ? "block" : "none" }}
+          style={{ display: !isLoginPage ? "block" : "none" }}
         >
-          <input type="text" placeholder="Search for wines..." />
-          <button type="submit">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          </button>
+          <form onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              placeholder="Search for wines..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <button type="submit">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+            </button>
+          </form>
         </div>
         <div className="navbar-icons">
           <div className="icon-container">
