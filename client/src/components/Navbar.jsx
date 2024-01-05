@@ -20,7 +20,6 @@ import logoImage from "../assets/wine-store-logo-crop.png";
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const cartItems = useContext(CartContext);
 
   const totalItemsInCart = cartItems.reduce((total, item) => {
@@ -42,10 +41,6 @@ const Navbar = () => {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     navigate(`/store?search=${searchTerm}`);
-  };
-
-  const toggleFilter = () => {
-    setIsFilterOpen(!isFilterOpen);
   };
 
   return (
@@ -108,39 +103,7 @@ const Navbar = () => {
                 </button>
               </form>
             </div>
-            <div className="navbar-filters">
-              <button onClick={toggleFilter}>Filters</button>
-            </div>
           </div>
-          {isFilterOpen ? (
-            <div className="filters-container">
-              <label htmlFor="countryFilter">Country:</label>
-              <select id="countryFilter">
-                <option value="poland">Poland</option>
-                <option value="italy">Italy</option>
-              </select>
-
-              <label htmlFor="tasteFilter">Taste:</label>
-              <select id="tasteFilter">
-                <option value="sweet">Sweet</option>
-                <option value="dry">Dry</option>
-              </select>
-
-              <label htmlFor="vintageFilter">Vintage:</label>
-              <select id="vintageFilter">
-                <option value="2010">2010</option>
-                <option value="2015">2015</option>
-              </select>
-
-              <label htmlFor="volumeFilter">Volume:</label>
-              <select id="volumeFilter">
-                <option value="750">750ml</option>
-                <option value="1500">1500ml</option>
-              </select>
-            </div>
-          ) : (
-            <></>
-          )}
         </div>
         <div className="navbar-icons">
           <div className="icon-container">

@@ -24,8 +24,6 @@ const ProductList = ({ products }) => {
     applyFilters();
   }, []);
 
-  //const originalProducts = products; //czytaj nizej
-
   useEffect(() => {
     const handleResize = () => {
       setPerPage(calculatePerPage());
@@ -81,7 +79,6 @@ const ProductList = ({ products }) => {
 
   const applyFilters = () => {
     let filteredData = products;
-    //let filteredData = originalProducts; //zamienic to z tym u gory jakby sie pojawily problemy ale nie powinny i odkomentowac u gory
 
     filteredData = searchTerm
       ? filteredData.filter((product) =>
@@ -125,6 +122,7 @@ const ProductList = ({ products }) => {
       return true;
     });
 
+    setCurrentPage(0);
     setFilteredProducts(filteredData);
   };
 
@@ -167,6 +165,7 @@ const ProductList = ({ products }) => {
               containerClassName={"pagination"}
               subContainerClassName={"pages pagination"}
               activeClassName={"active"}
+              forcePage={currentPage}
             />
           </div>
         )}
