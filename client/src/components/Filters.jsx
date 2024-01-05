@@ -1,11 +1,44 @@
 import SingleFilter from "./SingleFilter";
 
 const Filters = ({ filters, onFilterChange }) => {
-  const countries = ["Spain", "Italy", "Australia"];
-  const tastes = ["1", "2"];
-  const alcohols = ["1", "2"];
+  const countries = [
+    "Argentina",
+    "Australia",
+    "Brazil",
+    "Chile",
+    "China",
+    "Germany",
+    "Spain",
+    "France",
+    "Italy",
+    "New Zealand",
+    "Portugal",
+    "Romania",
+    "Russia",
+    "United States",
+    "South Africa",
+    "Poland",
+    "Hungary",
+    "Austria",
+  ];
+
+  const tastes = [
+    "Dry",
+    "Sweet",
+    "Oaked",
+    "Semi-sweet",
+    "Extra Dry",
+    "Semi-dry",
+    "Brut",
+  ];
+
+  const alcohols = ["13.0", "2"];
   const volumes = ["1", "2"];
   const vintages = ["1", "2"];
+
+  //Powpisywalem tu do testowania cssa te wartosci, ale docelowo imo
+  //trzeba uzyc contextu winesAttributes w ktorym sa wszystkie mozliwe dane o winach
+  //taka tablica setów i tu z contextu pouzupelniac te filtry
 
   return (
     <div className="filters-container">

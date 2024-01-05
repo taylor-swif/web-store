@@ -11,27 +11,20 @@ const ProductList = ({ products }) => {
     return productsPerRow * 5;
   };
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [perPage, setPerPage] = useState(calculatePerPage());
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [currentPageData, setCurrentPageData] = useState([]);
   const location = useLocation();
-
   const searchParams = new URLSearchParams(location.search);
   const searchTerm = searchParams.get("search") || "";
-  const filteredData = searchTerm
-    ? filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : products;
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setPerPage] = useState(calculatePerPage());
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [currentPageData, setCurrentPageData] = useState([]);
 
   useEffect(() => {
-    setFilteredProducts(filteredData);
-  }, [filteredData]);
+    applyFilters();
+  }, []);
 
-  useEffect(() => {
-    setFilteredProducts(filteredData);
-  }, [filteredData]);
+  //const originalProducts = products; //czytaj nizej
 
   useEffect(() => {
     const handleResize = () => {
@@ -87,7 +80,16 @@ const ProductList = ({ products }) => {
   };
 
   const applyFilters = () => {
-    const filterAppliedData = filteredData.filter((product) => {
+    let filteredData = products;
+    //let filteredData = originalProducts; //zamienic to z tym u gory jakby sie pojawily problemy ale nie powinny i odkomentowac u gory
+
+    filteredData = searchTerm
+      ? filteredData.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      : filteredData;
+
+    filteredData = filteredData.filter((product) => {
       if (
         filters.country.length > 0 &&
         !filters.country.includes(product.country)
@@ -123,12 +125,12 @@ const ProductList = ({ products }) => {
       return true;
     });
 
-    setFilteredProducts(filterAppliedData);
+    setFilteredProducts(filteredData);
   };
 
   useEffect(() => {
     applyFilters();
-  }, [filters, filteredData]);
+  }, [filters, searchTerm]);
 
   useEffect(() => {
     setCurrentPageData(filteredProducts.slice(offset, offset + perPage));
@@ -136,26 +138,29 @@ const ProductList = ({ products }) => {
 
   return (
     <>
-      {filteredData.length === 0 ? (
-        <div className="empty-data-div">
-          <img src="/src/assets/no-items-found.jpg" alt="No Items Found" />
+      <div className="product-list-container">
+        <div className="filters-wrapper">
+          <Filters filters={filters} onFilterChange={handleFilterChange} />
         </div>
-      ) : (
-        <div className="product-list-container">
-          <div className="filters-wrapper">
-            <Filters filters={filters} onFilterChange={handleFilterChange} />
+        {filteredProducts.length == 0 ? (
+          <div className="product-list">
+            <img src="/src/assets/no-items-found.jpg" alt="No Items Found" />
           </div>
+        ) : (
           <div className="product-list">
             {currentPageData.map((product, index) => (
               <ProductCard key={index} product={product} />
             ))}
           </div>
+        )}
+
+        {filteredProducts.length != 0 && (
           <div className="pagination-container">
             <ReactPaginate
               previousLabel={"<"}
               nextLabel={">"}
               breakLabel={"..."}
-              pageCount={Math.ceil(filteredData.length / perPage)}
+              pageCount={Math.ceil(filteredProducts.length / perPage)}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}
@@ -164,8 +169,8 @@ const ProductList = ({ products }) => {
               activeClassName={"active"}
             />
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };
