@@ -12,8 +12,8 @@ class User(AbstractUser):
     CUSTOMER = 2
 
     ROLE_CHOICES = (
-        (SHOP_MANAGER, 'Menedżer'),
-        (CUSTOMER, 'Klient')
+        (SHOP_MANAGER, 'Manager'),
+        (CUSTOMER, 'Client')
     )
 
     email = models.EmailField()
@@ -101,6 +101,7 @@ class Order(models.Model):
     country = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=20)
     email = models.EmailField()
+    order_details = models.ManyToManyField("Wine", through="OrderDetails")
 
 
 class OrderDetails(models.Model):
@@ -111,7 +112,7 @@ class OrderDetails(models.Model):
     quantity = models.PositiveSmallIntegerField()
     unit_price = models.DecimalField(max_digits=9, decimal_places=2)
 
-    def save(self, request_user, *args, **kwargs):
-        if request_user != self.order.user and request_user.role != User.SHOP_MANAGER:
-            raise ValidationError("This user cannot add an order detail, because the user is neither the order's user nor the manager.")
-        super().save(*args, **kwargs)
+    # def save(self, request_user, *args, **kwargs):
+    #     if request_user != self.order.user and request_user.role != User.SHOP_MANAGER:
+    #         raise ValidationError("This user cannot add an order detail, because the user is neither the order's user nor the manager.")
+    #     super().save(*args, **kwargs)
