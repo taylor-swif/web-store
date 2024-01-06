@@ -1,0 +1,20 @@
+.single-filter {
+  width: 100%;
+}
+
+.single-filter input {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  accent-color: red;
+}
+
+.single-filter label h2 {
+  text-align: left;
+
+  color: var(--dark-brown);
+}
+
+.options {
+  padding-left: 5%;
+}

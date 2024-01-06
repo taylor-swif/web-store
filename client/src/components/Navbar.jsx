@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -19,19 +19,29 @@ import AuthContext from "../context/AuthContext";
 import logoImage from "../assets/wine-store-logo-crop.png";
 
 const Navbar = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const cartItems = useContext(CartContext);
+
   const totalItemsInCart = cartItems.reduce((total, item) => {
     const itemQuantity = parseInt(item.quantity) || 0;
     return total + itemQuantity;
   }, 0);
 
   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
-
-  let { user, logoutUser } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
 
   const location = useLocation();
-  const isStorePage = location.pathname === "/store";
   const isLoginPage = location.pathname === "/login";
+  const navigate = useNavigate();
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/store?search=${searchTerm}`);
+  };
 
   return (
     <header className="header">
@@ -75,14 +85,25 @@ const Navbar = () => {
             <span>WORLD OF WINE</span>
           </div>
         </Link>
-        <div
-          className="navbar-search"
-          style={{ display: isStorePage ? "block" : "none" }}
-        >
-          <input type="text" placeholder="Search for wines..." />
-          <button type="submit">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          </button>
+        <div>
+          <div className="search-container">
+            <div
+              className="navbar-search"
+              style={{ display: !isLoginPage ? "block" : "none" }}
+            >
+              <form onSubmit={handleSearchSubmit}>
+                <input
+                  type="text"
+                  placeholder="Search for wines..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+                <button type="submit">
+                  <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
         <div className="navbar-icons">
           <div className="icon-container">

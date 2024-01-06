@@ -156,3 +156,17 @@ a {
   margin-left: 20px;
   margin-right: 20px;
 }
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-filters {
+  margin-left: 10px;
+}
+
+.filters-container {
+  display: flex;
+  align-items: center;
+}
