@@ -52,3 +52,8 @@ class ProfilePermission(permissions.BasePermission):
     
     def has_object_permission(self, request, view, obj):
         return request.user.is_superuser or request.user == obj
+    
+
+class ReviewPermission(permissions.BasePermission):    
+    def has_object_permission(self, request, view, obj):
+        return request.user.is_superuser or request.user.role == User.SHOP_MANAGER or request.user == obj.user 

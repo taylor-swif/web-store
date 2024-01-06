@@ -1,6 +1,7 @@
-from .serializers import MyTokenObtainPairSerializer, WineSerializer, CountrySerializer, WineColorSerializer, WineTasteSerializer, UserRegisterSerializer, UserProfileSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, OrderSerializer, UserRoleSerializer, FavoriteWineSerializer, FavoriteWinesSerializer
-from .permissions import IsManagerOrReadOnly, ProfilePermission, OrderPermission, OrderDetailsPermission, IsManager
-from base.models import Wine, Country, WineColor, WineTaste, User, Order, OrderDetails
+from typing import Any
+from .serializers import MyTokenObtainPairSerializer, WineSerializer, CountrySerializer, WineColorSerializer, WineTasteSerializer, UserRegisterSerializer, UserProfileSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, OrderSerializer, UserRoleSerializer, FavoriteWineSerializer, FavoriteWinesSerializer, ReviewSerializer
+from .permissions import IsManagerOrReadOnly, ProfilePermission, OrderPermission, OrderDetailsPermission, IsManager, ReviewPermission
+from base.models import Wine, Country, WineColor, WineTaste, User, Order, OrderDetails, Review
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -153,3 +154,15 @@ class OrderViewSet(viewsets.ModelViewSet):
         if self.action == "list":
             qs = qs.filter(user=self.request.user)
         return qs
+
+class ReviewViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = ReviewSerializer
+    permission_classes = (ReviewPermission, )
+
+    def get_queryset(self):
+        self.wine = Wine.objects.get(pk=self.kwargs['wine_id'])
+        return Review.objects.filter(wine=self.wine)
+
+    def perform_create(self, serializer):
+        self.wine = Wine.objects.get(pk=self.kwargs['wine_id'])
+        serializer.save(wine=self.wine, user=self.request.user)
