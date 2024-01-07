@@ -87,31 +87,78 @@ class OrderSerializer(serializers.ModelSerializer):
     order_details = OrderDetailsSerializer(source='orderdetails_set', many=True)
     user = ReviewUserSerializer(read_only=True)
 
+    def update_stock(self, order_details, previous_order_details=None):
+        # "Return" previous wines
+        if previous_order_details is not None:
+            for order_detail in previous_order_details:
+                wine = order_detail.wine
+                quantity = order_detail.quantity
+
+                wine.units_in_stock += quantity
+                wine.save()
+
+        # Check if there is enough for a new order
+        is_order_valid = True
+        for order_detail in order_details:
+            wine = Wine.objects.get(pk=order_detail.get("wine").pk)
+            quantity = order_detail.get("quantity")
+
+            if wine.units_in_stock < quantity:
+                is_order_valid = False
+                break
+
+        # If order is valid, remove units from stock
+        if is_order_valid:
+            for order_detail in order_details:
+                wine = Wine.objects.get(pk=order_detail.get("wine").pk)
+                quantity = order_detail.get("quantity")
+
+                wine.units_in_stock -= quantity
+                wine.save()
+        
+        # Otherwise, if there have been previous order details, update their stock back (remove them from stock)
+        else:
+            if previous_order_details is not None:
+                for order_detail in previous_order_details:
+                    wine = order_detail.wine
+                    quantity = order_detail.quantity
+
+                    wine.units_in_stock -= quantity
+                    wine.save()
+
+        return is_order_valid
+
     def create(self, validated_data):
         order_data = validated_data.copy()
         order_data.pop('orderdetails_set')
         order_data['user'] = self.context['request'].user
 
-        order = Order.objects.create(**order_data)
-        for order_detail_data in validated_data.get('orderdetails_set'):
-            order_detail_data['order'] = order
-            order_detail = OrderDetails.objects.create(**order_detail_data)
-            order_detail.save()
-        return order
+        if self.update_stock(validated_data.get('orderdetails_set')):
+            order = Order.objects.create(**order_data)
+            for order_detail_data in validated_data.get('orderdetails_set'):
+                order_detail_data['order'] = order
+                order_detail = OrderDetails.objects.create(**order_detail_data)
+                order_detail.save()
+            return order
+        else:
+            raise serializers.ValidationError({"order_details": "There are not enough units in stock."})
     
     def update(self, instance, validated_data):
         order_data = validated_data.copy()
         order_data.pop('orderdetails_set')
         order_data['user'] = self.context['request'].user
 
-        Order.objects.filter(pk=instance.pk).update(**order_data)
-        OrderDetails.objects.filter(order=instance).delete()
+        if self.update_stock(validated_data.get('orderdetails_set'), OrderDetails.objects.filter(order=instance)):
+            Order.objects.filter(pk=instance.pk).update(**order_data)
+            OrderDetails.objects.filter(order=instance).delete()
 
-        for order_detail_data in validated_data.get('orderdetails_set'):
-            order_detail_data['order'] = instance
-            order_detail = OrderDetails.objects.create(**order_detail_data)
-            order_detail.save()
-        return instance
+            for order_detail_data in validated_data.get('orderdetails_set'):
+                order_detail_data['order'] = instance
+                order_detail = OrderDetails.objects.create(**order_detail_data)
+                order_detail.save()
+            return instance
+        else:
+            raise serializers.ValidationError({"order_details": "There are not enough units in stock."})
 
     class Meta:
         model = Order
@@ -155,7 +202,7 @@ class FavoriteWinesSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     user = ReviewUserSerializer(read_only=True)
-    # user_id =  serializers.SlugRelatedField(source='user', queryset=User.objects.all(), slug_field='id', many=False, write_only=True)
+    
     class Meta:
         model = Review
         fields = ["id", "user", "created", "content", "rating"]

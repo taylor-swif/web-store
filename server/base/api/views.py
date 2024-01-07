@@ -165,6 +165,16 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = (OrderPermission, )
 
+    def perform_destroy(self, instance):
+        for order_detail in OrderDetails.objects.filter(order=instance):
+            wine = order_detail.wine
+            quantity = order_detail.quantity
+
+            wine.units_in_stock += quantity
+            wine.save()
+            order_detail.delete()
+        instance.delete()
+
     def get_queryset(self):
         qs = super().get_queryset()
         if self.action == "list" and not self.request.user.is_superuser:
