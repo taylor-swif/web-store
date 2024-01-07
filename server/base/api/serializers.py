@@ -78,8 +78,14 @@ class OrderDetailsSerializer(serializers.ModelSerializer):
         model = OrderDetails
         fields = ["wine_id", "quantity", "unit_price"]
 
+class ReviewUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username"]
+
 class OrderSerializer(serializers.ModelSerializer):
     order_details = OrderDetailsSerializer(source='orderdetails_set', many=True)
+    user = ReviewUserSerializer(read_only=True)
 
     def create(self, validated_data):
         order_data = validated_data.copy()
@@ -109,7 +115,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ["id", "date", "first_name", "last_name", "address", "city", "zip_code", "country", "phone_number", "email", "order_details"]
+        fields = ["id", "user", "date", "first_name", "last_name", "address", "city", "zip_code", "country", "phone_number", "email", "order_details"]
 
 class UserProfileSerializer(serializers.ModelSerializer):
     orders = serializers.SerializerMethodField(read_only=True)
@@ -146,11 +152,6 @@ class FavoriteWinesSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['favorite_wines']
-
-class ReviewUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ["id", "username"]
 
 class ReviewSerializer(serializers.ModelSerializer):
     user = ReviewUserSerializer(read_only=True)

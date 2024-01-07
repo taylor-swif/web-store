@@ -71,6 +71,22 @@ class UserProfileViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixin
     serializer_class = UserProfileSerializer
     permission_classes = (ProfilePermission, )
 
+    def perform_destroy(self, instance):
+        deleted_user = User.objects.get(username="deleted")
+
+        # Set all orders of this user to <deleted> user
+        for order in Order.objects.filter(user=instance):
+            order.user = deleted_user
+            order.save()
+        
+        # Set all reviews of this user to <deleted> user
+        for review in Review.objects.filter(user=instance):
+            review.user = deleted_user
+            review.save()
+        
+        # Delete the user
+        instance.delete()
+
     @action(detail=True, methods=['put'], serializer_class=ChangePasswordSerializer)
     def change_password(self, request, pk=None):
         user = self.get_object()
@@ -151,7 +167,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        if self.action == "list":
+        if self.action == "list" and not self.request.user.is_superuser:
             qs = qs.filter(user=self.request.user)
         return qs
 
