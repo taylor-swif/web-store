@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
 import Filters from "./Filters";
+import FilterSort from "./FilterSort";
 import "./styles/ProductList.css";
 
 const ProductList = ({ products }) => {
@@ -19,6 +20,11 @@ const ProductList = ({ products }) => {
   const [perPage, setPerPage] = useState(calculatePerPage());
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [currentPageData, setCurrentPageData] = useState([]);
+  const [sortingOption, setSortingOption] = useState("Price: Highest first");
+
+  const handleSortChange = (option) => {
+    setSortingOption(option);
+  };
 
   useEffect(() => {
     applyFilters();
@@ -114,12 +120,25 @@ const ProductList = ({ products }) => {
 
       if (
         filters.vintage.length > 0 &&
-        !filters.vintage.includes(product.vintage)
+        !filters.vintage.includes(product.year)
       ) {
         return false;
       }
 
       return true;
+    });
+
+    filteredData.sort((a, b) => {
+      switch (sortingOption) {
+        case "Price: Lowest first":
+          return a.price - b.price;
+        case "Price: Highest first":
+          return b.price - a.price;
+        case "Highest rated":
+          return b.rating - a.rating;
+        default:
+          return 0;
+      }
     });
 
     setCurrentPage(0);
@@ -128,7 +147,7 @@ const ProductList = ({ products }) => {
 
   useEffect(() => {
     applyFilters();
-  }, [filters, searchTerm]);
+  }, [filters, searchTerm, sortingOption]);
 
   useEffect(() => {
     setCurrentPageData(filteredProducts.slice(offset, offset + perPage));
@@ -138,7 +157,12 @@ const ProductList = ({ products }) => {
     <>
       <div className="product-list-container">
         <div className="filters-wrapper">
-          <Filters filters={filters} onFilterChange={handleFilterChange} />
+          <Filters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onSortChange={handleSortChange}
+            sortingOption={sortingOption}
+          />
         </div>
         {filteredProducts.length == 0 ? (
           <div className="product-list">

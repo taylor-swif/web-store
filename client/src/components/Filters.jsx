@@ -1,6 +1,7 @@
 import SingleFilter from "./SingleFilter";
+import FilterSort from "./FilterSort";
 
-const Filters = ({ filters, onFilterChange }) => {
+const Filters = ({ filters, onFilterChange, onSortChange, sortingOption }) => {
   const countries = [
     "Argentina",
     "Australia",
@@ -34,7 +35,13 @@ const Filters = ({ filters, onFilterChange }) => {
 
   const alcohols = ["13.0", "2"];
   const volumes = ["1", "2"];
-  const vintages = ["1", "2"];
+  const vintages = [2023, 2022, 2021];
+
+  const SortingOptions = [
+    "Price: Lowest first",
+    "Price: Highest first",
+    "Highest rated",
+  ];
 
   //Powpisywalem tu do testowania cssa te wartosci, ale docelowo imo
   //trzeba uzyc contextu winesAttributes w ktorym sa wszystkie mozliwe dane o winach
@@ -42,33 +49,42 @@ const Filters = ({ filters, onFilterChange }) => {
 
   return (
     <div className="filters-container">
-      <h1>Filters</h1>
+      <FilterSort
+        sortingOptions={SortingOptions}
+        selectedOption={sortingOption}
+        onSortChange={onSortChange}
+      />
       <SingleFilter
         filter={"country"}
+        filterName={"Countries"}
         options={countries}
         filters={filters}
         onFilterChange={onFilterChange}
       />
       <SingleFilter
         filter={"taste"}
+        filterName={"Tastes"}
         options={tastes}
         filters={filters}
         onFilterChange={onFilterChange}
       />
       <SingleFilter
         filter={"alcohol"}
+        filterName={"Alcohol"}
         options={alcohols}
         filters={filters}
         onFilterChange={onFilterChange}
       />
       <SingleFilter
         filter={"volume"}
+        filterName={"Volume"}
         options={volumes}
         filters={filters}
         onFilterChange={onFilterChange}
       />
       <SingleFilter
         filter={"vintage"}
+        filterName={"Vintage"}
         options={vintages}
         filters={filters}
         onFilterChange={onFilterChange}

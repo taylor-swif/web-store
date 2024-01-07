@@ -1,20 +1,33 @@
 .single-filter {
+  margin-bottom: 40px;
   width: 100%;
 }
 
-.single-filter input {
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
-  accent-color: red;
-}
-
 .single-filter label h2 {
+  font-size: 22px;
+  line-height: normal;
+  font-weight: 600;
   text-align: left;
-
-  color: var(--dark-brown);
 }
 
 .options {
-  padding-left: 5%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.option {
+  border: 1px solid var(--cool-red);
+  border-radius: 100px;
+  padding: 10px;
+  margin: 4px;
+  cursor: pointer;
+  font-size: 0.8em;
+  color: var(--cool-red);
+  user-select: none;
+  transition: 0.3s;
+}
+
+.option.selected {
+  background-color: var(--cool-red);
+  color: white;
 }
