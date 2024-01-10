@@ -21,12 +21,13 @@ export default function ProductProvider({ children }) {
     let data = await response.json();
 
     if (response.status === 200) {
-      // Temporary solution to match previously used format of wines
       setProducts(
         data.map((wine) => {
           return {
             name: wine.name,
             type: wine.taste.taste + "/" + wine.color.color,
+            taste: wine.taste.taste,
+            color: wine.color.color,
             country: wine.country.name,
             description: wine.description,
             id: wine.id,

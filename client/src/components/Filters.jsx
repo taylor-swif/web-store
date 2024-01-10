@@ -1,6 +1,21 @@
+import { useState, useEffect } from "react";
 import SingleFilter from "./SingleFilter";
 import FilterSort from "./FilterSort";
 import FilterRating from "./FilterRating";
+
+const fetchFilterOptions = async (url, onDataFetched) => {
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      onDataFetched(data);
+    } else {
+      console.error(`Failed to fetch data from ${url}`);
+    }
+  } catch (error) {
+    console.error(`Error while fetching data from ${url}:`, error);
+  }
+};
 
 const Filters = ({
   filters,
@@ -9,36 +24,33 @@ const Filters = ({
   sortingOption,
   onRatingChange,
 }) => {
-  const countries = [
-    "Argentina",
-    "Australia",
-    "Brazil",
-    "Chile",
-    "China",
-    "Germany",
-    "Spain",
-    "France",
-    "Italy",
-    "New Zealand",
-    "Portugal",
-    "Romania",
-    "Russia",
-    "United States",
-    "South Africa",
-    "Poland",
-    "Hungary",
-    "Austria",
-  ];
+  const [countries, setCountries] = useState([]);
 
-  const tastes = [
-    "Dry",
-    "Sweet",
-    "Oaked",
-    "Semi-sweet",
-    "Extra Dry",
-    "Semi-dry",
-    "Brut",
-  ];
+  const handleCountriesFetched = (data) => {
+    const countryNames = data.map((country) => country.name);
+    setCountries(countryNames);
+  };
+
+  useEffect(() => {
+    fetchFilterOptions(
+      "http://127.0.0.1:8000/api/countries",
+      handleCountriesFetched
+    );
+  }, []);
+
+  const [tastes, setTastes] = useState([]);
+
+  const handleTastesFetched = (data) => {
+    const tasteNames = data.map((taste) => taste.taste);
+    setTastes(tasteNames);
+  };
+
+  useEffect(() => {
+    fetchFilterOptions(
+      "http://127.0.0.1:8000/api/wine_tastes",
+      handleTastesFetched
+    );
+  }, []);
 
   const alcohols = ["13.0", "2"];
   const volumes = ["1", "2"];

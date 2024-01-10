@@ -30,6 +30,8 @@
   text-align: center;
   margin-top: 20px;
   border-radius: 15px;
+  align-content: start;
+  align-items: flex-start;
 }
 
 .pagination-container {

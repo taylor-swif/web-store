@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import ProductCard from "./ProductCard";
 import ReactPaginate from "react-paginate";
 import Filters from "./Filters";
-import FilterSort from "./FilterSort";
 import "./styles/ProductList.css";
 
 const ProductList = ({ products }) => {
@@ -22,6 +21,13 @@ const ProductList = ({ products }) => {
   const [currentPageData, setCurrentPageData] = useState([]);
   const [sortingOption, setSortingOption] = useState("Price: Highest first");
   const [selectedRating, setSelectedRating] = useState(0);
+  const [filters, setFilters] = useState({
+    country: [],
+    taste: [],
+    alcohol: [],
+    volume: [],
+    vintage: [],
+  });
 
   const handleRatingChange = (rating) => {
     setSelectedRating(rating);
@@ -33,7 +39,7 @@ const ProductList = ({ products }) => {
 
   useEffect(() => {
     applyFilters();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -63,14 +69,6 @@ const ProductList = ({ products }) => {
   }, [currentPage]);
 
   const offset = currentPage * perPage;
-
-  const [filters, setFilters] = useState({
-    country: [],
-    taste: [],
-    alcohol: [],
-    volume: [],
-    vintage: [],
-  });
 
   const handleFilterChange = (filter, option) => {
     setFilters((prevFilters) => {
