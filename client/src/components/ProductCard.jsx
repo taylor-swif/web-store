@@ -3,28 +3,7 @@ import { Link } from "react-router-dom";
 import "./styles/ProductCard.css";
 import ItemBuyMenu from "./ItemBuyMenu";
 import FavIcon from "./FavIcon";
-
-const renderStars = (rating) => {
-  const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 !== 0;
-
-  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-  return (
-    <>
-      {Array.from({ length: fullStars }).map((_, index) => (
-        <span key={`full-${index}`} className="star full">
-          ★
-        </span>
-      ))}
-      {halfStar && <span className="star half">★</span>}
-      {Array.from({ length: emptyStars }).map((_, index) => (
-        <span key={`empty-${index}`} className="star empty">
-          ★
-        </span>
-      ))}
-    </>
-  );
-};
+import RenderStars from "./StarRender";
 
 const ProductCard = ({ product }) => {
   const [isBuyMenuVisible, setIsBuyMenuVisible] = useState(false);
@@ -56,7 +35,7 @@ const ProductCard = ({ product }) => {
           <strong>Out of stock</strong>
         </p>
       )}
-      <div className="rating">{renderStars(product.rating)}</div>
+      <RenderStars rating={product.rating} />
       {isBuyMenuVisible && (
         <ItemBuyMenu
           product={product}

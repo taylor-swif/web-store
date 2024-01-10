@@ -22,7 +22,7 @@ const SingleFilter = ({
               }`}
               onClick={() => onFilterChange(filter, option)}
             >
-              {option}
+              <strong>{option}</strong>
             </div>
           ))}
         </div>

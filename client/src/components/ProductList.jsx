@@ -21,6 +21,11 @@ const ProductList = ({ products }) => {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [currentPageData, setCurrentPageData] = useState([]);
   const [sortingOption, setSortingOption] = useState("Price: Highest first");
+  const [selectedRating, setSelectedRating] = useState(0);
+
+  const handleRatingChange = (rating) => {
+    setSelectedRating(rating);
+  };
 
   const handleSortChange = (option) => {
     setSortingOption(option);
@@ -128,6 +133,10 @@ const ProductList = ({ products }) => {
       return true;
     });
 
+    filteredData = filteredData.filter(
+      (product) => product.rating >= selectedRating
+    );
+
     filteredData.sort((a, b) => {
       switch (sortingOption) {
         case "Price: Lowest first":
@@ -147,7 +156,7 @@ const ProductList = ({ products }) => {
 
   useEffect(() => {
     applyFilters();
-  }, [filters, searchTerm, sortingOption]);
+  }, [filters, searchTerm, sortingOption, selectedRating]);
 
   useEffect(() => {
     setCurrentPageData(filteredProducts.slice(offset, offset + perPage));
@@ -162,6 +171,7 @@ const ProductList = ({ products }) => {
             onFilterChange={handleFilterChange}
             onSortChange={handleSortChange}
             sortingOption={sortingOption}
+            onRatingChange={handleRatingChange}
           />
         </div>
         {filteredProducts.length == 0 ? (

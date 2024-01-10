@@ -1,7 +1,14 @@
 import SingleFilter from "./SingleFilter";
 import FilterSort from "./FilterSort";
+import FilterRating from "./FilterRating";
 
-const Filters = ({ filters, onFilterChange, onSortChange, sortingOption }) => {
+const Filters = ({
+  filters,
+  onFilterChange,
+  onSortChange,
+  sortingOption,
+  onRatingChange,
+}) => {
   const countries = [
     "Argentina",
     "Australia",
@@ -54,6 +61,7 @@ const Filters = ({ filters, onFilterChange, onSortChange, sortingOption }) => {
         selectedOption={sortingOption}
         onSortChange={onSortChange}
       />
+      <FilterRating onRatingChange={onRatingChange} />
       <SingleFilter
         filter={"country"}
         filterName={"Countries"}
