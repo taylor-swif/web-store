@@ -46,12 +46,67 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  let logoutUser = (e) => {
-    // e.preventDefault()
+  let logoutUser = () => {
     localStorage.removeItem("authTokens");
     setAuthTokens(null);
     setUser(null);
     navigate("/");
+  };
+
+  let registerUser = async (e) => {
+    e.preventDefault();
+    const password = e.target.password.value;
+    const confirmPassword = e.target.confirmPassword.value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const response = await fetch("http://127.0.0.1:8000/api/register/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: e.target.username.value,
+        password: e.target.password.value,
+        email: e.target.email.value,
+      }),
+    });
+
+    let data = await response.json();
+
+    if (response.ok) {
+      // Additional request to obtain the access token
+      const loginResponse = await fetch("http://127.0.0.1:8000/api/token/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: e.target.username.value,
+          password: e.target.password.value,
+        }),
+      });
+
+      const loginData = await loginResponse.json();
+
+      if (loginResponse.ok && loginData && loginData.access) {
+        localStorage.setItem("authTokens", JSON.stringify(loginData));
+        setAuthTokens(loginData);
+        setUser(jwtDecode(loginData.access));
+        navigate("/");
+      } else {
+        console.error("Error logging in after registration:", loginData);
+        alert(
+          "Something went wrong while logging in the user after registration!"
+        );
+      }
+    } else {
+      console.error("Error registering the user:", data);
+      alert("Something went wrong while registering the user!");
+    }
   };
 
   const updateToken = async () => {
@@ -82,6 +137,7 @@ export const AuthProvider = ({ children }) => {
     authTokens: authTokens,
     loginUser: loginUser,
     logoutUser: logoutUser,
+    registerUser: registerUser,
   };
 
   useEffect(() => {

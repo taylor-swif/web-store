@@ -2,7 +2,12 @@ import { useContext, useState } from "react";
 import "./styles/LoginForm.css";
 import AuthContext from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faLock,
+  faTimes,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./styles/LoginForm.css";
 
@@ -22,7 +27,7 @@ const LoginForm = () => {
 
   return (
     <div className="login-container">
-      <div className="wrapper">
+      <div className={isRegistering ? "wrapper register-wrapper" : "wrapper"}>
         <span className="icon-close" onClick={handleCloseIconClick}>
           <FontAwesomeIcon icon={faTimes} />
         </span>
@@ -39,6 +44,15 @@ const LoginForm = () => {
               <input type="text" name="username" required />
               <label>Username</label>
             </div>
+            {isRegistering && (
+              <div className="input-box">
+                <span className="icon">
+                  <FontAwesomeIcon icon={faEnvelope} className="login-icon" />
+                </span>
+                <input type="email" name="email" required />
+                <label>Email</label>
+              </div>
+            )}
             <div className="input-box">
               <span className="icon">
                 <FontAwesomeIcon icon={faLock} className="login-icon" />

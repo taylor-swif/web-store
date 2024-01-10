@@ -1,12 +1,13 @@
 .product-list-container {
   display: grid;
-  grid-template-columns: 1fr 6fr;
+  grid-template-columns: 2fr 8fr;
   gap: 20px;
+  background-color: #fafafa;
 }
 
 .filters-wrapper {
   margin-top: 40px;
-  margin-left: 20px;
+  margin-left: 40px;
   grid-column: 1;
   grid-row: 1;
   border-radius: 15px;
@@ -18,7 +19,6 @@
   padding: 10px;
   background-color: #fafafa;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
   border-radius: 8px;
 }
 
@@ -30,6 +30,8 @@
   text-align: center;
   margin-top: 20px;
   border-radius: 15px;
+  align-content: start;
+  align-items: flex-start;
 }
 
 .pagination-container {

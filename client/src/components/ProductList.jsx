@@ -19,10 +19,27 @@ const ProductList = ({ products }) => {
   const [perPage, setPerPage] = useState(calculatePerPage());
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [currentPageData, setCurrentPageData] = useState([]);
+  const [sortingOption, setSortingOption] = useState("Price: Highest first");
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [filters, setFilters] = useState({
+    country: [],
+    taste: [],
+    alcohol: [],
+    volume: [],
+    vintage: [],
+  });
+
+  const handleRatingChange = (rating) => {
+    setSelectedRating(rating);
+  };
+
+  const handleSortChange = (option) => {
+    setSortingOption(option);
+  };
 
   useEffect(() => {
     applyFilters();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,14 +69,6 @@ const ProductList = ({ products }) => {
   }, [currentPage]);
 
   const offset = currentPage * perPage;
-
-  const [filters, setFilters] = useState({
-    country: [],
-    taste: [],
-    alcohol: [],
-    volume: [],
-    vintage: [],
-  });
 
   const handleFilterChange = (filter, option) => {
     setFilters((prevFilters) => {
@@ -114,12 +123,29 @@ const ProductList = ({ products }) => {
 
       if (
         filters.vintage.length > 0 &&
-        !filters.vintage.includes(product.vintage)
+        !filters.vintage.includes(product.year)
       ) {
         return false;
       }
 
       return true;
+    });
+
+    filteredData = filteredData.filter(
+      (product) => product.rating >= selectedRating
+    );
+
+    filteredData.sort((a, b) => {
+      switch (sortingOption) {
+        case "Price: Lowest first":
+          return a.price - b.price;
+        case "Price: Highest first":
+          return b.price - a.price;
+        case "Highest rated":
+          return b.rating - a.rating;
+        default:
+          return 0;
+      }
     });
 
     setCurrentPage(0);
@@ -128,7 +154,7 @@ const ProductList = ({ products }) => {
 
   useEffect(() => {
     applyFilters();
-  }, [filters, searchTerm]);
+  }, [filters, searchTerm, sortingOption, selectedRating]);
 
   useEffect(() => {
     setCurrentPageData(filteredProducts.slice(offset, offset + perPage));
@@ -138,7 +164,13 @@ const ProductList = ({ products }) => {
     <>
       <div className="product-list-container">
         <div className="filters-wrapper">
-          <Filters filters={filters} onFilterChange={handleFilterChange} />
+          <Filters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onSortChange={handleSortChange}
+            sortingOption={sortingOption}
+            onRatingChange={handleRatingChange}
+          />
         </div>
         {filteredProducts.length == 0 ? (
           <div className="product-list">
