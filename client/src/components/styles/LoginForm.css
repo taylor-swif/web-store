@@ -85,6 +85,10 @@
   top: -5px;
 }
 
+.input-box input:-webkit-autofill {
+  -webkit-transition-delay: 9999s;
+}
+
 .input-box input {
   width: 100%;
   height: 100%;
