@@ -51,7 +51,7 @@ class ProfilePermission(permissions.BasePermission):
         return request.user.is_authenticated
     
     def has_object_permission(self, request, view, obj):
-        return request.user.is_superuser or request.user == obj
+        return obj != User.objects.get(username="deleted") and (request.user.is_superuser or request.user == obj)
     
 
 class ReviewPermission(permissions.BasePermission):    
