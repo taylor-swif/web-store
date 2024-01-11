@@ -1,8 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 import "./PaymentModal.css";
+import AuthContext from "../../context/AuthContext";
 
 const PaymentModal = ({ onClose, onPaymentSuccess }) => {
+  const { authTokens, logoutUser } = useContext(AuthContext);
+  let [profile, setProfile] = useState([]);
+
+  useEffect(() => {
+    getProfile();
+  }, []);
   const cartItems = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,12 +38,13 @@ const PaymentModal = ({ onClose, onPaymentSuccess }) => {
 
   const handlePayment = async () => {
     setLoading(true);
-
+    console.log(JSON.stringify(formData));
     try {
       const response = await fetch("http://127.0.0.1:8000/api/orders/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
         },
         body: JSON.stringify(formData),
       });
@@ -50,6 +58,23 @@ const PaymentModal = ({ onClose, onPaymentSuccess }) => {
       console.error("An error occurred while processing payment:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const getProfile = async () => {
+    let response = await fetch("http://127.0.0.1:8000/api/profile", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + String(authTokens.access),
+      },
+    });
+    let data = await response.json();
+    console.log(data);
+    if (response.status === 200) {
+      setProfile(data);
+    } else if (response.statusText === "Unauthorized") {
+      logoutUser();
     }
   };
 
