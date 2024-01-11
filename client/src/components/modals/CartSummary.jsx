@@ -1,15 +1,13 @@
-import { useState, useContext } from "react";
-import { CartContext, CartDispatchContext } from "../../context/CartContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
 import AuthContext from "../../context/AuthContext";
-import PaymentModal from "./PaymentModal";
 import "./CartModal.css";
 
-const CartSummary = () => {
+const CartSummary = ({ onClose }) => {
   const cartItems = useContext(CartContext);
-  const dispatch = useContext(CartDispatchContext);
   const user = useContext(AuthContext);
-
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const navigate = useNavigate();
 
   const calculateTotalPrice = (cartItems) => {
     const totalPrice = cartItems.reduce((total, item) => {
@@ -22,46 +20,26 @@ const CartSummary = () => {
   };
 
   const handlePayment = () => {
-    setShowPaymentModal(true);
+    onClose();
+    navigate("/payment");
   };
 
   const handleNotLoggedUser = () => {
     alert("User must be logged in");
   };
 
-  const handleClosePaymentModal = () => {
-    setShowPaymentModal(false);
-  };
-
-  const handlePaymentSuccess = () => {
-    setShowPaymentModal(false);
-    dispatch({
-      type: "cleared",
-    });
-  };
-
+  console.log(user);
   return (
     <div className="cart-summary">
       <p>Total Price: {calculateTotalPrice(cartItems)}</p>
       <button
         className="go-to-payment-button"
-        onClick={
-          user.username === undefined ? handlePayment : handleNotLoggedUser
-        }
+        onClick={user.user !== null ? handlePayment : handleNotLoggedUser}
       >
         Go to Payment
       </button>
-
-      {showPaymentModal && (
-        <PaymentModal
-          onClose={handleClosePaymentModal}
-          onPaymentSuccess={handlePaymentSuccess}
-        />
-      )}
     </div>
   );
 };
-
-//TODO: trzeba dodać opcje clearowania koszyka i update'owania bazy
 
 export default CartSummary;
