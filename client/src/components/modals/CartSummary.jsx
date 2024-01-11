@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext, CartDispatchContext } from "../../context/CartContext";
 import AuthContext from "../../context/AuthContext";
 import PaymentModal from "./PaymentModal";
 import "./CartModal.css";
 
 const CartSummary = () => {
   const cartItems = useContext(CartContext);
+  const dispatch = useContext(CartDispatchContext);
   const user = useContext(AuthContext);
-  console.log(user);
 
   const [showPaymentModal, setShowPaymentModal] = useState(false);
 
@@ -33,6 +33,13 @@ const CartSummary = () => {
     setShowPaymentModal(false);
   };
 
+  const handlePaymentSuccess = () => {
+    setShowPaymentModal(false);
+    dispatch({
+      type: "cleared",
+    });
+  };
+
   return (
     <div className="cart-summary">
       <p>Total Price: {calculateTotalPrice(cartItems)}</p>
@@ -48,7 +55,7 @@ const CartSummary = () => {
       {showPaymentModal && (
         <PaymentModal
           onClose={handleClosePaymentModal}
-          onPaymentSuccess={handleClosePaymentModal}
+          onPaymentSuccess={handlePaymentSuccess}
         />
       )}
     </div>

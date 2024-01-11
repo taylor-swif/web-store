@@ -14,9 +14,14 @@
   background-color: #fff;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 15px;
   text-align: center;
   width: 300px;
+}
+
+.payment-h2 {
+  color: var(--light-red);
+  font-size: 1.6em;
 }
 
 .payment-button {
@@ -27,6 +32,7 @@
   border-radius: 4px;
   cursor: pointer;
   margin-top: 15px;
+  margin-right: 10px;
   transition: background-color 0.3s;
 }
 
@@ -36,7 +42,7 @@
 
 .close-button {
   margin-top: 10px;
-  padding: 8px 15px;
+  padding: 10px 20px;
   background-color: #ccc;
   border: none;
   border-radius: 4px;
@@ -46,4 +52,11 @@
 
 .close-button:hover {
   background-color: #999;
+}
+
+.payment-input {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  width: 80%;
 }
