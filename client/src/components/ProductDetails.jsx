@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./styles/ProductDetails.css";
+import ReviewWriter from "./productReviews/ReviewWriter";
+import ProductReviews from "./productReviews/ProductReviews";
 
 const ProductDetails = ({ product }) => {
   const [activeSection, setActiveSection] = useState("description");
@@ -58,15 +60,9 @@ const ProductDetails = ({ product }) => {
       )}
       {activeSection === "reviews" && (
         <div className="reviews">
-          {/* Existing reviews */}
+          <ProductReviews product={product} />
           <div className="review-form">
-            <textarea
-              value={review}
-              onChange={handleReviewChange}
-              placeholder="Write your review here..."
-              rows="4"
-            ></textarea>
-            <button onClick={submitReview}>Submit Review</button>
+            <ReviewWriter />
           </div>
         </div>
       )}
@@ -77,7 +73,6 @@ const ProductDetails = ({ product }) => {
             1. Delivery to the "Nova Poshta" office, free from 420 ZŁ. (for
             orders up to 420 ZŁ, the cost of delivery and packaging is 25 Zł).
           </p>
-          {/* Add more delivery information here */}
         </div>
       )}
     </div>
