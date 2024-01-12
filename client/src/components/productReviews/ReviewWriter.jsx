@@ -5,28 +5,26 @@ const ReviewWriter = ({ product }) => {
   const [review, setReview] = useState("");
   const { authTokens, logoutUser } = useContext(AuthContext);
   let [profile, setProfile] = useState([]);
-  const [formData, setFormData] = useState({});
 
   const handleReviewChange = (event) => {
     setReview(event.target.value);
   };
 
-  const submitReview = () => {
-    setFormData(() => ({
+  const submitReview = async () => {
+    let formData = {
       content: review,
       rating: 5,
-    }));
-    console.log(formData);
+    };
     setReview("");
-    handleReview();
+    handleReview(formData);
   };
 
   useEffect(() => {
     getProfile();
   }, []);
 
-  const handleReview = async () => {
-    console.log(JSON.stringify(formData));
+  const handleReview = async (formData) => {
+    // console.log(JSON.stringify(formData));
     try {
       const response = await fetch(
         "http://127.0.0.1:8000/api/wines/1/reviews/",
