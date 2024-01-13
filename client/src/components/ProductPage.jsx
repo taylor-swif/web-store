@@ -6,10 +6,12 @@ import QuantityPicker from "./QuantityPicker";
 import { CartDispatchContext } from "../context/CartContext";
 import { ProductContext } from "../context/ProductContext";
 import FavIcon from "./FavIcon";
+import AuthContext from "../context/AuthContext";
 
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
+  const { user } = useContext(AuthContext);
 
   const products = useContext(ProductContext);
   const product = products[id];
@@ -61,9 +63,11 @@ const ProductPage = () => {
               </button>
             </>
           )}
-          <div style={{ margin: "10px", fontSize: "40px" }}>
-            <FavIcon id={product.id} style={{ margin: "20px" }} />
-          </div>
+          {user && (
+            <div style={{ margin: "10px", fontSize: "40px" }}>
+              <FavIcon id={product.id} style={{ margin: "20px" }} />
+            </div>
+          )}
         </div>
       </div>
 
