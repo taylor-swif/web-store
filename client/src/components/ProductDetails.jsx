@@ -1,21 +1,10 @@
 import React, { useState } from "react";
 import "./styles/ProductDetails.css";
 import ReviewWriter from "./productReviews/ReviewWriter";
-import ProductReviews from "./productReviews/ProductReviews";
+import ReviewList from "./productReviews/ReviewList.jsx";
 
 const ProductDetails = ({ product }) => {
   const [activeSection, setActiveSection] = useState("description");
-  const [review, setReview] = useState("");
-
-  const handleReviewChange = (event) => {
-    setReview(event.target.value);
-  };
-
-  const submitReview = () => {
-    // Logic to handle review submission
-    console.log(review);
-    setReview(""); // Clear the review input after submission
-  };
 
   return (
     <div className="product-details">
@@ -27,16 +16,22 @@ const ProductDetails = ({ product }) => {
           Description
         </button>
         <button
+          className={activeSection === "delivery" ? "tab active" : "tab"}
+          onClick={() => setActiveSection("delivery")}
+        >
+          Delivery
+        </button>
+        <button
           className={activeSection === "reviews" ? "tab active" : "tab"}
           onClick={() => setActiveSection("reviews")}
         >
           Reviews
         </button>
         <button
-          className={activeSection === "delivery" ? "tab active" : "tab"}
-          onClick={() => setActiveSection("delivery")}
+          className={activeSection === "writeReview" ? "tab active" : "tab"}
+          onClick={() => setActiveSection("writeReview")}
         >
-          Delivery
+          Write a review
         </button>
       </div>
       {activeSection === "description" && (
@@ -59,11 +54,13 @@ const ProductDetails = ({ product }) => {
         </div>
       )}
       {activeSection === "reviews" && (
-        <div className="reviews">
-          <ProductReviews product={product} />
-          <div className="review-form">
-            <ReviewWriter />
-          </div>
+        <div>
+          <ReviewList product={product} />
+        </div>
+      )}
+      {activeSection === "writeReview" && (
+        <div>
+          <ReviewWriter product={product} />
         </div>
       )}
       {activeSection === "delivery" && (

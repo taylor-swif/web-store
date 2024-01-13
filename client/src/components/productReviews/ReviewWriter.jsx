@@ -1,10 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+import "./ReviewWriter.css";
+import InteractiveStars from "./InteractiveStars";
 
 const ReviewWriter = ({ product }) => {
   const [review, setReview] = useState("");
-  const { authTokens, logoutUser } = useContext(AuthContext);
-  let [profile, setProfile] = useState([]);
+  const { user, authTokens } = useContext(AuthContext);
+  const [rating, setRating] = useState(0);
+
+  const handleRatingChange = (newRating) => {
+    setRating(newRating);
+  };
 
   const handleReviewChange = (event) => {
     setReview(event.target.value);
@@ -13,21 +19,16 @@ const ReviewWriter = ({ product }) => {
   const submitReview = async () => {
     let formData = {
       content: review,
-      rating: 5,
+      rating: rating,
     };
     setReview("");
     handleReview(formData);
   };
 
-  useEffect(() => {
-    getProfile();
-  }, []);
-
   const handleReview = async (formData) => {
-    // console.log(JSON.stringify(formData));
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/wines/1/reviews/",
+        `http://127.0.0.1:8000/api/wines/${product.id}/reviews/`,
         {
           method: "POST",
           headers: {
@@ -39,7 +40,6 @@ const ReviewWriter = ({ product }) => {
       );
 
       if (response.ok) {
-        console.log("Review written successfully!");
       } else {
         console.error("Failed to write review:", response.statusText);
       }
@@ -48,34 +48,27 @@ const ReviewWriter = ({ product }) => {
     }
   };
 
-  const getProfile = async () => {
-    let response = await fetch("http://127.0.0.1:8000/api/profile", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + String(authTokens.access),
-      },
-    });
-    let data = await response.json();
-    console.log(data);
-    if (response.status === 200) {
-      setProfile(data);
-      console.log(profile);
-    } else if (response.statusText === "Unauthorized") {
-      logoutUser();
-    }
-  };
   return (
     <>
-      <div className="review-form">
-        <textarea
-          value={review}
-          onChange={handleReviewChange}
-          placeholder="Write your review here..."
-          rows="4"
-        ></textarea>
-        <button onClick={submitReview}>Submit Review</button>
-      </div>
+      {user ? (
+        <div className="review-form">
+          <textarea
+            value={review}
+            onChange={handleReviewChange}
+            placeholder="Write your review here..."
+            rows="4"
+          ></textarea>
+          <div>
+            <InteractiveStars
+              initialRating={0}
+              onRatingChange={handleRatingChange}
+            />
+            <button onClick={submitReview}>Submit Review</button>
+          </div>
+        </div>
+      ) : (
+        <h3>Log in to write a review</h3>
+      )}
     </>
   );
 };
