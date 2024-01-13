@@ -1,6 +1,6 @@
 from django.urls import path
 from django.conf.urls import include
-from .views import MyTokenObtainPairView, WineViewSet, CountryViewSet, WineTasteViewSet, WineColorViewSet, UserRegisterViewSet, UserProfileViewSet, OrderViewSet, ReviewViewSet
+from .views import MyTokenObtainPairView, WineViewSet, CountryViewSet, WineTasteViewSet, WineColorViewSet, UserRegisterViewSet, UserProfileViewSet, OrderViewSet, ReviewViewSet, AlcoholValuesView, VolumeValuesView, YearValuesView
 from rest_framework_simplejwt.views import TokenRefreshView
 from rest_framework.routers import DefaultRouter
 
@@ -22,4 +22,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('', include(router.urls)),
     path('wines/<int:wine_id>/', include(winerouter.urls)),
+    path('wine_alcohol_values', AlcoholValuesView.as_view()),
+    path('wine_volume_values', VolumeValuesView.as_view()),
+    path('wine_year_values', YearValuesView.as_view())
 ]
