@@ -6,12 +6,18 @@ const SingleFilter = ({
   options,
   filters,
   onFilterChange,
+  optionalValue,
 }) => {
   return (
     <>
       <div className="single-filter">
         <label>
-          <h2>{filterName}</h2>
+          <div className="filter-header">
+            <h2>{filterName}</h2>
+            {optionalValue && (
+              <p className="optionalValueText">{optionalValue}</p>
+            )}
+          </div>
         </label>
         <div className="options">
           {options.map((option, index) => (
