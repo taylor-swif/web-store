@@ -16,7 +16,7 @@ const CartList = () => {
             <img src={item.image} alt={item.name} className="cart-item-image" />
             <div className="cart-item-details">
               <p className="cart-item-name">{item.name}</p>
-              <p>
+              <>
                 <QuantityPicker
                   quantity={item.quantity}
                   maxQuantity={item.maxQuantity}
@@ -29,7 +29,7 @@ const CartList = () => {
                   }}
                 />{" "}
                 of <strong>{item.maxQuantity}</strong>
-              </p>
+              </>
               <p>Price: {item.price} ZŁ</p>
               <div
                 className="trash-icon"

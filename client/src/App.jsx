@@ -20,6 +20,7 @@ import { FavContext } from "./context/FavContext";
 import { AuthProvider } from "./context/AuthContext";
 import AboutUsPage from "./pages/AboutUsPage";
 import ScrollToTop from "./utils/ScrollToTop";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   const products = useContext(ProductContext);
@@ -39,6 +40,15 @@ function App() {
                   element={
                     <>
                       <HomePage />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/payment"
+                  element={
+                    <>
+                      <PaymentPage />
                     </>
                   }
                 />
@@ -80,6 +90,7 @@ function App() {
                 />
 
                 <Route path="/login" element={<LoginPage />} />
+
                 <Route
                   path="/product/:id"
                   element={

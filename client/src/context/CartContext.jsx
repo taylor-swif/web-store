@@ -42,6 +42,9 @@ function cartReducer(cart, action) {
     case "deleted": {
       return cart.filter((item) => item.id !== action.id);
     }
+    case "cleared": {
+      return [];
+    }
     default: {
       throw Error("Unknown action: " + action.type);
     }
