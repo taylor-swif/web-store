@@ -64,7 +64,7 @@ const ProductPage = () => {
             </>
           )}
           {user && (
-            <div style={{ margin: "10px", fontSize: "40px" }}>
+            <div className="div-for-favicon">
               <FavIcon id={product.id} style={{ margin: "20px" }} />
             </div>
           )}

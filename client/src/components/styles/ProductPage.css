@@ -54,3 +54,9 @@
 .purchase-button:active {
   transform: scale(0.9);
 }
+
+.div-for-favicon {
+  margin: 10px;
+  font-size: 40px;
+  width: 0;
+}

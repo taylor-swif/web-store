@@ -25,6 +25,10 @@ const Filters = ({
   onRatingChange,
 }) => {
   const [countries, setCountries] = useState([]);
+  const [tastes, setTastes] = useState([]);
+  const [alcohols, setAlcohols] = useState([]);
+  const [volumes, setVolumes] = useState([]);
+  const [vintages, setVintages] = useState([]);
 
   const handleCountriesFetched = (data) => {
     const countryNames = data.map((country) => country.name);
@@ -38,8 +42,6 @@ const Filters = ({
     );
   }, []);
 
-  const [tastes, setTastes] = useState([]);
-
   const handleTastesFetched = (data) => {
     const tasteNames = data.map((taste) => taste.taste);
     setTastes(tasteNames);
@@ -52,19 +54,47 @@ const Filters = ({
     );
   }, []);
 
-  const alcohols = ["13.0", "2"];
-  const volumes = ["1", "2"];
-  const vintages = [2023, 2022, 2021];
+  const handleAlcoholsFetched = (data) => {
+    data.sort((a, b) => a - b);
+    setAlcohols(data);
+  };
+
+  useEffect(() => {
+    fetchFilterOptions(
+      "http://127.0.0.1:8000/api/wine_alcohol_values",
+      handleAlcoholsFetched
+    );
+  }, []);
+
+  const handleVolumesFetched = (data) => {
+    data.sort((a, b) => a - b);
+    setVolumes(data);
+  };
+
+  useEffect(() => {
+    fetchFilterOptions(
+      "http://127.0.0.1:8000/api/wine_volume_values",
+      handleVolumesFetched
+    );
+  }, []);
+
+  const handleVintagesFetched = (data) => {
+    data.sort((a, b) => a - b);
+    setVintages(data);
+  };
+
+  useEffect(() => {
+    fetchFilterOptions(
+      "http://127.0.0.1:8000/api/wine_year_values",
+      handleVintagesFetched
+    );
+  }, []);
 
   const SortingOptions = [
     "Price: Lowest first",
     "Price: Highest first",
     "Highest rated",
   ];
-
-  //Powpisywalem tu do testowania cssa te wartosci, ale docelowo imo
-  //trzeba uzyc contextu winesAttributes w ktorym sa wszystkie mozliwe dane o winach
-  //taka tablica setów i tu z contextu pouzupelniac te filtry
 
   return (
     <div className="filters-container">
@@ -94,6 +124,7 @@ const Filters = ({
         options={alcohols}
         filters={filters}
         onFilterChange={onFilterChange}
+        optionalValue={"%"}
       />
       <SingleFilter
         filter={"volume"}
@@ -101,6 +132,7 @@ const Filters = ({
         options={volumes}
         filters={filters}
         onFilterChange={onFilterChange}
+        optionalValue={"ml"}
       />
       <SingleFilter
         filter={"vintage"}

@@ -3,6 +3,11 @@
   width: 100%;
 }
 
+.filter-header {
+  display: flex;
+  align-items: center;
+}
+
 .single-filter label h2 {
   font-size: 22px;
   line-height: normal;
@@ -34,4 +39,11 @@
 
 .rating-label {
   display: flex;
+}
+
+.optionalValueText {
+  margin-left: 10px;
+  font-style: italic;
+  color: gray;
+  font-size: 1.2em;
 }

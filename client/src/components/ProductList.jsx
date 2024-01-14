@@ -66,7 +66,7 @@ const ProductList = ({ products }) => {
     };
 
     scrollToTop();
-  }, [currentPage]);
+  }, [currentPage, searchParams]);
 
   const offset = currentPage * perPage;
 
@@ -109,7 +109,7 @@ const ProductList = ({ products }) => {
 
       if (
         filters.alcohol.length > 0 &&
-        !filters.alcohol.includes(product.alcohol)
+        !filters.alcohol.includes(parseFloat(product.alcohol))
       ) {
         return false;
       }
