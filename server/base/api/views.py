@@ -9,6 +9,7 @@ from rest_framework import viewsets, permissions, mixins, generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action
+from rest_framework.views import APIView
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -192,3 +193,24 @@ class ReviewViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.Des
     def perform_create(self, serializer):
         self.wine = Wine.objects.get(pk=self.kwargs['wine_id'])
         serializer.save(wine=self.wine, user=self.request.user)
+
+class AlcoholValuesView(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request, format=None):
+        alcohol_values = set([wine.alcohol for wine in Wine.objects.all()])
+        return Response(alcohol_values)
+    
+class VolumeValuesView(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request, format=None):
+        volume_values = set([wine.volume for wine in Wine.objects.all()])
+        return Response(volume_values)
+
+class YearValuesView(APIView):
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request, format=None):
+        year_values = set([wine.year for wine in Wine.objects.all()])
+        return Response(year_values)

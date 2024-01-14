@@ -22,6 +22,8 @@ import { AuthProvider } from "./context/AuthContext";
 import AboutUsPage from "./pages/AboutUsPage";
 import ScrollToTop from "./utils/ScrollToTop";
 import FavouritesPage from "./pages/FavouritesPage";
+import PaymentPage from "./pages/PaymentPage";
+
 
 function App() {
   const { products } = useContext(ProductContext);
@@ -53,6 +55,23 @@ function App() {
                         </>
                       }
                     />
+                <Route
+                  path="/payment"
+                  element={
+                    <>
+                      <PaymentPage />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/store"
+                  element={
+                    <>
+                      <ProductList products={products} />
+                    </>
+                  }
+                />
 
                     <Route
                       path="/user-profile"
@@ -81,15 +100,16 @@ function App() {
                       }
                     />
 
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route
-                      path="/product/:id"
-                      element={
-                        <>
-                          <ProductPage />
-                        </>
-                      }
-                    />
+                <Route path="/login" element={<LoginPage />} />
+
+                <Route
+                  path="/product/:id"
+                  element={
+                    <>
+                      <ProductPage />
+                    </>
+                  }
+                />
 
                     <Route
                       path="/mustbeloggedin"

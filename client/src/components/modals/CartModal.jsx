@@ -25,7 +25,7 @@ const CartModal = ({ isOpen, onClose }) => {
       ) : (
         <>
           <CartList />
-          <CartSummary />
+          <CartSummary onClose={onClose} />
         </>
       )}
     </Modal>
