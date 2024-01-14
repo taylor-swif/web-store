@@ -66,7 +66,7 @@ const ProductList = ({ products }) => {
     };
 
     scrollToTop();
-  }, [currentPage]);
+  }, [currentPage, searchParams]);
 
   const offset = currentPage * perPage;
 
