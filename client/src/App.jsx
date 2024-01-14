@@ -24,7 +24,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import FavouritesPage from "./pages/FavouritesPage";
 
 function App() {
-  const products = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
 
   return (
     <div className="app">
@@ -101,7 +101,7 @@ function App() {
                     />
 
                     <Route
-                      path="/mustbemanager"
+                      path="/managerpanel"
                       element={
                         <PrivateRoute roleNeeded={1}>
                           <ManagerPage />

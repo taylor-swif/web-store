@@ -2,10 +2,12 @@ import React, { useState, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import "./ReviewWriter.css";
 import InteractiveStars from "./InteractiveStars";
+import { ProductContext } from "../../context/ProductContext";
 
 const ReviewWriter = ({ product }) => {
   const [review, setReview] = useState("");
   const { user, authTokens } = useContext(AuthContext);
+  const { updateProduct } = useContext(ProductContext);
   const [rating, setRating] = useState(0);
 
   const handleRatingChange = (newRating) => {
@@ -40,6 +42,7 @@ const ReviewWriter = ({ product }) => {
       );
 
       if (response.ok) {
+        updateProduct(product.id);
       } else {
         console.error("Failed to write review:", response.statusText);
       }

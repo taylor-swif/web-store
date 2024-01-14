@@ -13,7 +13,7 @@ const ProductPage = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
 
-  const products = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
   const product = products[id];
 
   const dispatch = useContext(CartDispatchContext);

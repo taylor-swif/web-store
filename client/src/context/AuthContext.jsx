@@ -125,7 +125,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
     } else {
       logoutUser();
-      clearFav();
     }
 
     if (loading) {
