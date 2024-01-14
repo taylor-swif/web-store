@@ -178,7 +178,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        if self.action == "list" and not self.request.user.is_superuser:
+        if self.action == "list":
             qs = qs.filter(user=self.request.user)
         return qs
 
