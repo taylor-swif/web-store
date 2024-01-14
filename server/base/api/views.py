@@ -149,7 +149,7 @@ class UserProfileViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixin
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-    @action(detail=True, methods=['get'], serializer_class=FavoriteWinesSerializer, permission_classes=[IsAuthenticated,])
+    @action(detail=False, methods=['get'], serializer_class=FavoriteWinesSerializer, permission_classes=[IsAuthenticated,])
     def favorites(self, request, pk=None):
         user = request.user
         serializer = FavoriteWinesSerializer(User.objects.filter(pk=user.pk), many=True)

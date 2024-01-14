@@ -35,7 +35,7 @@ const HomePage = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
 
-  const products = useContext(ProductContext);
+  const { products } = useContext(ProductContext);
 
   return (
     <div className="app-layout">

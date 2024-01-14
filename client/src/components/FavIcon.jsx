@@ -2,18 +2,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./styles/FavIcon.css";
 import { FavContext } from "../context/FavContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const FavIcon = ({ id }) => {
-  const fav = useContext(FavContext);
-  const [isFav, setIsFav] = useState(fav.includes(id));
+  const { favIds, removeFav, addFav } = useContext(FavContext);
+  const [isFav, setIsFav] = useState(favIds.includes(id));
+
+  useEffect(() => {
+    setIsFav(favIds.includes(id));
+  });
 
   function changeState() {
-    // docelowo tutaj będzie request do API
-    // i fetch w context/FavContext.jsx
-    // oraz setIsFav bazujący na nowych danych w context
-
-    setIsFav(!isFav);
+    setIsFav((prev) => !prev);
+    if (isFav) {
+      removeFav(id);
+    } else {
+      addFav(id);
+    }
   }
 
   return (

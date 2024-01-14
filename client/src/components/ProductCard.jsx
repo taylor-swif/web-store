@@ -4,9 +4,12 @@ import "./styles/ProductCard.css";
 import ItemBuyMenu from "./ItemBuyMenu";
 import FavIcon from "./FavIcon";
 import RenderStars from "./StarRender";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const ProductCard = ({ product }) => {
   const [isBuyMenuVisible, setIsBuyMenuVisible] = useState(false);
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="product-card">
@@ -51,7 +54,7 @@ const ProductCard = ({ product }) => {
           fontSize: "25px",
         }}
       >
-        <FavIcon id={product.id} />
+        {user && <FavIcon id={product.id} />}
       </div>
     </div>
   );

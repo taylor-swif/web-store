@@ -107,13 +107,15 @@ const Navbar = () => {
         </div>
         <div className="navbar-icons">
           <div className="icon-container">
-            <Link to="/favorites">
-              <FontAwesomeIcon
-                icon={faHeart}
-                className="heart-icon"
-                style={{ display: !isLoginPage ? "block" : "none" }}
-              />
-            </Link>
+            {user && (
+              <Link to="/favorites">
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  className="heart-icon"
+                  style={{ display: !isLoginPage ? "block" : "none" }}
+                />
+              </Link>
+            )}
           </div>
 
           <div className="icon-container">

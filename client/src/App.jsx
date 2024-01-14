@@ -16,16 +16,17 @@ import ProductPage from "./components/ProductPage";
 import Footer from "./components/Footer";
 import { useContext } from "react";
 import { ProductContext } from "./context/ProductContext";
-import { FavContext } from "./context/FavContext";
+import FavProvider from "./context/FavContext";
+import CartProvider from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 import AboutUsPage from "./pages/AboutUsPage";
 import ScrollToTop from "./utils/ScrollToTop";
+import FavouritesPage from "./pages/FavouritesPage";
 import PaymentPage from "./pages/PaymentPage";
 
+
 function App() {
-  const products = useContext(ProductContext);
-  const id = useContext(FavContext);
-  const favorites = products.filter((product) => id.includes(product.id));
+  const { products } = useContext(ProductContext);
 
   return (
     <div className="app">
@@ -33,17 +34,27 @@ function App() {
         <Router>
           <ScrollToTop>
             <AuthProvider>
-              <Navbar />
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <>
-                      <HomePage />
-                    </>
-                  }
-                />
+              <FavProvider>
+                <CartProvider>
+                  <Navbar />
+                  <Routes>
+                    <Route
+                      path="/"
+                      element={
+                        <>
+                          <HomePage />
+                        </>
+                      }
+                    />
 
+                    <Route
+                      path="/store"
+                      element={
+                        <>
+                          <ProductList products={products} />
+                        </>
+                      }
+                    />
                 <Route
                   path="/payment"
                   element={
@@ -62,32 +73,32 @@ function App() {
                   }
                 />
 
-                <Route
-                  path="/user-profile"
-                  element={
-                    <>
-                      <UserPage />
-                    </>
-                  }
-                />
+                    <Route
+                      path="/user-profile"
+                      element={
+                        <>
+                          <UserPage />
+                        </>
+                      }
+                    />
 
-                <Route
-                  path="/about-us"
-                  element={
-                    <>
-                      <AboutUsPage />
-                    </>
-                  }
-                />
+                    <Route
+                      path="/about-us"
+                      element={
+                        <>
+                          <AboutUsPage />
+                        </>
+                      }
+                    />
 
-                <Route
-                  path="/favorites"
-                  element={
-                    <>
-                      <ProductList products={favorites} />
-                    </>
-                  }
-                />
+                    <Route
+                      path="/favorites"
+                      element={
+                        <>
+                          <FavouritesPage />
+                        </>
+                      }
+                    />
 
                 <Route path="/login" element={<LoginPage />} />
 
@@ -100,24 +111,26 @@ function App() {
                   }
                 />
 
-                <Route
-                  path="/mustbeloggedin"
-                  element={
-                    <PrivateRoute roleNeeded={2}>
-                      <LoggedInPage />
-                    </PrivateRoute>
-                  }
-                />
+                    <Route
+                      path="/mustbeloggedin"
+                      element={
+                        <PrivateRoute roleNeeded={2}>
+                          <LoggedInPage />
+                        </PrivateRoute>
+                      }
+                    />
 
-                <Route
-                  path="/mustbemanager"
-                  element={
-                    <PrivateRoute roleNeeded={1}>
-                      <ManagerPage />
-                    </PrivateRoute>
-                  }
-                />
-              </Routes>
+                    <Route
+                      path="/managerpanel"
+                      element={
+                        <PrivateRoute roleNeeded={1}>
+                          <ManagerPage />
+                        </PrivateRoute>
+                      }
+                    />
+                  </Routes>
+                </CartProvider>
+              </FavProvider>
             </AuthProvider>
           </ScrollToTop>
         </Router>
