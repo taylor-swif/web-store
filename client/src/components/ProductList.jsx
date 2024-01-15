@@ -7,7 +7,7 @@ import "./styles/ProductList.css";
 
 const ProductList = ({ products }) => {
   const calculatePerPage = () => {
-    const productsPerRow = Math.floor(window.innerWidth / 310);
+    const productsPerRow = Math.floor(window.innerWidth / 350);
     return productsPerRow * 5;
   };
 

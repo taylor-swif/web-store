@@ -1,11 +1,18 @@
-import React, { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import "./ManagerPage.css";
 import AuthContext from "../context/AuthContext";
 import { ProductContext } from "../context/ProductContext";
 
 const ManagerPage = () => {
   const { authTokens } = useContext(AuthContext);
-  const { getProducts } = useContext(ProductContext);
+  const { products, getProducts } = useContext(ProductContext);
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const wine_id = searchParams.get("wineid");
+
+  const [wineList, setWineList] = useState([]);
   const [wineForm, setWineForm] = useState({
     name: "Wino pomidorowe",
     description:
@@ -21,32 +28,25 @@ const ManagerPage = () => {
     volume: 750,
     alcohol: 13.0,
   });
-  const [wineList, setWineList] = useState([]);
+
+  useEffect(() => {
+    if (wine_id) {
+      const wineToEdit = products.find(
+        (wine) => wine.id === parseInt(wine_id, 10)
+      );
+      if (wineToEdit) {
+        setWineForm(wineToEdit);
+      }
+    }
+  }, [wine_id, products]);
 
   const handleInputChange = (e) => {
-    setWineForm({ ...wineForm, [e.target.name]: e.target.value });
+    const updatedWine = { ...wineForm, [e.target.name]: e.target.value };
+    setWineForm(updatedWine);
   };
 
-  const addWine = (e) => {
+  const addWine = async (e) => {
     e.preventDefault();
-    setWineList([...wineList, wineForm]);
-    postWine(wineForm);
-    // setWineForm({
-    //   name: "",
-    //   description: "",
-    //   image_url: "",
-    //   price: "",
-    //   units_in_stock: "",
-    //   color_id: "",
-    //   country_id: "",
-    //   year: "",
-    //   taste_id: "",
-    //   volume: "",
-    //   alcohol: "",
-    // });
-  };
-
-  const postWine = async (e) => {
     try {
       const response = await fetch("http://localhost:8000/api/wines/", {
         method: "POST",
@@ -56,9 +56,24 @@ const ManagerPage = () => {
         },
         body: JSON.stringify(wineForm),
       });
+
       if (response.ok) {
         const data = await response.json();
+        setWineList([...wineList, data]);
         getProducts();
+        setWineForm({
+          name: "",
+          description: "",
+          image_url: "",
+          price: "",
+          units_in_stock: "",
+          color_id: "",
+          country_id: "",
+          year: "",
+          taste_id: "",
+          volume: "",
+          alcohol: "",
+        });
       } else {
         console.error("Failed to post wine:", response.statusText);
       }
@@ -67,10 +82,39 @@ const ManagerPage = () => {
     }
   };
 
+  const updateWine = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/wines/${wineForm.id}/`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + String(authTokens.access),
+          },
+          body: JSON.stringify(wineForm),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setWineList([...wineList.filter((item) => item.id !== data.id), data]);
+        getProducts();
+      } else {
+        console.error("Failed to update wine:", response.statusText);
+      }
+    } catch (error) {
+      console.error("An error occurred while updating wine:", error);
+    }
+  };
+
   return (
     <div>
-      <h2>Admin Panel - Add Wine</h2>
-      <form className="wineForm" onSubmit={addWine}>
+      <h2>
+        {wineForm.id ? "Admin Panel - Edit Wine" : "Admin Panel - Add Wine"}
+      </h2>
+      <form className="wineForm" onSubmit={wineForm.id ? updateWine : addWine}>
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -120,23 +164,23 @@ const ManagerPage = () => {
           required
         />
 
-        <label htmlFor="color">Color</label>
+        <label htmlFor="color">Color_id</label>
         <input
           type="number"
-          name="color"
+          name="color_id"
           value={wineForm.color_id}
           onChange={handleInputChange}
-          placeholder="Color"
+          placeholder="Color_id"
           required
         />
 
-        <label htmlFor="country">Country</label>
+        <label htmlFor="country">Country_id</label>
         <input
           type="text"
-          name="country"
+          name="country_id"
           value={wineForm.country_id}
           onChange={handleInputChange}
-          placeholder="Country"
+          placeholder="Country_id"
           required
         />
 
@@ -150,13 +194,13 @@ const ManagerPage = () => {
           required
         />
 
-        <label htmlFor="taste">Taste</label>
+        <label htmlFor="taste">Taste_id</label>
         <input
           type="number"
-          name="taste"
+          name="taste_id"
           value={wineForm.taste_id}
           onChange={handleInputChange}
-          placeholder="Taste"
+          placeholder="Taste_id"
           required
         />
 
@@ -180,35 +224,10 @@ const ManagerPage = () => {
           required
         />
 
-        <button type="submit">Add Wine</button>
+        <button type="submit" className="admin-button">
+          {wineForm.id ? "Update Wine" : "Add Wine"}
+        </button>
       </form>
-
-      {wineList.length > 0 && (
-        <div>
-          <h3>Added Wines:</h3>
-          <ul>
-            {wineList.map((wine, index) => (
-              <li key={index}>
-                <img
-                  src={wine.image_url}
-                  alt={wine.name}
-                  style={{ width: "100px", height: "auto" }}
-                />
-                <p>Name: {wine.name}</p>
-                <p>Description: {wine.description}</p>
-                <p>Price: ${wine.price}</p>
-                <p>Units in Stock: {wine.units_in_stock}</p>
-                <p>Color: {wine.color_id}</p>
-                <p>Country: {wine.country_id}</p>
-                <p>Year: {wine.year}</p>
-                <p>Taste: {wine.taste_id}</p>
-                <p>Volume: {wine.volume}ml</p>
-                <p>Alcohol Content: {wine.alcohol}%</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 };

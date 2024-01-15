@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import "./styles/ProductPage.css";
 import ProductDetails from "./ProductDetails";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import QuantityPicker from "./QuantityPicker";
 import { CartDispatchContext } from "../context/CartContext";
 import { ProductContext } from "../context/ProductContext";
@@ -67,6 +67,14 @@ const ProductPage = () => {
             <div className="div-for-favicon">
               <FavIcon id={product.id} style={{ margin: "20px" }} />
             </div>
+          )}
+          {user && user.role === 1 && (
+            <Link
+              to={`/managerpanel?wineid=${product.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <button className="admin-button">Edit</button>
+            </Link>
           )}
         </div>
       </div>

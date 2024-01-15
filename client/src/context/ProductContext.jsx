@@ -79,6 +79,9 @@ export default function ProductProvider({ children }) {
             year: wine.year,
             alcohol: wine.alcohol,
             volume: wine.volume,
+            taste_id: wine.taste.id,
+            color_id: wine.color.id,
+            country_id: wine.country.code,
           };
         })
       );

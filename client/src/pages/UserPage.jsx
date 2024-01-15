@@ -12,11 +12,7 @@ const UserPage = () => {
       <h1 className="UserPageHeading">User Page</h1>
       {user.role === 1 && (
         <Link to="/managerpanel">
-          <p>
-            cos trzeba tutaj dodac ale narazie to jest link ktory prowadzi do
-            strony na ktorej mozna dodawac wino, co ciekawe chyba nawet działa,
-            pozdrawiam serdecznie
-          </p>
+          <button className="admin-button">Admin Panel</button>
         </Link>
       )}
 
