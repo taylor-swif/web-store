@@ -74,7 +74,7 @@ const OrderTable = () => {
               <tr className={expandedOrderId === order.id ? "expanded" : ""}>
                 <td>{order.id}</td>
                 <td>{formattedDateTime}</td>
-                <td>{calculateOrderValue(order.order_details)}</td>
+                <td>{calculateOrderValue(order.order_details)} zł</td>
                 <td>
                   {order.order_details.reduce(
                     (totalWines, detail) =>
