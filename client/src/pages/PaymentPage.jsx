@@ -81,86 +81,88 @@ const PaymentPage = () => {
 
   return (
     <div className="payment-container">
-      <h2 className="payment-h2">Enter your payment information:</h2>
-      <input
-        className="payment-input"
-        type="text"
-        name="first_name"
-        placeholder="First Name"
-        value={formData.first_name}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="payment-input"
-        type="text"
-        name="last_name"
-        placeholder="Last Name"
-        value={formData.last_name}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="payment-input"
-        type="text"
-        name="address"
-        placeholder="Address"
-        value={formData.address}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="payment-input"
-        type="text"
-        name="city"
-        placeholder="City"
-        value={formData.city}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="payment-input"
-        type="text"
-        name="zip_code"
-        placeholder="Zip Code"
-        value={formData.zip_code}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="payment-input"
-        type="text"
-        name="country"
-        placeholder="Country"
-        value={formData.country}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="payment-input"
-        type="text"
-        name="phone_number"
-        placeholder="Phone Number"
-        value={formData.phone_number}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        className="payment-input"
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleInputChange}
-        required
-      />
-      <button
-        className="payment-button"
-        onClick={handlePayment}
-        disabled={loading}
-      >
-        {loading ? "Processing..." : "Make Payment"}
-      </button>
+      <div className="payment-card">
+        <h2 className="payment-h2">Enter your payment information:</h2>
+        <input
+          className="payment-input"
+          type="text"
+          name="first_name"
+          placeholder="First Name"
+          value={formData.first_name}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="payment-input"
+          type="text"
+          name="last_name"
+          placeholder="Last Name"
+          value={formData.last_name}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="payment-input"
+          type="text"
+          name="address"
+          placeholder="Address"
+          value={formData.address}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="payment-input"
+          type="text"
+          name="city"
+          placeholder="City"
+          value={formData.city}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="payment-input"
+          type="text"
+          name="zip_code"
+          placeholder="Zip Code"
+          value={formData.zip_code}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="payment-input"
+          type="text"
+          name="country"
+          placeholder="Country"
+          value={formData.country}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="payment-input"
+          type="text"
+          name="phone_number"
+          placeholder="Phone Number"
+          value={formData.phone_number}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          className="payment-input"
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
+        <button
+          className="payment-button"
+          onClick={handlePayment}
+          disabled={loading}
+        >
+          {loading ? "Processing..." : "Make Payment"}
+        </button>
+      </div>
     </div>
   );
 };
