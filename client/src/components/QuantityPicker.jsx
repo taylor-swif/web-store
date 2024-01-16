@@ -1,13 +1,21 @@
 import React from "react";
-import "./QuantityPicker.css";
+import "./styles/QuantityPicker.css";
 
-const QuantityPicker = ({ quantity = 1, onUpdateQuantity }) => {
+const QuantityPicker = ({
+  quantity = 1,
+  maxQuantity = Infinity,
+  onUpdateQuantity,
+}) => {
   const handleQuantityChange = (event) => {
-    onUpdateQuantity(Math.max(parseInt(event.target.value), 1));
+    onUpdateQuantity(
+      parseInt(event.target.value) > 1
+        ? Math.min(parseInt(event.target.value), maxQuantity)
+        : 1
+    );
   };
 
   const handleIncrementButton = () => {
-    onUpdateQuantity(quantity + 1);
+    onUpdateQuantity(Math.min(quantity + 1, maxQuantity));
   };
 
   const handleDecrementButton = () => {
@@ -18,7 +26,7 @@ const QuantityPicker = ({ quantity = 1, onUpdateQuantity }) => {
     <>
       <div className="quantity-selector">
         <button onClick={handleDecrementButton}>-</button>
-        <input type="text" value={quantity} readOnly />
+        <input type="text" value={quantity} onChange={handleQuantityChange} />
         <button onClick={handleIncrementButton}>+</button>
       </div>
     </>

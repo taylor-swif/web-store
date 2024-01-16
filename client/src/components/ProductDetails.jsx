@@ -1,19 +1,10 @@
 import React, { useState } from "react";
-import "./ProductDetails.css";
+import "./styles/ProductDetails.css";
+import ReviewWriter from "./productReviews/ReviewWriter";
+import ReviewList from "./productReviews/ReviewList.jsx";
 
-const ProductDetails = () => {
+const ProductDetails = ({ product }) => {
   const [activeSection, setActiveSection] = useState("description");
-  const [review, setReview] = useState("");
-
-  const handleReviewChange = (event) => {
-    setReview(event.target.value);
-  };
-
-  const submitReview = () => {
-    // Logic to handle review submission
-    console.log(review);
-    setReview(""); // Clear the review input after submission
-  };
 
   return (
     <div className="product-details">
@@ -25,39 +16,51 @@ const ProductDetails = () => {
           Description
         </button>
         <button
+          className={activeSection === "delivery" ? "tab active" : "tab"}
+          onClick={() => setActiveSection("delivery")}
+        >
+          Delivery
+        </button>
+        <button
           className={activeSection === "reviews" ? "tab active" : "tab"}
           onClick={() => setActiveSection("reviews")}
         >
           Reviews
         </button>
         <button
-          className={activeSection === "delivery" ? "tab active" : "tab"}
-          onClick={() => setActiveSection("delivery")}
+          className={activeSection === "writeReview" ? "tab active" : "tab"}
+          onClick={() => setActiveSection("writeReview")}
         >
-          Delivery
+          Write a review
         </button>
       </div>
       {activeSection === "description" && (
         <div className="description">
           <p>
-            Flavor: A striking softness with a high percentage of alcohol.
-            Gradually reveals one scent after another with notes of black...
+            <strong>Description:</strong> {product.description}
           </p>
-          {/* Add more description content here */}
+          <p>
+            <strong>Type:</strong> {product.type}
+          </p>
+          <p>
+            <strong>Country:</strong> {product.country}
+          </p>
+          <p>
+            <strong>Vintage:</strong> {product.year}
+          </p>
+          <p>
+            <strong>Alcohol:</strong> {product.alcohol}%
+          </p>
         </div>
       )}
       {activeSection === "reviews" && (
-        <div className="reviews">
-          {/* Existing reviews */}
-          <div className="review-form">
-            <textarea
-              value={review}
-              onChange={handleReviewChange}
-              placeholder="Write your review here..."
-              rows="4"
-            ></textarea>
-            <button onClick={submitReview}>Submit Review</button>
-          </div>
+        <div>
+          <ReviewList product={product} />
+        </div>
+      )}
+      {activeSection === "writeReview" && (
+        <div>
+          <ReviewWriter product={product} />
         </div>
       )}
       {activeSection === "delivery" && (
@@ -67,7 +70,6 @@ const ProductDetails = () => {
             1. Delivery to the "Nova Poshta" office, free from 420 ZŁ. (for
             orders up to 420 ZŁ, the cost of delivery and packaging is 25 Zł).
           </p>
-          {/* Add more delivery information here */}
         </div>
       )}
     </div>

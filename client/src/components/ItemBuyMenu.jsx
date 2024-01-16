@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-modal";
-import "./itembuymenu.css";
+import "./styles/ItemBuyMenu.css";
 
 import QuantityPicker from "./QuantityPicker";
 import { CartDispatchContext } from "../context/CartContext";
@@ -16,6 +16,7 @@ const ItemBuyMenu = ({ product, isOpen, onClose }) => {
       image: product.imageUrl,
       name: product.name,
       quantity: quantity,
+      maxQuantity: product.amount,
       price: product.price,
     };
     dispatch({
@@ -45,9 +46,13 @@ const ItemBuyMenu = ({ product, isOpen, onClose }) => {
           <p>
             {product.country}/{product.type}
           </p>
-          <p>{product.price}</p>
-          <p>On stock: 69</p>
-          <QuantityPicker quantity={quantity} onUpdateQuantity={setQuantity} />
+          <p>{product.price} zł</p>
+          <p>On stock: {product.amount}</p>
+          <QuantityPicker
+            quantity={quantity}
+            maxQuantity={product.amount}
+            onUpdateQuantity={setQuantity}
+          />
           <button id="add-to-cart-button" onClick={handleBuyClick}>
             Add to cart
           </button>

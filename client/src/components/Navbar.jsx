@@ -1,35 +1,47 @@
-import React from "react";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
-  faPhone,
   faSearch,
   faUser,
   faHeart,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "./Navbar.css";
+import "./styles/Navbar.css";
 import { Link } from "react-router-dom";
 
-import UserModal from "./modals/UserModal";
 import CartModal from "./modals/CartModal";
 import { CartContext } from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
 
+import logoImage from "../assets/wine-store-logo-crop.png";
+
 const Navbar = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const cartItems = useContext(CartContext);
+
   const totalItemsInCart = cartItems.reduce((total, item) => {
     const itemQuantity = parseInt(item.quantity) || 0;
     return total + itemQuantity;
   }, 0);
 
-  const [userModalIsOpen, setUserModalIsOpen] = useState(false);
   const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
+  const { user, logoutUser } = useContext(AuthContext);
 
-  let { user } = useContext(AuthContext);
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+  const navigate = useNavigate();
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/store?search=${searchTerm}`);
+  };
 
   return (
     <header className="header">
@@ -39,53 +51,89 @@ const Navbar = () => {
           <span>Cracow</span>
         </div>
         <div className="navbar-links">
-          <a href="/store">Store</a>
-          <a href="/deals">Deals</a>
-          <a href="/about-us">About Us</a>
-          <a href="/delivery">Delivery</a>
+          <Link to="/">
+            <strong>Home</strong>
+          </Link>
+          <Link to="/store">
+            <strong>Store</strong>
+          </Link>
+          <Link to="/about-us">
+            <strong>About Us</strong>
+          </Link>
         </div>
         <div className="navbar-contact">
-          <FontAwesomeIcon icon={faPhone} className="phone-icon" />
-          <span>+02 3 5 7 11 13 | </span>
-          <Link to={"/login"}>
-            <span>Sign in</span>
-          </Link>
+          {user ? (
+            <div className="log-out-button" onClick={logoutUser}>
+              <strong>Log out</strong>
+            </div>
+          ) : (
+            <Link to={"/login"}>
+              <strong>Sign in</strong>
+            </Link>
+          )}
         </div>
       </div>
       <div className="main-bar">
-        <div className="navbar-logo">
-          <img
-            src="src/assets/wine-store-logo-crop.png"
-            alt="Icon Description"
-            width="50"
-            height="50"
-          />
-          <Link to={"/"}>
+        <Link to={"/"}>
+          <div className="navbar-logo">
+            <img
+              src={logoImage}
+              alt="Icon Description"
+              width="50"
+              height="50"
+            />
             <span>WORLD OF WINE</span>
-          </Link>
-        </div>
-        <div className="navbar-search">
-          <input
-            type="text"
-            placeholder="Search for wines, regions, articles..."
-          />
-          <button type="submit">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          </button>
+          </div>
+        </Link>
+        <div>
+          <div className="search-container">
+            <div
+              className="navbar-search"
+              style={{ display: !isLoginPage ? "block" : "none" }}
+            >
+              <form onSubmit={handleSearchSubmit}>
+                <input
+                  type="text"
+                  placeholder="Search for wines..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+                <button type="submit">
+                  <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
         <div className="navbar-icons">
-          <FontAwesomeIcon icon={faHeart} className="heart-icon" />
-
-          <div
-            className="cart-icon-container"
-            onClick={() => setCartModalIsOpen(true)}
-          >
-            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
-            {totalItemsInCart > 0 && totalItemsInCart < 100 && (
-              <div className="cart-badge">{totalItemsInCart}</div>
+          <div className="icon-container">
+            {user && (
+              <Link to="/favorites">
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  className="heart-icon"
+                  style={{ display: !isLoginPage ? "block" : "none" }}
+                />
+              </Link>
             )}
-            {totalItemsInCart >= 100 && <div className="cart-badge99">+99</div>}
           </div>
+
+          <div className="icon-container">
+            <div
+              className="cart-icon-container"
+              onClick={() => setCartModalIsOpen(!cartModalIsOpen)}
+              style={{ display: !isLoginPage ? "block" : "none" }}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+              {totalItemsInCart > 0 && totalItemsInCart < 100 && (
+                <div className="cart-badge">{totalItemsInCart}</div>
+              )}
+              {totalItemsInCart >= 100 && (
+                <div className="cart-badge99">+99</div>
+              )}
+            </div>
+          </div>
+
           {cartModalIsOpen && (
             <CartModal
               isOpen={cartModalIsOpen}
@@ -93,20 +141,12 @@ const Navbar = () => {
             />
           )}
 
-          <div
-            className="user-icon-container"
-            onClick={() => {
-              setUserModalIsOpen(true);
-            }}
-          >
-            <FontAwesomeIcon icon={faUser} className="user-icon" />
-          </div>
-          {userModalIsOpen && (
-            <UserModal
-              onClose={() => {
-                setUserModalIsOpen(false);
-              }}
-            />
+          {user && (
+            <div className="icon-container">
+              <Link to="/user-profile">
+                <FontAwesomeIcon icon={faUser} className="user-icon" />
+              </Link>
+            </div>
           )}
         </div>
       </div>

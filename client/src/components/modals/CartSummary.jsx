@@ -1,10 +1,13 @@
-import React from "react";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
-import "./cartmodal.css";
+import AuthContext from "../../context/AuthContext";
+import "./CartModal.css";
 
-const CartSummary = () => {
+const CartSummary = ({ onClose }) => {
   const cartItems = useContext(CartContext);
+  const user = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const calculateTotalPrice = (cartItems) => {
     const totalPrice = cartItems.reduce((total, item) => {
@@ -16,13 +19,27 @@ const CartSummary = () => {
     return totalPrice.toFixed(2);
   };
 
+  const handlePayment = () => {
+    onClose();
+    navigate("/payment");
+  };
+
+  const handleNotLoggedUser = () => {
+    alert("User must be logged in");
+  };
+
+  console.log(user);
   return (
     <div className="cart-summary">
       <p>Total Price: {calculateTotalPrice(cartItems)}</p>
-      <button className="go-to-payment-button">Go to Payment</button>
+      <button
+        className="go-to-payment-button"
+        onClick={user.user !== null ? handlePayment : handleNotLoggedUser}
+      >
+        Go to Payment
+      </button>
     </div>
   );
 };
-//TODO: Add paying mechanic
 
 export default CartSummary;
