@@ -89,3 +89,6 @@ Visit http://localhost:8000/admin, log in as a superuser, and navigate to the "U
 ## Screenshot
 
 ![Main page](screenshots/s1.png)
+![Store page](screenshots/s2.png)
+![Product page](screenshots/s3.png)
+![Cart preview](screenshots/s4.png)
